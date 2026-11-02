@@ -23,126 +23,103 @@
 
 ---
 
-## 第一步：购买独立域名
+## 第一步：购买独立域名（已完成）
 
-1. 选择域名注册商（任选其一，均为网页操作、支持支付宝/微信）：
-   - **阿里云万网**：`wanwang.aliyun.com`
-   - **腾讯云 DNSPod**：`dnspod.cloud.tencent.com`
-   - **Cloudflare**：`cloudflare.com`（海外，后缀选择多）
-2. 搜索并挑选后缀，建议优先级：
-   - `.com.cn`（国内机构常用，约几十元/年）
-   - `.com`（国际通用，约几十到上百元/年）
-   - 示例命名：`lezhijiang.com.cn`、`lezj-edu.com`、`lezjrobot.com`（以实际可注册为准）。
-3. 按页面提示完成**实名认证**（个人或学校机构名义均可；`.com.cn` 国内后缀必须实名）。
-4. 买好后，进入该域名的 **DNS 解析 / 解析设置** 后台备用。
+- **域名**：`legoedu-robot.com`，注册商阿里云万网，2026-11-02 注册，到期 2027-11-02。
+- **实名认证进度**：阿里云账号企业认证已于 2026-11-02 通过（主体：天津市河西区乐之疆教育培训学校）；机构信息模板（民办非企业单位登记证书）仍在注册局实名审核中，审核通过前域名处于 hold 锁定、暂不能对外解析，等待短信通知即可。
+- 域名按年续费，只要不停费、不注销，就一直属于学校；GitHub Pages 托管本身免费。
 
-> 费用提示：域名按年续费，只要不停费、不注销，就一直属于你；GitHub Pages 托管本身免费。
+> 若以后需要另购域名，注册商可选阿里云万网 `wanwang.aliyun.com`、腾讯云 DNSPod、Cloudflare；`.com` 国内注册必须先完成实名认证信息模板。
 
 ---
 
-## 第二步：创建 GitHub 仓库并上传文件（无需安装命令行）
+## 第二步：创建 GitHub 仓库并上传文件（已完成）
 
-1. 登录你的 GitHub 账号，打开 <https://github.com/new>。
-2. 填写仓库信息：
-   - **Repository name（仓库名）**：建议 `lezhijiang-school`（或 `lezj-edu`）。
-   - **Public（公开）**：必须选 Public，免费 Pages 仅支持公开仓库。
-   - 勾选 **Add a README file** 可勾可不勾。
-   - 点击 **Create repository**。
-3. 在仓库页面点击 **Add file → Upload files**。
-4. 把本 `deploy/` 目录里的**全部内容**（`index.html`、`assets` 整个文件夹、`CNAME`、`.nojekyll`）拖入上传区。
-   - 注意：`assets` 是文件夹，要保持目录结构，不要把里面的图片平铺到根目录。
-5. 页面底部填写提交信息（如“首次上传学校官网”），点击 **Commit changes**。
+- **仓库**：<https://github.com/billfu1/legoedu-robot>（Public，`main` 分支根目录）。
+- **临时站点**：<https://billfu1.github.io/legoedu-robot/>（仓库绑定自定义域名后，该临时地址会自动 301 跳转到独立域名；域名未生效前可能暂时无法从临时地址打开，属正常现象）。
+- 仓库根目录现有：`index.html`（72563 字节）、`README.md`、`.nojekyll`、`CNAME`、`assets/`（7 张素材）。
 
-> 上传完成后，仓库根目录应能看到：`index.html`、`CNAME`、`.nojekyll`、`assets/` 文件夹。
+### 以后更新网站（网页端，无需安装命令行）
 
-### 备选：安装 Git 命令行上传（以后更新更方便）
+1. 修改本地 `index.html`（或替换 `assets/` 里的图片）。
+2. 仓库中 **Add file → Upload files**，覆盖同名文件后 Commit。
+3. GitHub Pages 重新发布通常 1–2 分钟内生效；看到旧页面按 `Ctrl + F5` 强制刷新。
 
-本机当前未安装 Git。如需命令行方式，先安装 Git for Windows，再在本目录执行（把 `用户名`、`仓库名` 替换成你自己的）：
+### 备选：安装 Git 命令行上传
+
+本机当前未安装 Git。如需命令行方式，先安装 Git for Windows，再在本目录执行：
 
 ```bash
 git init
 git add .
 git commit -m "首次上传学校官网"
 git branch -M main
-git remote add origin https://github.com/你的用户名/仓库名.git
+git remote add origin https://github.com/billfu1/legoedu-robot.git
 git push -u origin main
 ```
 
-以后更新网站：替换本地文件后执行 `git add . && git commit -m "更新内容" && git push`。
+以后更新：`git add . && git commit -m "更新内容" && git push`。
 
 ---
 
-## 第三步：开启 GitHub Pages
+## 第三步：开启 GitHub Pages（已完成）
 
-1. 进入仓库顶部 **Settings → 左侧 Pages**。
-2. **Branch** 选择 `main`，目录保持 `/(root)`，点击 **Save**。
-3. 等待 1–3 分钟，页面顶部会出现站点地址：
-   `https://你的用户名.github.io/仓库名/`
-4. 先用这个临时地址访问一次，确认页面、图片、导航和问答窗口都正常。
+- 仓库 **Settings → Pages**：Source = Deploy from a branch，Branch = `main`，Folder = `/(root)`，Save。
+- 临时站点 <https://billfu1.github.io/legoedu-robot/> 已实测首页与 7 张素材全部 HTTP 200。
 
 ---
 
-## 第四步：绑定你的独立域名
+## 第四步：绑定独立域名（DNS 记录与 CNAME 已完成，等待解析对外生效）
 
-### 4.1 修改仓库里的 CNAME 文件
+主域名使用**裸域** `legoedu-robot.com`，`www.legoedu-robot.com` 作为别名指向 GitHub Pages。
 
-1. 在仓库文件列表中点击 `CNAME`，点右上角铅笔图标编辑。
-2. 把内容改成你要对外使用的主域名（**不要带 https://，不要带路径**），例如：
+### 4.1 阿里云云解析 DNS 添加记录（已完成）
 
-   ```text
-   www.lezhijiang.com.cn
-   ```
+进入阿里云控制台 → 域名与网站 → 云解析 DNS → `legoedu-robot.com` → 解析设置，以下 5 条记录已全部添加并处于启用状态（TTL 10 分钟、默认线路）：
 
-   如果你想用不带 `www` 的裸域作为主域名，则写：
+| 记录类型 | 主机记录 | 记录值 | 状态 |
+| --- | --- | --- | --- |
+| A | `@` | `185.199.108.153` | 已启用 |
+| A | `@` | `185.199.109.153` | 已启用 |
+| A | `@` | `185.199.110.153` | 已启用 |
+| A | `@` | `185.199.111.153` | 已启用 |
+| CNAME | `www` | `billfu1.github.io`（不带仓库名、不带 https://） | 已启用 |
 
-   ```text
-   lezhijiang.com.cn
-   ```
+> IPv6（可选）AAAA 记录，主机记录 `@`：`2606:50c0:8000::153`、`2606:50c0:8001::153`、`2606:50c0:8002::153`、`2606:50c0:8003::153`。当前未添加，不影响普通 IPv4 访问。
+> 不要使用通配符 DNS；除上述记录外无需保留其他占位记录。
 
-3. 提交保存（Commit）。
+### 4.2 仓库根目录 CNAME 文件（已完成）
 
-### 4.2 在域名服务商后台添加 DNS 记录
+仓库根目录 `CNAME` 文件已提交，内容只写一行主域名（不带 `https://`、不带路径、不带末尾斜杠）：
 
-以主域名使用 **`www.你的域名`** 为例（推荐，HTTPS 最稳妥）：
+```text
+legoedu-robot.com
+```
 
-| 记录类型 | 主机记录 | 记录值 |
-| --- | --- | --- |
-| CNAME | `www` | `你的用户名.github.io` |
+### 4.3 GitHub Pages 自定义域名（已保存，等待 DNS 校验通过）
 
-> CNAME 记录值只填 `用户名.github.io`，**不要**带仓库名、不要带 `https://`。
-
-如果你同时希望裸域 `你的域名` 也能访问，再为裸域（主机记录填 `@`）添加四条 **A 记录**：
-
-| 记录类型 | 主机记录 | 记录值 |
-| --- | --- | --- |
-| A | `@` | `185.199.108.153` |
-| A | `@` | `185.199.109.153` |
-| A | `@` | `185.199.110.153` |
-| A | `@` | `185.199.111.153` |
-
-> IPv6（可选）AAAA 记录：`@` → `2606:50c0:8000::153` / `2606:50c0:8001::153` / `2606:50c0:8002::153` / `2606:50c0:8003::153`。
-
-### 4.3 在 GitHub Pages 里填写自定义域名
-
-1. 回到仓库 **Settings → Pages**。
-2. **Custom domain** 输入和 CNAME 里一致的域名（如 `www.lezhijiang.com.cn`），点 **Save**。
-3. GitHub 会自动检测 DNS 配置是否生效；刚填完可能显示未配置，属正常。
+1. 仓库 **Settings → Pages → Custom domain** 已填入 `legoedu-robot.com` 并保存。
+2. 当前页面显示红色 **DNS check unsuccessful / InvalidDNSError**，是因为域名仍在 hold、对外 DNS 尚未生效，属正常现象，不是配置错误。
+3. 域名实名审核通过、解析扩散后，回到本页点 **Check again**，校验结果会转为正常（绿色）。
 
 ---
 
-## 第五步：开启强制 HTTPS
+## 第五步：开启强制 HTTPS（等待 DNS 校验通过后执行）
 
-1. DNS 记录生效（一般 10 分钟到几小时，最长 24 小时）后，**Settings → Pages** 里的 **Enforce HTTPS** 复选框变为可选。
-2. 勾选 **Enforce HTTPS**，强制所有访问走 `https://`。
-3. 浏览器打开你的域名，确认地址栏是小锁图标、页面正常。
+当前 **Enforce HTTPS** 复选框为灰色不可选，提示域名未正确配置，属正常状态。
+
+1. 域名实名审核通过、DNS 记录对外生效（一般 10 分钟到几小时，最长 24 小时）后，先在 **Settings → Pages** 点 **Check again**，待 DNS 校验转绿、GitHub 自动签发 HTTPS 证书。
+2. 证书就绪后 **Enforce HTTPS** 复选框变为可选，勾选它，强制所有访问走 `https://`。
+3. 浏览器打开 `https://legoedu-robot.com`，确认地址栏是小锁图标、页面正常。
 
 ### 本机快速检查 DNS 是否生效（PowerShell）
 
 ```powershell
-Resolve-DnsName www.lezhijiang.com.cn
+Resolve-DnsName legoedu-robot.com
+Resolve-DnsName www.legoedu-robot.com
 ```
 
-返回结果指向 `你的用户名.github.io` 的 CNAME 链，即表示解析已生效。
+裸域返回四条 GitHub Pages A 记录、`www` 返回指向 `billfu1.github.io` 的 CNAME 链，即表示解析已生效。
 
 ---
 
@@ -168,10 +145,10 @@ Resolve-DnsName www.lezhijiang.com.cn
 A：检查仓库根目录是否有 `index.html` 与 `assets/` 文件夹；`assets` 内图片路径必须是 `assets/xxx.jpg`；确认 Pages 的 Branch 选的是 `main` 根目录。
 
 **Q：自定义域名填完显示 DNS Error？**
-A：DNS 尚未生效，等待 10 分钟至 24 小时；确认 CNAME 值只写 `用户名.github.io`，A 记录四条都已添加；删除服务商自动生成的默认停放记录。
+A：DNS 尚未生效，等待 10 分钟至 24 小时；确认 `www` 的 CNAME 值只写 `billfu1.github.io`，裸域四条 A 记录都已添加；删除服务商自动生成的默认停放记录。
 
 **Q：Enforce HTTPS 是灰色不可点？**
-A：域名解析尚未被 GitHub 识别，先访问一次 `https://你的域名`，等待证书签发完成（最长 24 小时）后再勾选。
+A：域名解析尚未被 GitHub 识别，先访问一次 `https://legoedu-robot.com`，等待证书签发完成（最长 24 小时）后再勾选。
 
 **Q：国内访问 GitHub Pages 速度不稳定？**
 A：GitHub Pages 服务器在境外，国内网络高峰期可能偏慢。备选方案：
