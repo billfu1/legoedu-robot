@@ -23,19 +23,18 @@
 
 ---
 
-## 第一步：购买独立域名（已完成）
+## 第一步：购买独立域名（已完成，实名已通过）
 
 - **域名**：`legoedu-robot.com`，注册商阿里云万网，2026-11-02 注册，到期 2027-11-02。
-- **实名认证进度**：阿里云账号企业认证已于 2026-11-02 通过（主体：天津市河西区乐之疆教育培训学校）；信息模板 `25365705` 已「模板实名成功」、邮箱验证成功；2026-11-02 已在域名详情用该模板提交快速过户（域名本体实名认证），当前状态「等待审核 / 资料上传中」，待注册局审核通过后域名解除 hold、对外解析（一般当天，最长 3–5 个工作日，留意短信通知）。
+- **实名认证进度（已完成）**：阿里云账号企业认证 2026-11-02 通过（主体：天津市河西区乐之疆教育培训学校）；信息模板 `25365705` 实名成功、邮箱验证成功；同日已用该模板完成域名本体快速过户，**注册局实名审核通过**，域名已解除 hold、对外解析正常。
 - 域名按年续费，只要不停费、不注销，就一直属于学校；GitHub Pages 托管本身免费。
 
-### 域名本体实名认证（已提交，等待注册局审核）
+### 实名流程备忘（已走完，供日后另购域名参考）
 
-2026-11-02 已在 域名列表 → `legoedu-robot.com` → 管理 → 域名持有者实名认证（快速过户），选中模板 `25365705`，勾选服务条款、短信验证码校验后提交。页面进入第 2 步「等待审核 / 资料上传中」。
-
-- 审核通过后，域名状态从 hold 解除，4 条 A 记录与 www CNAME 才会对外生效。
-- 若审核被驳回，控制台会提示具体原因（常见：证件照片不清、名称/代码与证件不一致、邮箱未验证），按提示修改模板后重新提交即可。
-- 审核期间无需重复提交；不要点页面上的「撤销过户」。
+1. 阿里云控制台 → 域名列表 → 域名 → 管理 → 域名持有者实名认证（快速过户），选中已实名的信息模板。
+2. 勾选《域名信息修改服务条款》，获取并填写手机短信验证码，提交。
+3. 等待注册局审核（一般当天，最长 3–5 个工作日），通过后域名解除 hold。
+4. 若被驳回，控制台会提示具体原因（证件照片不清、名称/代码与证件不一致、邮箱未验证等），按提示修改模板后重新提交。
 
 > 若以后需要另购域名，注册商可选阿里云万网 `wanwang.aliyun.com`、腾讯云 DNSPod、Cloudflare；`.com` 国内注册必须先完成实名认证信息模板。
 
@@ -77,7 +76,7 @@ git push -u origin main
 
 ---
 
-## 第四步：绑定独立域名（DNS 记录与 CNAME 已完成，等待解析对外生效）
+## 第四步：绑定独立域名（DNS 记录、CNAME、GitHub 校验均已完成）
 
 主域名使用**裸域** `legoedu-robot.com`，`www.legoedu-robot.com` 作为别名指向 GitHub Pages。
 
@@ -104,21 +103,17 @@ git push -u origin main
 legoedu-robot.com
 ```
 
-### 4.3 GitHub Pages 自定义域名（已保存，等待 DNS 校验通过）
+### 4.3 GitHub Pages 自定义域名（已绑定，DNS 校验通过）
 
 1. 仓库 **Settings → Pages → Custom domain** 已填入 `legoedu-robot.com` 并保存。
-2. 当前页面显示红色 **DNS check unsuccessful / InvalidDNSError**，是因为域名仍在 hold、对外 DNS 尚未生效，属正常现象，不是配置错误。
-3. 域名实名审核通过、解析扩散后，回到本页点 **Check again**，校验结果会转为正常（绿色）。
+2. 域名实名通过、DNS 对外生效后，页面显示绿色 **DNS check successful**。
+3. 实测：`https://legoedu-robot.com/` 返回 200；`http://legoedu-robot.com/` 301 跳转到 HTTPS；`https://www.legoedu-robot.com/` 200 并规范跳转到裸域。
 
 ---
 
-## 第五步：开启强制 HTTPS（等待 DNS 校验通过后执行）
+## 第五步：开启强制 HTTPS（已完成）
 
-当前 **Enforce HTTPS** 复选框为灰色不可选，提示域名未正确配置，属正常状态。
-
-1. 域名实名审核通过、DNS 记录对外生效（一般 10 分钟到几小时，最长 24 小时）后，先在 **Settings → Pages** 点 **Check again**，待 DNS 校验转绿、GitHub 自动签发 HTTPS 证书。
-2. 证书就绪后 **Enforce HTTPS** 复选框变为可选，勾选它，强制所有访问走 `https://`。
-3. 浏览器打开 `https://legoedu-robot.com`，确认地址栏是小锁图标、页面正常。
+域名 DNS 校验转绿、GitHub 自动签发证书后，**Settings → Pages → Enforce HTTPS** 复选框变为可选，勾选后所有访问强制走 `https://`。当前已勾选启用，浏览器访问 `https://legoedu-robot.com` 地址栏显示小锁图标。
 
 ### 本机快速检查 DNS 是否生效（PowerShell）
 
@@ -127,7 +122,7 @@ Resolve-DnsName legoedu-robot.com
 Resolve-DnsName www.legoedu-robot.com
 ```
 
-裸域返回四条 GitHub Pages A 记录、`www` 返回指向 `billfu1.github.io` 的 CNAME 链，即表示解析已生效。
+裸域返回四条 GitHub Pages A 记录、`www` 返回指向 `billfu1.github.io` 的 CNAME 链，即表示解析已生效。若本机代理 / 保留段 DNS 显示异常，以 `https://legoedu-robot.com` 实际访问结果为准。
 
 ---
 
@@ -156,7 +151,7 @@ A：检查仓库根目录是否有 `index.html` 与 `assets/` 文件夹；`asset
 A：DNS 尚未生效，等待 10 分钟至 24 小时；确认 `www` 的 CNAME 值只写 `billfu1.github.io`，裸域四条 A 记录都已添加；删除服务商自动生成的默认停放记录。
 
 **Q：Enforce HTTPS 是灰色不可点？**
-A：域名解析尚未被 GitHub 识别，先访问一次 `https://legoedu-robot.com`，等待证书签发完成（最长 24 小时）后再勾选。
+A：域名解析尚未被 GitHub 识别，先等 DNS check 转绿、访问一次 `https://legoedu-robot.com`，证书签发完成（最长 24 小时）后复选框即变为可选。当前站点已开启强制 HTTPS。
 
 **Q：国内访问 GitHub Pages 速度不稳定？**
 A：GitHub Pages 服务器在境外，国内网络高峰期可能偏慢。备选方案：
