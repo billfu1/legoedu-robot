@@ -1,0 +1,1026 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-canvas-width="1440" data-canvas-height="900">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>乐之疆教育学校 · AI人工智能 / 机器人编程 / 3D建模打印（天津下瓦房）</title>
+<meta name="description" content="天津市河西区乐之疆教育培训学校，2014年创办，面向少年儿童开展机器人搭建、Scratch/Python编程、创客电子、3D建模打印与AI人工智能启蒙等科技素养课程，位于下瓦房晶采大厦。">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='29' fill='%23fff'/%3E%3Ccircle cx='32' cy='32' r='27' fill='none' stroke='%23E60012' stroke-width='3'/%3E%3Cpath d='M28 44V26l4-8 4 8v18z' fill='%23E60012'/%3E%3Ccircle cx='32' cy='20' r='3' fill='%23E60012'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://miaoda.feishu.cn">
+<link rel="stylesheet" href="https://miaoda.feishu.cn/fonts/css2?family=Noto+Sans+SC:wght@400;500;700;900&family=JetBrains+Mono:wght@500;700&display=swap">
+<style>
+:root{
+  --bg:#060A12; --bg-2:#0A111D; --panel:#0D1624; --panel-2:#111C2D; --line:#1B2A40; --line-2:#243752;
+  --text:#EAF1FB; --text-2:#A9BCD8; --text-3:#687C9C;
+  --teal:#35E6C8; --blue:#5596FF; --amber:#FFC266; --red:#FF7A7A;
+  --radius:18px; --maxw:1180px;
+  --font:"Noto Sans SC","PingFang SC","Microsoft YaHei",system-ui,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,"SFMono-Regular",Consolas,monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--font);line-height:1.65;font-size:16px;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0;z-index:-2;background:
+  radial-gradient(900px 500px at 80% -10%,rgba(85,150,255,.10),transparent 60%),
+  radial-gradient(800px 500px at 0% 30%,rgba(53,230,200,.07),transparent 55%),var(--bg)}
+body::after{content:"";position:fixed;inset:0;z-index:-1;opacity:.35;background-image:linear-gradient(rgba(120,150,190,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(120,150,190,.05) 1px,transparent 1px);background-size:44px 44px;mask-image:radial-gradient(1200px 800px at 50% 0%,#000 30%,transparent 80%)}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;cursor:pointer}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 22px}
+section{padding:88px 0}
+.section-tag{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:13px;letter-spacing:.16em;color:var(--teal);text-transform:uppercase;margin-bottom:14px}
+.section-tag::before{content:"";width:26px;height:1px;background:var(--teal)}
+h2.section-title{font-size:clamp(26px,4vw,38px);font-weight:900;letter-spacing:.01em;line-height:1.25;margin-bottom:16px}
+.section-lead{color:var(--text-2);max-width:640px;font-size:16px}
+
+/* ===== 顶部导航 ===== */
+header.nav{position:fixed;top:0;left:0;right:0;z-index:60;transition:background .25s,border-color .25s;border-bottom:1px solid transparent}
+header.nav.scrolled{background:rgba(6,10,18,.86);backdrop-filter:blur(12px);border-color:var(--line)}
+.nav-inner{max-width:var(--maxw);margin:0 auto;padding:0 22px;height:68px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.brand{display:flex;align-items:center;gap:12px;min-width:0}
+.brand-mark{width:38px;height:38px;flex:none;border-radius:50%;background:#fff;border:1px solid var(--line-2);overflow:hidden;display:grid;place-items:center}
+.brand-mark img{width:100%;height:100%;object-fit:cover}
+.brand-mark svg{width:22px;height:22px}
+.brand-name{font-weight:900;font-size:17px;letter-spacing:.02em;white-space:nowrap}
+.brand-sub{display:block;font-size:11px;color:var(--text-3);font-weight:500;letter-spacing:.08em}
+nav.menu{display:flex;gap:6px;align-items:center}
+nav.menu a{padding:9px 13px;border-radius:10px;font-size:15px;color:var(--text-2);transition:color .2s,background .2s}
+nav.menu a:hover,nav.menu a.active{color:var(--text);background:rgba(53,230,200,.08)}
+.nav-cta{padding:10px 18px;border-radius:12px;background:var(--teal);color:#04221C;font-weight:700;border:none;font-size:15px;white-space:nowrap}
+.nav-cta:hover{filter:brightness(1.08)}
+.burger{display:none;background:none;border:1px solid var(--line-2);border-radius:10px;width:42px;height:42px;color:var(--text);place-items:center}
+.burger svg{width:22px;height:22px}
+.mobile-menu{display:none;position:fixed;top:68px;left:0;right:0;z-index:59;background:rgba(7,12,21,.97);border-bottom:1px solid var(--line);padding:12px 22px 20px}
+.mobile-menu.open{display:block}
+.mobile-menu a{display:block;padding:13px 8px;border-bottom:1px solid var(--line);color:var(--text-2);font-size:16px}
+.mobile-menu a:last-child{border-bottom:none}
+
+/* ===== Hero ===== */
+.hero{min-height:100vh;display:flex;align-items:center;position:relative;padding:120px 0 70px;overflow:hidden}
+.hero-bg{position:absolute;inset:0;z-index:-2}
+.hero-bg img{width:100%;height:100%;object-fit:cover;object-position:center}
+.hero-bg::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(6,10,18,.96) 0%,rgba(6,10,18,.78) 42%,rgba(6,10,18,.35) 75%,rgba(6,10,18,.55) 100%),linear-gradient(180deg,rgba(6,10,18,.55) 0%,transparent 30%,var(--bg) 96%)}
+.hero-inner{max-width:var(--maxw);margin:0 auto;padding:0 22px;width:100%}
+.hero-badge{display:inline-flex;align-items:center;gap:10px;padding:8px 14px;border:1px solid var(--line-2);border-radius:999px;background:rgba(13,22,36,.7);font-size:13px;color:var(--text-2);margin-bottom:26px}
+.hero-badge .dot{width:7px;height:7px;border-radius:50%;background:var(--teal);box-shadow:0 0 10px var(--teal)}
+.hero-logo{display:inline-block;background:#fff;border-radius:16px;padding:14px 22px;margin-bottom:26px;box-shadow:0 18px 44px rgba(0,0,0,.45)}
+.hero-logo img{width:250px;height:auto}
+.about-badge{display:flex;align-items:center;gap:16px;margin:4px 0 20px}
+.about-badge .badge{width:76px;height:76px;flex:none;border-radius:50%;background:#fff;border:1px solid var(--line-2);overflow:hidden}
+.about-badge .badge img{width:100%;height:100%;object-fit:cover}
+.about-badge .org-name{font-weight:700;font-size:17px;line-height:1.4}
+.about-badge .org-sub{font-size:12.5px;color:var(--text-3);letter-spacing:.12em;margin-top:3px}
+.foot-logo{display:inline-block;background:#fff;border-radius:12px;padding:10px 16px;margin-bottom:16px}
+.foot-logo img{width:180px;height:auto}
+.hero h1{font-size:clamp(34px,5.6vw,60px);font-weight:900;line-height:1.18;letter-spacing:.01em;max-width:760px}
+.hero h1 .accent{color:var(--teal)}
+.hero p.lead{margin:24px 0 32px;font-size:clamp(16px,2vw,19px);color:var(--text-2);max-width:560px}
+.hero-actions{display:flex;flex-wrap:wrap;gap:14px;align-items:center}
+.btn{display:inline-flex;align-items:center;gap:9px;padding:14px 24px;border-radius:13px;font-size:15.5px;font-weight:700;border:1px solid transparent;transition:transform .15s,filter .2s}
+.btn-primary{background:var(--teal);color:#04221C}
+.btn-primary:hover{transform:translateY(-2px);filter:brightness(1.07)}
+.btn-ghost{border-color:var(--line-2);color:var(--text);background:rgba(13,22,36,.55)}
+.btn-ghost:hover{border-color:var(--teal);color:var(--teal)}
+.hero-meta{margin-top:38px;display:flex;flex-wrap:wrap;gap:28px 40px;color:var(--text-2);font-size:14px}
+.hero-meta b{display:block;font-family:var(--mono);font-size:22px;color:var(--text);letter-spacing:.02em}
+.hero-meta .score b{color:var(--amber)}
+
+/* ===== 数据条 ===== */
+.stats{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--bg-2)}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line)}
+.stat{background:var(--bg-2);padding:30px 26px}
+.stat .num{font-family:var(--mono);font-size:clamp(26px,3vw,34px);font-weight:700;color:var(--teal)}
+.stat .num small{font-size:15px;color:var(--text-2);margin-left:3px}
+.stat .lbl{margin-top:6px;color:var(--text-3);font-size:14px}
+
+/* ===== 简介 ===== */
+.about-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center}
+.about-photo{position:relative;border-radius:var(--radius);overflow:hidden;border:1px solid var(--line)}
+.about-photo img{width:100%;height:480px;object-fit:cover}
+.about-photo .tag-float{position:absolute;left:18px;bottom:18px;background:rgba(7,12,21,.86);border:1px solid var(--line-2);border-radius:12px;padding:12px 16px;font-size:13.5px;color:var(--text-2)}
+.about-photo .tag-float b{color:var(--teal)}
+.about-copy p{color:var(--text-2);margin:16px 0}
+.about-copy p strong{color:var(--text)}
+.qual-list{margin-top:24px;display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.qual{border:1px solid var(--line);border-radius:14px;padding:15px 17px;background:var(--panel)}
+.qual .k{font-size:12.5px;color:var(--text-3);margin-bottom:4px}
+.qual .v{font-size:14.5px;color:var(--text);word-break:break-all}
+
+/* ===== 课程体系 ===== */
+#courses{background:var(--bg-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.head-row{display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap;margin-bottom:38px}
+.course-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.course-card{border:1px solid var(--line);border-radius:var(--radius);background:var(--panel);overflow:hidden;display:flex;flex-direction:column;transition:transform .2s,border-color .2s,box-shadow .2s}
+.course-card:hover{transform:translateY(-5px);border-color:var(--line-2);box-shadow:0 18px 40px rgba(0,0,0,.35)}
+.course-thumb{position:relative;aspect-ratio:4/2.7;overflow:hidden}
+.course-thumb img{width:100%;height:100%;object-fit:cover;transition:transform .4s}
+.course-card:hover .course-thumb img{transform:scale(1.05)}
+.course-thumb .age{position:absolute;left:14px;top:14px;padding:6px 12px;border-radius:999px;background:rgba(7,12,21,.85);border:1px solid var(--line-2);font-size:12.5px;color:var(--teal);font-family:var(--mono)}
+.course-icon-panel{aspect-ratio:4/2.7;display:grid;place-items:center;background:linear-gradient(135deg,#0C1A2B,#0A1420);position:relative;overflow:hidden}
+.course-icon-panel::before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(85,150,255,.08) 1px,transparent 1px),linear-gradient(90deg,rgba(85,150,255,.08) 1px,transparent 1px);background-size:30px 30px}
+.course-icon-panel svg{width:64px;height:64px;position:relative}
+.course-body{padding:22px;display:flex;flex-direction:column;gap:10px;flex:1}
+.course-no{font-family:var(--mono);font-size:12.5px;color:var(--text-3);letter-spacing:.14em}
+.course-body h3{font-size:19px;font-weight:700}
+.course-body p{color:var(--text-2);font-size:14.5px;flex:1}
+.course-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+.course-tags span{font-size:12.5px;color:var(--text-2);border:1px solid var(--line-2);border-radius:8px;padding:4px 10px}
+.note-line{margin-top:26px;color:var(--text-3);font-size:13.5px}
+
+/* ===== 口碑评价 ===== */
+.review-top{display:grid;grid-template-columns:300px 1fr;gap:40px;align-items:start;margin-bottom:38px}
+.score-card{border:1px solid var(--line);border-radius:var(--radius);background:var(--panel);padding:30px;text-align:center}
+.score-big{font-family:var(--mono);font-size:54px;font-weight:700;color:var(--amber);line-height:1}
+.score-stars{display:flex;justify-content:center;gap:4px;margin:14px 0 10px}
+.score-stars svg{width:20px;height:20px}
+.score-card .count{color:var(--text-2);font-size:14px}
+.sub-scores{display:grid;gap:12px;margin-top:22px;text-align:left}
+.sub-scores .row{display:flex;justify-content:space-between;font-size:14px;color:var(--text-2)}
+.sub-scores .row b{color:var(--text);font-family:var(--mono)}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:30px}
+.tag-cloud .chip{border:1px solid var(--line-2);background:var(--panel);border-radius:999px;padding:10px 16px;font-size:14px;color:var(--text-2)}
+.tag-cloud .chip b{color:var(--teal);font-family:var(--mono);margin-left:6px}
+.review-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.review-card{border:1px solid var(--line);border-radius:var(--radius);background:var(--panel);padding:24px;display:flex;flex-direction:column;gap:14px}
+.review-card .head{display:flex;justify-content:space-between;align-items:center}
+.review-card .user{font-weight:700;font-size:15px}
+.review-card .date{font-family:var(--mono);font-size:12.5px;color:var(--text-3)}
+.review-card .verdict{color:var(--teal);font-size:13px;font-weight:700}
+.review-card p{color:var(--text-2);font-size:14.5px;flex:1}
+.source-note{margin-top:24px;color:var(--text-3);font-size:13px}
+
+/* ===== 常见问答 FAQ ===== */
+.faq-cats{display:flex;flex-wrap:wrap;gap:10px;margin:22px 0 26px}
+.faq-cats button{padding:9px 16px;border-radius:999px;border:1px solid var(--line-2);background:var(--panel);color:var(--text-2);font-size:14px;font-family:inherit;transition:all .2s}
+.faq-cats button.active{background:var(--teal);color:#04221C;border-color:var(--teal);font-weight:700}
+.faq-list{display:flex;flex-direction:column;gap:14px}
+.faq-item{border:1px solid var(--line);border-radius:var(--radius);background:var(--panel);overflow:hidden}
+.faq-item summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:14px;padding:20px 22px;font-weight:700;font-size:15.5px;line-height:1.5}
+.faq-item summary::-webkit-details-marker{display:none}
+.faq-item summary .faq-q-no{font-family:var(--mono);color:var(--teal);font-size:13px;flex:none}
+.faq-item summary .chev{margin-left:auto;flex:none;width:22px;height:22px;color:var(--text-3);transition:transform .25s}
+.faq-item[open] summary .chev{transform:rotate(180deg)}
+.faq-item .faq-a{padding:0 22px 20px 58px;color:var(--text-2);font-size:14.5px;line-height:1.8}
+.faq-item .faq-a p{margin-top:6px}
+.faq-empty{color:var(--text-3);padding:30px;text-align:center}
+
+/* ===== 悬浮问答窗口 ===== */
+.chat-fab{position:fixed;right:22px;bottom:22px;z-index:80;width:60px;height:60px;border-radius:50%;background:var(--teal);color:#04221C;border:none;display:grid;place-items:center;box-shadow:0 12px 32px rgba(53,230,200,.35);cursor:pointer;transition:transform .2s}
+.chat-fab:hover{transform:scale(1.06)}
+.chat-fab svg{width:28px;height:28px}
+.chat-panel{position:fixed;right:22px;bottom:94px;z-index:81;width:372px;max-width:calc(100vw - 32px);height:540px;max-height:calc(100vh - 120px);background:var(--bg-2);border:1px solid var(--line-2);border-radius:20px;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 24px 60px rgba(0,0,0,.55);transform:translateY(18px) scale(.97);opacity:0;pointer-events:none;transition:all .25s}
+.chat-panel.open{transform:translateY(0) scale(1);opacity:1;pointer-events:auto}
+.chat-head{display:flex;align-items:center;gap:12px;padding:16px 18px;background:var(--panel);border-bottom:1px solid var(--line)}
+.chat-head img{width:38px;height:38px;border-radius:50%;background:#fff;object-fit:cover}
+.chat-head .chat-name{font-weight:700;font-size:15px}
+.chat-head .chat-sub{font-size:12px;color:var(--teal)}
+.chat-head .chat-close{margin-left:auto;background:none;border:none;color:var(--text-3);font-size:22px;cursor:pointer;line-height:1}
+.chat-body{flex:1;overflow-y:auto;padding:18px;display:flex;flex-direction:column;gap:14px}
+.msg{max-width:86%;padding:12px 15px;border-radius:16px;font-size:14px;line-height:1.65;white-space:pre-wrap;word-break:break-word}
+.msg.bot{background:var(--panel);border:1px solid var(--line);border-bottom-left-radius:5px;align-self:flex-start;color:var(--text)}
+.msg.user{background:var(--teal);color:#04221C;border-bottom-right-radius:5px;align-self:flex-end;font-weight:500}
+.msg .msg-cat{display:block;font-size:11.5px;color:var(--text-3);margin-bottom:4px;letter-spacing:.08em}
+.chat-quick{display:flex;flex-wrap:wrap;gap:8px;padding:0 18px 10px}
+.chat-quick button{font-size:12.5px;padding:7px 12px;border-radius:999px;border:1px solid var(--line-2);background:var(--panel);color:var(--text-2);cursor:pointer;font-family:inherit}
+.chat-quick button:hover{border-color:var(--teal);color:var(--teal)}
+.chat-input{display:flex;gap:10px;padding:14px 16px;border-top:1px solid var(--line)}
+.chat-input input{flex:1;background:var(--panel);border:1px solid var(--line-2);border-radius:12px;padding:12px 14px;color:var(--text);font-family:inherit;font-size:16px;outline:none}
+.chat-input input:focus{border-color:var(--teal)}
+.chat-input button{width:46px;height:46px;border-radius:12px;background:var(--teal);color:#04221C;border:none;display:grid;place-items:center;cursor:pointer;flex:none}
+.chat-input button svg{width:20px;height:20px}
+
+/* ===== 新闻动态 ===== */
+#news{background:var(--bg-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.news-list{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.news-card{border:1px solid var(--line);border-radius:var(--radius);background:var(--panel);overflow:hidden;display:flex;flex-direction:column;cursor:pointer;transition:transform .2s,border-color .2s}
+.news-card:hover{transform:translateY(-5px);border-color:var(--line-2)}
+.news-card .thumb{aspect-ratio:16/9;overflow:hidden}
+.news-card .thumb img{width:100%;height:100%;object-fit:cover}
+.news-card .body{padding:22px;display:flex;flex-direction:column;gap:10px;flex:1}
+.news-meta{display:flex;gap:12px;font-family:var(--mono);font-size:12.5px;color:var(--text-3)}
+.news-meta .cat{color:var(--teal)}
+.news-card h3{font-size:17.5px;font-weight:700;line-height:1.4}
+.news-card p{color:var(--text-2);font-size:14px;flex:1}
+.read-more{font-size:14px;color:var(--teal);display:inline-flex;align-items:center;gap:6px}
+
+/* 文章详情视图 */
+#articleView{display:none}
+#articleView.active{display:block}
+#listView.hidden{display:none}
+body.reading .hero,body.reading .stats,body.reading section:not(#news),body.reading footer{display:none !important}
+body.reading #news{padding-top:90px}
+.article-back{display:inline-flex;align-items:center;gap:8px;color:var(--text-2);margin:100px 0 26px;background:none;border:none;font-size:15px}
+.article-back:hover{color:var(--teal)}
+.article-head{max-width:760px;margin:0 auto}
+.article-head .news-meta{margin-bottom:16px}
+.article-head h1{font-size:clamp(26px,3.6vw,38px);font-weight:900;line-height:1.3;margin-bottom:18px}
+.article-head .lead{color:var(--text-2);font-size:17px}
+.article-hero{max-width:960px;margin:30px auto;border-radius:var(--radius);overflow:hidden;border:1px solid var(--line)}
+.article-hero img{width:100%;height:420px;object-fit:cover}
+.article-body{max-width:760px;margin:34px auto;color:var(--text-2);font-size:16px}
+.article-body h3{color:var(--text);font-size:19px;margin:28px 0 12px}
+.article-body p{margin:14px 0}
+.article-body ul{margin:14px 0 14px 22px}
+.article-body li{margin:8px 0}
+.article-tags{display:flex;gap:10px;flex-wrap:wrap;margin-top:34px}
+.article-tags span{font-size:13px;color:var(--text-2);border:1px solid var(--line-2);border-radius:8px;padding:6px 12px}
+.related{max-width:960px;margin:50px auto 0}
+.related h3{font-size:20px;margin-bottom:18px}
+
+/* ===== 到访 / 联系 ===== */
+.visit-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:24px}
+.visit-card{border:1px solid var(--line);border-radius:var(--radius);background:var(--panel);padding:28px}
+.visit-card h3{font-size:18px;margin-bottom:18px;display:flex;gap:10px;align-items:center}
+.visit-card h3 svg{width:20px;height:20px;color:var(--teal)}
+.visit-row{display:flex;gap:14px;padding:13px 0;border-top:1px solid var(--line);font-size:15px;color:var(--text-2)}
+.visit-row:first-of-type{border-top:none}
+.visit-row b{color:var(--text);min-width:74px;flex:none}
+.deal-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:8px}
+.deal{border:1px solid var(--line-2);border-radius:15px;padding:20px;background:var(--panel-2)}
+.deal .name{font-size:15.5px;font-weight:700;margin-bottom:10px}
+.deal .price{font-family:var(--mono);color:var(--amber);font-size:24px;font-weight:700}
+.deal .price s{color:var(--text-3);font-size:14px;font-weight:400;margin-left:8px}
+.deal .sold{font-size:12.5px;color:var(--text-3);margin-top:6px}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.form-grid .full{grid-column:1/-1}
+.field label{display:block;font-size:13.5px;color:var(--text-2);margin-bottom:8px}
+.field input,.field select,.field textarea{width:100%;background:var(--bg-2);border:1px solid var(--line-2);border-radius:12px;padding:13px 15px;color:var(--text);font-family:inherit;font-size:16px;outline:none}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--teal)}
+.field textarea{resize:vertical;min-height:110px}
+.form-note{font-size:13px;color:var(--text-3);margin-top:14px}
+.toast{position:fixed;left:50%;bottom:34px;transform:translateX(-50%) translateY(20px);background:#0F2A24;border:1px solid var(--teal);color:var(--text);border-radius:13px;padding:15px 22px;font-size:15px;opacity:0;pointer-events:none;transition:.25s;z-index:90;max-width:90vw}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* ===== 页脚 ===== */
+footer{border-top:1px solid var(--line);background:var(--bg-2);padding:56px 0 30px}
+.foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:36px;margin-bottom:36px}
+.foot-grid h4{font-size:15px;margin-bottom:16px}
+.foot-grid p,.foot-grid a{color:var(--text-3);font-size:14px;line-height:1.9}
+.foot-links a{display:block}
+.foot-links a:hover{color:var(--teal)}
+.foot-bottom{border-top:1px solid var(--line);padding-top:22px;color:var(--text-3);font-size:13px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+
+/* ===== 响应式 ===== */
+@media (max-width:1024px){
+  .course-grid,.review-grid,.news-list{grid-template-columns:repeat(2,1fr)}
+  .about-grid,.review-top,.visit-grid{grid-template-columns:1fr}
+  .about-photo img{height:380px}
+  .foot-grid{grid-template-columns:1fr 1fr}
+}
+@media (max-width:720px){
+  section{padding:64px 0}
+  nav.menu{display:none}
+  .nav-cta{display:none}
+  .burger{display:grid}
+  .stats-grid{grid-template-columns:repeat(2,1fr)}
+  .course-grid,.review-grid,.news-list,.deal-grid,.form-grid{grid-template-columns:1fr}
+  .qual-list{grid-template-columns:1fr}
+  .foot-grid{grid-template-columns:1fr}
+  .hero{padding-top:100px}
+  .hero-logo{padding:11px 16px;margin-bottom:22px}
+  .hero-logo img{width:200px}
+  .about-badge{gap:13px}
+  .about-badge .badge{width:62px;height:62px}
+  .about-badge .org-name{font-size:15.5px}
+  .about-photo img{height:300px}
+  .article-hero img{height:240px}
+  .head-row{flex-direction:column;align-items:start}
+}
+</style>
+</head>
+<body>
+
+<!-- ===== 导航 ===== -->
+<header class="nav" id="nav">
+  <div class="nav-inner">
+    <a class="brand" href="#/" onclick="goHome()">
+      <span class="brand-mark">
+        <img src="assets/logo-badge.jpg" alt="乐之疆教育培训学校校徽">
+      </span>
+      <span>
+        <span class="brand-name">乐之疆教育学校</span>
+        <span class="brand-sub">LEZHIJIANG · 科技素养教育</span>
+      </span>
+    </a>
+    <nav class="menu" id="menu">
+      <a href="#/" data-nav="home">首页</a>
+      <a href="#about" data-nav="about">学校简介</a>
+      <a href="#courses" data-nav="courses">课程体系</a>
+      <a href="#reviews" data-nav="reviews">学员口碑</a>
+      <a href="#faq" data-nav="faq">常见问答</a>
+      <a href="#news" data-nav="news">新闻动态</a>
+      <a href="#contact" data-nav="contact">联系我们</a>
+    </nav>
+    <button class="nav-cta" onclick="location.hash='#contact'">预约体验课</button>
+    <button class="burger" id="burger" aria-label="菜单"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#/" onclick="goHome()">首页</a>
+    <a href="#about" onclick="toggleMobile()">学校简介</a>
+    <a href="#courses" onclick="toggleMobile()">课程体系</a>
+    <a href="#reviews" onclick="toggleMobile()">学员口碑</a>
+    <a href="#faq" onclick="toggleMobile()">常见问答</a>
+    <a href="#news" onclick="toggleMobile()">新闻动态</a>
+    <a href="#contact" onclick="toggleMobile()">联系我们</a>
+  </div>
+</header>
+
+<!-- ===== Hero ===== -->
+<section class="hero" id="home">
+  <div class="hero-bg"><img src="assets/hero.jpg" alt="少年儿童在科技教室搭建可编程机器人"></div>
+  <div class="hero-inner">
+    <div class="hero-logo"><img src="assets/logo-wordmark.jpg" alt="乐之疆教育 学校标识"></div>
+    <span class="hero-badge"><span class="dot"></span>河西区科学探索好评榜 · 第 2 名 · 大众点评 4.8 分</span>
+    <h1>把世界最好的<br><span class="accent">科技教育</span>，带给每一个孩子</h1>
+    <p class="lead">AI 人工智能启蒙 · 机器人编程 · Scratch / Python 代码编程 · 3D 建模与打印 · 创客电子实验。2014 年创办于天津下瓦房，按孩子水平分班进阶，在动手搭建与编程实践中锻炼逻辑思维、想象力与解决问题的能力。</p>
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="#contact">预约 1 元体验课
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+      <a class="btn btn-ghost" href="#courses">查看课程体系</a>
+    </div>
+    <div class="hero-meta">
+      <div class="score"><b>4.8 / 5.0</b>课程 · 师资 · 环境 同评 4.8</div>
+      <div><b>473</b>条家长评价（大众点评公示）</div>
+      <div><b>2014</b>年创办至今</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 数据条 ===== -->
+<div class="stats">
+  <div class="wrap stats-grid">
+    <div class="stat"><div class="num">2014<small>年</small></div><div class="lbl">学校成立于天津河西</div></div>
+    <div class="stat"><div class="num">4.8</div><div class="lbl">大众点评综合评分（473 条评价）</div></div>
+    <div class="stat"><div class="num">6<small>大</small></div><div class="lbl">科技课程方向（以当期课表为准）</div></div>
+    <div class="stat"><div class="num">40<small>米</small></div><div class="lbl">距地铁下瓦房站 A 口步行距离</div></div>
+  </div>
+</div>
+
+<!-- ===== 学校简介 ===== -->
+<section id="about">
+  <div class="wrap about-grid">
+    <div class="about-photo">
+      <img src="assets/classroom.jpg" alt="教师在课堂上指导学生调试机器人模型">
+      <div class="tag-float">校区地址：<b>下瓦房晶采大厦写字楼四楼</b></div>
+    </div>
+    <div class="about-copy">
+      <div class="about-badge">
+        <span class="badge"><img src="assets/logo-badge.jpg" alt="乐之疆教育培训学校校徽"></span>
+        <span>
+          <span class="org-name">天津市河西区乐之疆教育培训学校</span>
+          <span class="org-sub">LEZHIJIANG TRAINING SCHOOL · EST 2012</span>
+        </span>
+      </div>
+      <span class="section-tag">About Us · 学校简介</span>
+      <h2 class="section-title">十年专注科技素养，<br>从积木搭建走向代码创造</h2>
+      <p><strong>天津市河西区乐之疆教育培训学校</strong>（曾用名：天津市河西区乐高教育培训学校）成立于 2014 年 1 月，是经河西区民政局登记、由河西区教育局与河西区科学技术局业务主管的民办非学历教育机构，业务范围为<strong>非学科（科技类）校外培训</strong>。</p>
+      <p>学校面向学龄前与小学阶段孩子，提供齿轮机械搭建、可编程机器人、图形化与代码编程、创客电子、3D 建模打印、AI 启蒙等阶梯式课程。教学上根据孩子当前水平推荐班型，能力达标后逐级升班，课堂形式注重启发式引导与动手实践，让孩子在完成项目的过程中建立自信与创造力。</p>
+      <div class="qual-list">
+        <div class="qual"><div class="k">登记证号</div><div class="v">津西民政字 010265</div></div>
+        <div class="qual"><div class="k">统一社会信用代码</div><div class="v">521201030915540754</div></div>
+        <div class="qual"><div class="k">业务主管单位</div><div class="v">河西区教育局 · 河西区科学技术局</div></div>
+        <div class="qual"><div class="k">机构性质</div><div class="v">民办非企业单位 · 非学科科技类培训</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 课程体系 ===== -->
+<section id="courses">
+  <div class="wrap">
+    <div class="head-row">
+      <div>
+        <span class="section-tag">Courses · 课程体系</span>
+        <h2 class="section-title">从动手搭建到代码创造的进阶路径</h2>
+        <p class="section-lead">围绕机器人、编程、创客电子、3D 与 AI 五条线索设置阶梯课程，孩子按测评结果进入对应班型，能力达标后逐级升班。</p>
+      </div>
+    </div>
+    <div class="course-grid">
+      <article class="course-card">
+        <div class="course-thumb">
+          <img src="assets/course-robot.jpg" alt="可编程积木机器人与机械臂套件">
+          <span class="age">5–6 岁 · 启蒙体验</span>
+        </div>
+        <div class="course-body">
+          <span class="course-no">COURSE 01</span>
+          <h3>齿轮机械与动力搭建</h3>
+          <p>认识齿轮、杠杆、连杆与动力传动，在积木搭建中理解简单机械原理；课堂以项目任务驱动，保护孩子最初的好奇心与动手欲。</p>
+          <div class="course-tags"><span>机械原理</span><span>动手搭建</span><span>体验课 ¥1</span></div>
+        </div>
+      </article>
+      <article class="course-card">
+        <div class="course-thumb">
+          <img src="assets/course-coding.jpg" alt="平板上的图形化积木编程界面">
+          <span class="age">6 岁起 · 进阶</span>
+        </div>
+        <div class="course-body">
+          <span class="course-no">COURSE 02</span>
+          <h3>智能机器人与机械手编程</h3>
+          <p>使用可编程机器人套件，学习马达、传感器与动作控制，完成巡线、抓取、机械手等任务项目，并提供校内外展示与竞赛项目辅导。</p>
+          <div class="course-tags"><span>机器人</span><span>传感器</span><span>参赛项目辅导</span></div>
+        </div>
+      </article>
+      <article class="course-card">
+        <div class="course-thumb">
+          <img src="assets/course-science.jpg" alt="面包板、导线与 LED 组成的电子实验装置">
+          <span class="age">7 岁起 · 图形化编程</span>
+        </div>
+        <div class="course-body">
+          <span class="course-no">COURSE 03</span>
+          <h3>Scratch 图形化编程</h3>
+          <p>学习事件、循环、变量与条件判断，用积木式指令创作故事、动画、音乐与小游戏，在作品完成中建立顺序、分支与循环的编程思维。</p>
+          <div class="course-tags"><span>逻辑思维</span><span>创意作品</span><span>零基础友好</span></div>
+        </div>
+      </article>
+      <article class="course-card">
+        <div class="course-icon-panel">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#5596FF" stroke-width="1.6"><path d="M8 6l-5 6 5 6M16 6l5 6-5 6M13 4l-2 16"/></svg>
+          <span class="age">进阶阶段 · 代码编程</span>
+        </div>
+        <div class="course-body">
+          <span class="course-no">COURSE 04</span>
+          <h3>Python 代码编程</h3>
+          <p>从变量、数据类型、判断与循环等基础语法起步，逐步完成 2D 小游戏与小工具应用，为后续接触人工智能与数据应用打下代码基础。</p>
+          <div class="course-tags"><span>Python</span><span>代码思维</span><span>项目实战</span></div>
+        </div>
+      </article>
+      <article class="course-card">
+        <div class="course-icon-panel">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#35E6C8" stroke-width="1.6"><rect x="3" y="8" width="18" height="10" rx="2"/><path d="M7 12h.01M11 12h.01M15 12h.01M9 8V5M15 8V5"/></svg>
+          <span class="age">进阶阶段 · 创客硬件</span>
+        </div>
+        <div class="course-body">
+          <span class="course-no">COURSE 05</span>
+          <h3>创客电子与硬件实验</h3>
+          <p>使用面包板、LED、传感器与主控板，动手搭建智能小灯、报警器、小车等创客作品，理解电路、输入与输出之间的关系。</p>
+          <div class="course-tags"><span>电路实验</span><span>传感器</span><span>创客作品</span></div>
+        </div>
+      </article>
+      <article class="course-card">
+        <div class="course-icon-panel">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#FFC266" stroke-width="1.6"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M19 5l-2 2M7 17l-2 2"/></svg>
+          <span class="age">拓展方向 · 科技前沿</span>
+        </div>
+        <div class="course-body">
+          <span class="course-no">COURSE 06</span>
+          <h3>3D 建模与 AI 启蒙</h3>
+          <p>体验基础三维建模与 3D 打印流程；认识人工智能，了解语音识别、图像识别等常见 AI 应用场景，建立面向未来的科技视野。</p>
+          <div class="course-tags"><span>3D 建模</span><span>3D 打印</span><span>AI 认知</span></div>
+        </div>
+      </article>
+    </div>
+    <p class="note-line">说明：以上为学校课程方向介绍，具体班型、适龄段、课时与收费以到校测评后出具的当期课表与方案为准。</p>
+  </div>
+</section>
+<!-- ===== 学员口碑 ===== -->
+<section id="reviews">
+  <div class="wrap">
+    <span class="section-tag">Reviews · 学员口碑</span>
+    <h2 class="section-title">家长怎么评价这里的课堂</h2>
+    <p class="section-lead">以下评分、评价标签与精选评价摘自大众点评店铺公开页面（473 条评价），评价原文保留平台用户化名与日期。</p>
+    <div class="review-top" style="margin-top:34px">
+      <div class="score-card">
+        <div class="score-big">4.8</div>
+        <div class="score-stars" aria-label="五星评分">
+          <svg viewBox="0 0 24 24" fill="#FFC266"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.2 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg>
+          <svg viewBox="0 0 24 24" fill="#FFC266"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.2 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg>
+          <svg viewBox="0 0 24 24" fill="#FFC266"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.2 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg>
+          <svg viewBox="0 0 24 24" fill="#FFC266"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.2 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg>
+          <svg viewBox="0 0 24 24" fill="#FFC266"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.2 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg>
+        </div>
+        <div class="count">共 473 条家长评价</div>
+        <div class="sub-scores">
+          <div class="row"><span>课程评分</span><b>4.8</b></div>
+          <div class="row"><span>师资评分</span><b>4.8</b></div>
+          <div class="row"><span>环境评分</span><b>4.8</b></div>
+        </div>
+      </div>
+      <div>
+        <div class="tag-cloud">
+          <span class="chip">孩子兴趣浓厚<b>171</b></span>
+          <span class="chip">老师耐心负责<b>153</b></span>
+          <span class="chip">教学水平高<b>44</b></span>
+          <span class="chip">知识吸收轻松<b>10</b></span>
+          <span class="chip">激发学生想象力<b>6</b></span>
+        </div>
+        <div class="review-grid">
+          <article class="review-card">
+            <div class="head"><span class="user">alioyer</span><span class="date">10月16日 · 超预期</span></div>
+            <span class="verdict">好评</span>
+            <p>娃在这上了八年了，也是他目前唯一主动想上的兴趣班。一直跟着倪老师上课，从刚开始的小宝宝到现在大哥哥，时间过得真快，娃还是一如既往地喜欢倪老师——超级耐心且热爱自己的工作，可盐可甜，既能正向引导又会偶尔展现威严。孩子玩得挺开心，又能学到东西，赞一个！</p>
+          </article>
+          <article class="review-card">
+            <div class="head"><span class="user">xiaxia1028</span><span class="date">10月17日 · 超预期</span></div>
+            <span class="verdict">好评</span>
+            <p>我们从幼儿园开始就在这里上课，会根据孩子的水平推荐上课的级别，到了一定程度也会升班，上课形式不死板。孩子一直和王老师上课，孩子很喜欢王老师的授课形式，拓展的很多，寓教于乐。</p>
+          </article>
+          <article class="review-card">
+            <div class="head"><span class="user">缘妙不可言</span><span class="date">9月18日 · 超预期</span></div>
+            <span class="verdict">好评</span>
+            <p>孩子跟着倪老师上了两三年课程了，孩子进步很大。倪老师很专业，而且非常耐心，教学风格很幽默，启发式教学真的很棒，会一直坚持下去。</p>
+          </article>
+        </div>
+      </div>
+    </div>
+    <p class="source-note">数据来源：大众点评「乐之疆教育学校·AI人工智能·机器人编程·3d建模打印(晶采中心)」店铺公开页面；完整 473 条评价与问答需在大众点评 App 内查看。</p>
+  </div>
+</section>
+
+<!-- ===== 常见问答专栏 ===== -->
+<section id="faq">
+  <div class="wrap">
+    <span class="section-tag">FAQ · 常见问答</span>
+    <h2 class="section-title">家长最常问的问题，这里一次说清楚</h2>
+    <p class="section-lead" style="color:var(--text-2);max-width:680px;margin-bottom:8px">以下问答整理自校区固定咨询口径，覆盖入学年龄、零基础、课时安排、收费、竞赛升学与师资效果；点击问题展开答案，也可以直接使用右下角问答窗口提问。</p>
+    <div class="faq-cats" id="faqCats"></div>
+    <div class="faq-list" id="faqList"></div>
+  </div>
+</section>
+<!-- ===== 新闻动态（博客） ===== -->
+<section id="news">
+  <div class="wrap">
+    <div id="listView">
+      <div class="head-row">
+        <div>
+          <span class="section-tag">News · 新闻动态</span>
+          <h2 class="section-title">学校动态与课程科普</h2>
+          <p class="section-lead">了解学校发展、课程进阶路径、家长常见问题与校区到访信息。</p>
+        </div>
+      </div>
+      <div class="news-list" id="newsList"></div>
+    </div>
+
+    <div id="articleView">
+      <button class="article-back" onclick="goHome()">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
+        返回新闻列表
+      </button>
+      <div id="articleBody"></div>
+    </div>
+  </div>
+</section>
+<!-- ===== 联系我们 ===== -->
+<section id="contact">
+  <div class="wrap">
+    <span class="section-tag">Contact · 联系我们</span>
+    <h2 class="section-title">预约一节体验课，到校区实地看看</h2>
+    <p class="section-lead">留下孩子年龄与意向课程，校区老师会在工作时间与你联系；也可直接按下方地址到访。</p>
+
+    <div class="visit-grid" style="margin-top:34px">
+      <div class="visit-card">
+        <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s-7-5.5-7-11a7 7 0 1114 0c0 5.5-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>校区位置与到访指引</h3>
+        <div class="visit-row"><b>地址</b><span>天津市河西区大沽南路 459 号下瓦房晶采大厦写字楼四楼（麦当劳楼上）</span></div>
+        <div class="visit-row"><b>地铁</b><span>地铁 1 号线 / 5 号线下瓦房站 A 口，步行约 40 米</span></div>
+        <div class="visit-row"><b>营业时间</b><span>09:00 – 19:00（以校区当期排课为准）</span></div>
+        <div class="visit-row"><b>咨询电话</b><span>请以大众点评店铺最新公示号码为准，或到店现场咨询</span></div>
+      </div>
+      <div class="visit-card">
+        <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 7h18v12H3zM3 7l9 6 9-6"/></svg>体验课团购（平台公示）</h3>
+        <div class="deal-grid">
+          <div class="deal">
+            <div class="name">5–6 岁 齿轮机械体验学习</div>
+            <div class="price">¥1<s>¥260</s></div>
+            <div class="sold">平台体验团购 · 年售 1</div>
+          </div>
+          <div class="deal">
+            <div class="name">人工智能机械手编程 Scratch / Python</div>
+            <div class="price">¥7.9<s>¥260</s></div>
+            <div class="sold">平台体验团购 · 年售 0</div>
+          </div>
+        </div>
+        <p class="note-line" style="margin-top:16px">团购名额、有效期与购买规则以大众点评店铺当期页面为准。</p>
+      </div>
+    </div>
+
+    <div class="visit-card">
+      <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 5h16v14H4zM4 7l8 6 8-6"/></svg>预约登记（演示表单）</h3>
+      <form id="bookForm" class="form-grid" onsubmit="return submitBooking(event)">
+        <div class="field"><label for="fName">家长称呼</label><input id="fName" required placeholder="怎么称呼您"></div>
+        <div class="field"><label for="fAge">孩子年龄</label>
+          <select id="fAge" required>
+            <option value="">请选择年龄段</option>
+            <option>4–5 岁</option><option>5–6 岁</option><option>7–8 岁</option><option>9–10 岁</option><option>11 岁及以上</option>
+          </select>
+        </div>
+        <div class="field"><label for="fCourse">意向课程</label>
+          <select id="fCourse">
+            <option>齿轮机械与动力搭建</option>
+            <option>智能机器人与机械手编程</option>
+            <option>Scratch 图形化编程</option>
+            <option>Python 代码编程</option>
+            <option>创客电子与硬件实验</option>
+            <option>3D 建模与 AI 启蒙</option>
+          </select>
+        </div>
+        <div class="field"><label for="fPhone">联系电话</label><input id="fPhone" required type="tel" placeholder="便于校区老师联系您"></div>
+        <div class="field full"><label for="fMsg">补充留言（可选）</label><textarea id="fMsg" placeholder="孩子是否有编程 / 机器人基础，希望了解的问题……"></textarea></div>
+        <div class="field full">
+          <button type="submit" class="btn btn-primary" style="border:none">提交预约登记</button>
+          <p class="form-note">本站为静态演示站点，表单不会真实发送到服务器；正式预约请通过大众点评店铺团购或到店登记。</p>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+<!-- ===== 页脚 ===== -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="foot-logo"><img src="assets/logo-wordmark.jpg" alt="乐之疆教育 学校标识"></div>
+        <h4>乐之疆教育学校</h4>
+        <p>天津市河西区乐之疆教育培训学校（曾用名：天津市河西区乐高教育培训学校），2014 年创办，面向少年儿童开展非学科科技类校外培训：机器人搭建、图形化与代码编程、创客电子、3D 建模打印与 AI 启蒙。</p>
+      </div>
+      <div class="foot-links">
+        <h4>快速导航</h4>
+        <a href="#about">学校简介</a>
+        <a href="#courses">课程体系</a>
+        <a href="#reviews">学员口碑</a>
+        <a href="#news">新闻动态</a>
+        <a href="#contact">联系我们</a>
+      </div>
+      <div class="foot-links">
+        <h4>机构资质</h4>
+        <p>登记证号：津西民政字 010265<br>统一社会信用代码：521201030915540754<br>业务主管：河西区教育局 · 河西区科学技术局</p>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2014–2026 天津市河西区乐之疆教育培训学校 · 本站内容依据大众点评公开店铺信息与工商登记资料整理，课程、价格与排课以校区当期公示为准。</span>
+      <span>网站备案号待补充（正式上线前需完成 ICP 备案）</span>
+    </div>
+  </div>
+</footer>
+<!-- ===== 悬浮问答窗口 ===== -->
+<button class="chat-fab" id="chatFab" aria-label="在线问答">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-8.5 8.5 8.5 8.5 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 8.5-8.5 8.38 8.38 0 0 1 8.5 8.5z"/></svg>
+</button>
+<div class="chat-panel" id="chatPanel">
+  <div class="chat-head">
+    <img src="assets/logo-badge.jpg" alt="校徽">
+    <div>
+      <div class="chat-name">乐之疆智能问答</div>
+      <div class="chat-sub">在线解答课程、年龄、收费与排课问题</div>
+    </div>
+    <button class="chat-close" id="chatClose" aria-label="关闭">×</button>
+  </div>
+  <div class="chat-body" id="chatBody"></div>
+  <div class="chat-quick" id="chatQuick"></div>
+  <div class="chat-input">
+    <input id="chatInput" type="text" placeholder="输入您的问题，例如：几岁可以学？" autocomplete="off">
+    <button id="chatSend" aria-label="发送">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4z"/></svg>
+    </button>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+<script>
+/* ===== 数据：新闻动态（站点演示内容，事实部分均来自公开登记与大众点评店铺页） ===== */
+const ARTICLES = [
+  {
+    id: "history",
+    cat: "学校动态",
+    date: "2026-10-20",
+    title: "从积木课堂到科技素养：乐之疆的办学沿革",
+    cover: "assets/classroom.jpg",
+    excerpt: "学校成立于 2014 年 1 月，前身为天津市河西区乐高教育培训学校，后更名为乐之疆教育培训学校，长期在河西区下瓦房校区开展非学科科技类校外培训。",
+    body: `
+      <p>天津市河西区乐之疆教育培训学校（曾用名：天津市河西区乐高教育培训学校）成立于 2014 年 1 月 17 日，登记管理机关为天津市河西区民政局，业务主管单位为天津市河西区教育局与河西区科学技术局，登记业务范围为非学科（科技类）校外培训。</p>
+      <p>早期课程以积木搭建与机械结构启蒙为主；随着课程体系逐步完善，学校在原有机器人搭建基础上，延伸出图形化编程、代码编程、创客电子、3D 建模打印与人工智能启蒙等方向，形成面向不同年龄段孩子的阶梯式课程路径。</p>
+      <h3>我们坚持的几件事</h3>
+      <ul>
+        <li>按孩子当前水平推荐班型，能力达标后逐级升班，不按年龄“一刀切”。</li>
+        <li>以项目任务驱动课堂，让孩子在完成机器人、小游戏、创客作品的过程中学习知识。</li>
+        <li>课堂强调启发式引导，保护孩子的兴趣与表达欲。</li>
+      </ul>
+      <p>具体班级设置、课时安排与收费标准，以到校测评后校区出具的当期方案为准。</p>`
+  },
+  {
+    id: "scratch-to-python",
+    cat: "课程解读",
+    date: "2026-10-12",
+    title: "Scratch 图形化编程之后，孩子怎样衔接 Python",
+    cover: "assets/course-coding.jpg",
+    excerpt: "图形化编程解决“敢动手、懂逻辑”的问题，代码编程解决“写规范、做项目”的问题。两个阶段之间不是替换关系，而是循序渐进的衔接。",
+    body: `
+      <p>很多家长关心：孩子学完 Scratch 之后，什么时候开始学 Python？学校的课程路径把这两个阶段分成不同目标，而不是简单地换一个软件。</p>
+      <h3>Scratch 阶段：先建立编程思维</h3>
+      <p>Scratch 用积木式指令完成程序，孩子不需要先记忆英文语法，就能理解事件触发、顺序执行、条件判断、循环与变量，并用这些概念创作动画、故事和小游戏。这个阶段的重点是把“把问题拆成步骤”的思维方式练熟。</p>
+      <h3>Python 阶段：进入真实代码世界</h3>
+      <p>当孩子能够独立完成一个 Scratch 项目、理解变量与循环之后，再进入 Python 课程：从变量、数据类型、判断、循环等基础语法开始，逐步完成 2D 小游戏和小工具应用，再接触人工智能相关的入门概念。</p>
+      <h3>衔接节奏由测评决定</h3>
+      <p>每个孩子的节奏不同，学校会结合课堂表现与作品完成度判断升班时机，而不是按固定年龄统一切换。家长可以在体验课上与老师沟通孩子当前的基础与兴趣方向。</p>`
+  },
+  {
+    id: "competition",
+    cat: "赛事项目",
+    date: "2026-09-28",
+    title: "机械手与机器人项目：参赛辅导方向说明",
+    cover: "assets/course-robot.jpg",
+    excerpt: "平台公示的体验课中包含“参赛人工智能机械手编程 Scratch/Python”方向，学校在常规课程之外，为有意愿的孩子提供项目展示与竞赛类任务的辅导支持。",
+    body: `
+      <p>大众点评店铺公示的体验团购中，包含“参赛人工智能机械手编程 Scratch/Python”项目方向。这一方向面向已经具备一定机器人搭建或编程基础的孩子，围绕机械手动作控制、传感器反馈与任务程序设计展开。</p>
+      <h3>项目训练包含什么</h3>
+      <ul>
+        <li>机器人结构与机械手动作机构的认识与调试；</li>
+        <li>用图形化编程或代码完成动作序列与任务逻辑；</li>
+        <li>针对展示或竞赛任务进行反复测试、修改与优化；</li>
+        <li>作品表达与思路讲解的练习。</li>
+      </ul>
+      <p>学校不对外承诺具体获奖名次；可参加的赛事、展示活动以当期教育主管部门与赛事组织方公布的信息为准，校区老师会在项目阶段向家长同步可选方向。</p>`
+  },
+  {
+    id: "faq-age-fee",
+    cat: "常见问题",
+    date: "2026-09-15",
+    title: "家长问答：孩子几岁可以上课？费用怎么算？",
+    cover: "assets/course-science.jpg",
+    excerpt: "大众点评“问大家”板块中，家长最常问的两个问题是“几岁的孩子可以上课”和“6 岁孩子相关课程怎么收费”。本文结合课程方向做统一说明。",
+    body: `
+      <p>在大众点评店铺的“问大家”板块，家长高频提问集中在入学年龄与课程费用。由于每个孩子基础不同，学校采用到校测评后推荐班型的方式，以下为课程方向层面的统一说明。</p>
+      <h3>几岁可以开始？</h3>
+      <p>齿轮机械与动力搭建方向面向 5–6 岁左右的启蒙阶段；机器人编程、Scratch 图形化编程一般从 6–7 岁起进入；Python 代码编程、创客电子与 3D 建模属于进阶方向，需要先完成前置课程或通过水平测评。</p>
+      <h3>费用怎么计算？</h3>
+      <p>课程费用与班型、课时包、课程方向相关，平台公示的 ¥1 与 ¥7.9 为体验课团购价格，不代表常规班型收费。常规课程的课时与费用需要在到校测评后，由老师根据孩子所在班型出具方案；按天津市校外培训相关规定，非学科培训缴费应遵守课时与费用上限要求。</p>
+      <p>完整问答详情可在大众点评 App 店铺“问大家”中查看。</p>`
+  },
+  {
+    id: "teaching-philosophy",
+    cat: "教学理念",
+    date: "2026-09-03",
+    title: "为什么我们强调“按水平分班、启发式课堂”",
+    cover: "assets/classroom.jpg",
+    excerpt: "点评评价中反复出现“耐心负责”“兴趣浓厚”“教学水平高”。这些反馈背后，是学校长期坚持的分班方式与课堂风格。",
+    body: `
+      <p>在大众点评公开的家长评价标签中，“孩子兴趣浓厚”“老师耐心负责”“教学水平高”是出现频次最高的几项。这些反馈与学校一直坚持的教学方式直接相关。</p>
+      <h3>按水平分班，而不是按年龄分班</h3>
+      <p>同一岁孩子在动手能力、专注力与理解速度上差异明显。学校根据测评与课堂表现推荐班型，孩子达到能力标准后再升班，避免“跟不上”削弱信心，也避免“吃不饱”浪费时间。</p>
+      <h3>启发式课堂，少讲结论多做项目</h3>
+      <p>课堂上老师先给出任务目标，引导孩子自己观察结构、调试程序、发现问题，再在关键节点给予提示。家长评价中提到的“寓教于乐”“拓展很多”，正是这种课堂形式带来的效果。</p>
+      <h3>耐心是教学的底线</h3>
+      <p>科技类课程允许孩子反复试错。老师的职责不是替孩子完成作品，而是在遇到卡点时保持耐心、拆解问题，让孩子自己走到解决问题的那一步。</p>`
+  },
+  {
+    id: "visit-guide",
+    cat: "校区信息",
+    date: "2026-08-22",
+    title: "到校指引：下瓦房晶采大厦校区怎么找",
+    cover: "assets/hero.jpg",
+    excerpt: "校区位于大沽南路 459 号下瓦房晶采大厦写字楼四楼，地铁 1/5 号线下瓦房站 A 口步行约 40 米，营业时间 09:00–19:00。",
+    body: `
+      <p>校区地址：天津市河西区大沽南路 459 号下瓦房晶采大厦写字楼四楼（麦当劳楼上，下瓦房地铁站 A 出口旁）。</p>
+      <h3>交通方式</h3>
+      <ul>
+        <li>地铁：1 号线、5 号线下瓦房站 A 口出站，步行约 40 米即到；</li>
+        <li>驾车：大厦周边停车场可停车，具体车位以现场指引为准；</li>
+        <li>营业时间：09:00–19:00，正式课程安排以当期课表为准。</li>
+      </ul>
+      <p>建议首次到访先通过大众点评店铺预约体验课，方便老师安排测评与接待；到店前可电话确认教室位置与当班时间。</p>`
+  }
+];
+
+const $ = (s) => document.querySelector(s);
+const listView = $("#listView"), articleView = $("#articleView");
+
+function renderList(){
+  const wrap = $("#newsList");
+  wrap.innerHTML = ARTICLES.map(a => `
+    <article class="news-card" onclick="openArticle('${a.id}')">
+      <div class="thumb"><img src="${a.cover}" alt="${a.title}"></div>
+      <div class="body">
+        <div class="news-meta"><span class="cat">${a.cat}</span><span>${a.date}</span></div>
+        <h3>${a.title}</h3>
+        <p>${a.excerpt}</p>
+        <span class="read-more">阅读全文
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </span>
+      </div>
+    </article>`).join("");
+}
+
+function renderArticle(id){
+  const a = ARTICLES.find(x => x.id === id);
+  if(!a){ goHome(); return; }
+  $("#articleBody").innerHTML = `
+    <div class="article-head">
+      <div class="news-meta"><span class="cat">${a.cat}</span><span>${a.date}</span></div>
+      <h1>${a.title}</h1>
+      <p class="lead">${a.excerpt}</p>
+    </div>
+    <div class="article-hero"><img src="${a.cover}" alt="${a.title}"></div>
+    <div class="article-body">${a.body}
+      <div class="article-tags"><span>${a.cat}</span><span>乐之疆教育学校</span></div>
+    </div>
+    <div class="related">
+      <h3>相关文章</h3>
+      <div class="news-list">${ARTICLES.filter(x => x.id !== id).slice(0,3).map(x => `
+        <article class="news-card" onclick="openArticle('${x.id}')">
+          <div class="thumb"><img src="${x.cover}" alt="${x.title}"></div>
+          <div class="body">
+            <div class="news-meta"><span class="cat">${x.cat}</span><span>${x.date}</span></div>
+            <h3>${x.title}</h3><p>${x.excerpt}</p>
+            <span class="read-more">阅读全文
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </span>
+          </div>
+        </article>`).join("")}
+      </div>
+    </div>`;
+  window.scrollTo({top:0,behavior:"auto"});
+}
+
+function openArticle(id){
+  location.hash = "#/news/" + id;
+}
+function showArticle(id){
+  document.body.classList.add("reading");
+  listView.classList.add("hidden");
+  articleView.classList.add("active");
+  renderArticle(id);
+}
+function goHome(){
+  location.hash = "#/";
+}
+function showList(){
+  document.body.classList.remove("reading");
+  articleView.classList.remove("active");
+  listView.classList.remove("hidden");
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+function route(){
+  const h = location.hash || "#/";
+  const m = h.match(/^#\/news\/([\w-]+)$/);
+  if(m){ showArticle(m[1]); return; }
+  showList();
+}
+
+/* ===== 导航与菜单 ===== */
+const nav = $("#nav"), burger = $("#burger"), mobileMenu = $("#mobileMenu");
+window.addEventListener("scroll", () => { nav.classList.toggle("scrolled", window.scrollY > 20); });
+function toggleMobile(){ mobileMenu.classList.toggle("open"); }
+burger.addEventListener("click", toggleMobile);
+
+document.querySelectorAll("#menu a").forEach(a => {
+  a.addEventListener("click", () => {
+    mobileMenu.classList.remove("open");
+    document.body.classList.remove("reading");
+    articleView.classList.remove("active");
+    listView.classList.remove("hidden");
+    document.querySelectorAll("#menu a").forEach(x => x.classList.remove("active"));
+    a.classList.add("active");
+  });
+});
+
+/* ===== 表单提交（演示，不联网） ===== */
+function showToast(msg){
+  const t = $("#toast");
+  t.textContent = msg; t.classList.add("show");
+  clearTimeout(t._timer);
+  t._timer = setTimeout(() => t.classList.remove("show"), 3200);
+}
+function submitBooking(e){
+  e.preventDefault();
+  const phone = $("#fPhone").value.trim();
+  if(!/^1[3-9]\d{9}$/.test(phone)){ showToast("请填写有效的 11 位手机号"); return false; }
+  showToast("登记信息已记录（演示站点，未发送到服务器）。请通过大众点评店铺或到店完成正式预约。");
+  e.target.reset();
+  return false;
+}
+
+/* ===== 常见问答数据（校区固定咨询口径，原文整理） ===== */
+const FAQ = [
+  {cat:"基础入门", q:"多大孩子可以学？我家这个年纪适合吗？", k:["几岁","年龄","多大","适合","3岁","4岁","5岁","6岁","7岁","10岁","12岁","年纪","入学年龄","宝宝"],
+    a:"乐高教育 LEGO EDUCATION 全球同步课程面向 3–12 岁，配有符合相应年龄能力目标的全系列教学类零件：\n· 学前：以编程思维训练为主，采用乐高结合无屏化编程零件（磁性板模块编程、玛塔模块编程等）；\n· 7–10 岁：使用图形化编程 Scratch 驱动乐高简单主机（WeDo 2.0）或高级主机（SPIKE），配合传感器、电机与机械零件，自主设计完成个性化机器人方案；\n· 10–15 岁：学习 Python 编程，并利用大疆 EP 机甲大师自动导向车完成基础或赛事任务。\n可以先约一节免费试听课，由老师指导孩子完成原创乐高编程机器人，之后再建议开始阶段与对应主机器材。"},
+  {cat:"基础入门", q:"零基础、从来没接触过机器人和编程，能跟上吗？", k:["零基础","没接触","跟不上","新手","不会学","没学过","基础差","第一次"],
+    a:"咱们大部分孩子来的时候都是零基础，课程本身就是从零设计的。第一节课老师会带着慢慢适应；小班上课，老师能照顾到每个孩子，只要孩子愿意动手尝试，完全不用担心跟不上。\n课堂不是老师一步步教搭标准化模型，而是孩子自己动脑设计、动手实践，反复经历失败、调试、拆改，最后成功做出独一无二的作品，获得成就感。"},
+  {cat:"基础入门", q:"机器人编程和普通少儿编程有啥不一样？", k:["区别","不同","普通编程","少儿编程","对比","机器人编程是什么","硬件","软件"],
+    a:"普通少儿编程大多是在电脑上写代码、做动画小游戏；机器人编程是软硬件结合，孩子一边搭建机械结构，一边写代码控制机器人动起来，能直观看到自己程序的效果，更锻炼动手能力、空间思维和工程思维。"},
+  {cat:"基础入门", q:"学这个就是玩电脑、搭积木吗？对学习有啥用？会不会沉迷电脑？", k:["沉迷","玩电脑","玩游戏","有用吗","对学习","积木","作业","数学","浪费时间","影响学习","视力"],
+    a:"不只是搭积木和玩电脑。搭建锻炼空间几何，编程训练逻辑、拆解问题和试错习惯，这些能力可以迁移到数学、理科学习上。\n课堂有老师管控设备使用时间，以任务为导向，不是自由玩游戏，不会让孩子沉迷电脑。"},
+  {cat:"基础入门", q:"要不要自己买机器人套件、电脑？", k:["买器材","套件","电脑","自带","自己买","设备","采购","工具","家里买"],
+    a:"上课期间校区会提供全套机器人器材和电脑，不用自带。如果孩子学到高阶、想在家练习或者备赛，我们再推荐合适器材，不强制购买。"},
+
+  {cat:"课程与上课", q:"一节课多久？一周上几次？班里面多少个孩子？", k:["课时","多长","多久","一周","几次","班级人数","多少人","小班","时长","上课时间","班型","人数"],
+    a:"小学三年级以下课程为 60 分钟/次，小学三年级以上为 120 分钟/次，都是一周 1 次；2–4 人小班，保证老师可以逐个指导孩子，兼顾个性化搭建和编程问题的引导与技术指导。"},
+  {cat:"课程与上课", q:"用什么教材？学 Scratch 还是 Python、C++？", k:["教材","Scratch","Python","C++","学什么语言","课程体系","编程软件","语言","wedo","spike","大疆"],
+    a:"我们有配套自研课程体系，循序渐进：低龄阶段用 Scratch 图形化编程搭配不同级别机器人主机；之后进入 Python + 大疆智能主机车；有竞赛目标的孩子可以在假期参加进阶白名单赛事任务。\n不是固定只学一种，按孩子年龄和接受程度逐级升级。"},
+  {cat:"课程与上课", q:"缺课了怎么办，可以补课吗？", k:["缺课","补课","请假","落下","旷课","调课","错过课","缺勤","请假补课"],
+    a:"临时缺课可以提前跟我们说，我们优先安排同阶段其他班插班补课；如果时间不合适，老师也会补发本节课学习任务和作品资料，课后简单辅导跟上进度，具体以校区排课情况为准。"},
+  {cat:"课程与上课", q:"家长能不能进教室旁听、看孩子上课？", k:["旁听","家长进教室","观摩","看孩子上课","陪听","开放日","监控","家长陪同"],
+    a:"正式上课期间不建议家长进教室，容易分散孩子注意力；校区教室有监控，课后老师也会发孩子课堂作品和学习反馈；定期安排开放日，家长可以进教室观摩。"},
+  {cat:"课程与上课", q:"有没有试听课？试听课免费吗？需要提前预约吗？", k:["试听","体验课","免费试听","试听课","体验","免费课","预约体验","体验活动"],
+    a:"有体验试听课，目前是免费体验，需要提前预约，我们好预留器材、安排老师，方便给孩子匹配对应难度的体验内容。"},
+
+  {cat:"竞赛与升学", q:"学完可以参加什么比赛？信息学奥赛、科创赛、机器人赛事咱们这边带队吗？", k:["比赛","竞赛","赛事","奥赛","带队","参赛","集训","备赛","机器人比赛","信息学","白名单"],
+    a:"我们会对接适合青少年的科创类、机器人、信息学相关赛事，设有专门的备赛辅导通道；符合条件、基础达标的孩子，校区会组织集训和带队参赛。赛事属于拓展选择，不是必修课。"},
+  {cat:"竞赛与升学", q:"学编程对小升初、中考、高考有没有帮助？能不能走科技特长生？", k:["升学","小升初","中考","高考","特长生","加分","升学政策","科技特长","择校"],
+    a:"编程、科创能力可以作为孩子综合素质的亮点。各地科技特长生政策不同且每年调整，我们可以介绍当地公开政策，但无法承诺一定可以走特长生或升学加分，课程主要还是锻炼孩子理科思维。"},
+  {cat:"竞赛与升学", q:"有没有考级？证书含金量怎么样？", k:["考级","证书","含金量","等级考试","认证","资质证书"],
+    a:"有正规的青少年科创、编程等级考试，可以自愿报考。证书可作为学习成果证明和综合素质材料参考，但没有统一的升学加分效力，报考完全自愿。"},
+
+  {cat:"费用与规则", q:"怎么收费？多少钱一节课？有没有年费、套餐？", k:["收费","多少钱","价格","费用","学费","套餐","年费","课时包","报价","贵不贵","价钱","多少钱一节","优惠"],
+    a:"按课时包收费，不同班型单价不同，有短期课时包和更划算的长期套餐。具体报价可到校或联系校区老师领取报价单，当面核算；费用包含上课耗材，没有隐形收费。"},
+  {cat:"费用与规则", q:"课时有效期多久？不学了可以退费、转课时吗？", k:["退费","退款","转课","有效期","不学了","课时过期","转让","退钱","退费规则"],
+    a:"课时有固定有效期，合同里会写清楚。退费、转课规则按照报名协议执行，报名前老师会把相关条款跟您讲明白。"},
+  {cat:"费用与规则", q:"寒暑假有没有集训班、夏令营？", k:["寒假","暑假","夏令营","集训","假期","冬令营","假期班","寒暑假","短期班"],
+    a:"寒暑假会开设短期科创夏令营、机器人集训、竞赛冲刺班，一般提前 1–2 个月发布安排；可以先登记，名额出来第一时间通知。"},
+
+  {cat:"师资与效果", q:"上课老师是什么背景？有没有带竞赛的经验？", k:["老师","师资","背景","资质","教龄","竞赛经验","老师怎么样","教师","学历"],
+    a:"授课老师大多是计算机、自动化、理工科相关专业，入职后有系统培训；高阶和竞赛方向的老师具备带队参赛经验，也可以在校区查看老师介绍展板。"},
+  {cat:"师资与效果", q:"学多久能看到效果？孩子能做出什么作品？", k:["效果","多久学会","进步","作品","见效","学成","能做什么","多久看到效果","成果","变化"],
+    a:"大部分孩子上几节体验课就能独立完成简单小车、感应装置；坚持半年左右，可以独立设计、调试机器人程序。每节课都会产出作品，孩子可以带走自己的作品视频。"},
+  {cat:"师资与效果", q:"数学不好 / 专注力差，适合学这个吗？", k:["数学不好","专注力","坐不住","注意力","胆小","基础差","适合吗","坐不住","好动","不专心"],
+    a:"很多专注力弱、怕数学的孩子反而很适合机器人编程。它是动手驱动，有趣的任务更容易吸引孩子沉下心；课程里用到的数学知识循序渐进，边玩边理解，不会一上来难度很高。"},
+
+  {cat:"趣味提问", q:"机器人能不能自己做一个会走路、会避障的小车？", k:["避障","小车","走路","自动躲开","轮子","小车能不能","障碍"],
+    a:"当然可以！学到对应阶段，就会教孩子搭建底盘、安装传感器，写代码让小车识别障碍物、自动拐弯躲开。"},
+  {cat:"趣味提问", q:"能不能做游戏、做动画？", k:["游戏","动画","做游戏","小游戏","故事","scratch做游戏","作品"],
+    a:"Scratch 阶段就可以自己做小游戏、动画故事；进入 Python 阶段还能完成更丰富的程序小项目。"},
+  {cat:"趣味提问", q:"学完我能不能自己做 AI 机器人？", k:["AI","人工智能","自己做机器人","智能机器人","语音","机器人能不能","语音识别"],
+    a:"基础 AI 功能（如语音识别、感应交互的机器人）会在高阶课程中接触；完整复杂的 AI 机器人难度很高，我们会一步步先打好基础。"}
+];
+
+/* ===== FAQ 专栏：分类筛选 + 手风琴 ===== */
+const faqCats = ["全部", ...new Set(FAQ.map(x => x.cat))];
+let faqActiveCat = "全部";
+function renderFaqCats(){
+  $("#faqCats").innerHTML = faqCats.map(c =>
+    `<button class="${c===faqActiveCat?"active":""}" onclick="setFaqCat('${c}')">${c}</button>`).join("");
+}
+function setFaqCat(c){ faqActiveCat = c; renderFaqCats(); renderFaqList(); }
+function renderFaqList(){
+  const list = FAQ.map((f,i)=>({...f, idx:i}))
+    .filter(f => faqActiveCat==="全部" || f.cat===faqActiveCat);
+  if(!list.length){ $("#faqList").innerHTML = `<div class="faq-empty">该分类下暂无问答</div>`; return; }
+  $("#faqList").innerHTML = list.map(f => `
+    <details class="faq-item">
+      <summary>
+        <span class="faq-q-no">Q${f.idx+1}</span>
+        <span>${f.q}</span>
+        <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
+      </summary>
+      <div class="faq-a"><span class="msg-cat">${f.cat}</span><p>${f.a.replace(/\n/g,"<br>")}</p></div>
+    </details>`).join("");
+}
+
+/* ===== 悬浮问答窗口：关键词匹配自动作答 ===== */
+const chatPanel = $("#chatPanel"), chatBody = $("#chatBody"), chatInput = $("#chatInput");
+function normalize(s){ return (s||"").toLowerCase().replace(/[\s，。？!！、,?·:：;；“”"'（）()【】\-_\/\\]/g,""); }
+function matchFaq(text){
+  const q = normalize(text);
+  let best = null, bestScore = 0;
+  FAQ.forEach((f) => {
+    let score = 0;
+    f.k.forEach(kw => { if(q.includes(normalize(kw))) score += 2; });
+    if(q && normalize(f.q).includes(q)) score += 3;
+    if(score > bestScore){ bestScore = score; best = f; }
+  });
+  return bestScore >= 2 ? best : null;
+}
+function addMsg(text, who, cat){
+  const div = document.createElement("div");
+  div.className = "msg " + who;
+  if(cat){
+    const c = document.createElement("span");
+    c.className = "msg-cat"; c.textContent = cat; div.appendChild(c);
+  }
+  const p = document.createElement("div"); p.textContent = text; div.appendChild(p);
+  chatBody.appendChild(div);
+  chatBody.scrollTop = chatBody.scrollHeight;
+}
+function botReply(faq){
+  if(faq){
+    addMsg(faq.a, "bot", faq.cat + " · " + faq.q);
+  }else{
+    addMsg("这个问题我暂时没有匹配到固定解答。您可以换一种说法（比如“几岁可以学”“怎么收费”“有没有试听课”），也可以直接留下联系方式，由校区老师为您详细解答；或点击底部“预约体验课”到校区实地了解。", "bot");
+  }
+}
+function askFaq(text){
+  const t = text.trim();
+  if(!t) return;
+  addMsg(t, "user");
+  setTimeout(() => botReply(matchFaq(t)), 350);
+}
+$("#chatFab").addEventListener("click", () => {
+  chatPanel.classList.toggle("open");
+  if(chatPanel.classList.contains("open")) chatInput.focus();
+});
+$("#chatClose").addEventListener("click", () => chatPanel.classList.remove("open"));
+function sendChat(){ askFaq(chatInput.value); chatInput.value = ""; }
+$("#chatSend").addEventListener("click", sendChat);
+chatInput.addEventListener("keydown", e => { if(e.key==="Enter") sendChat(); });
+const quickQs = ["几岁可以学？","零基础能跟上吗？","怎么收费？","有没有试听课？","一节课多久？","可以参加什么比赛？"];
+$("#chatQuick").innerHTML = quickQs.map(q => `<button onclick='askFaq(this.textContent)'>${q}</button>`).join("");
+addMsg("您好！我是乐之疆智能问答助手，可以问我入学年龄、课程安排、收费、试听、竞赛与师资等问题，点击下方常见问题即可快速查看答案。", "bot");
+
+renderFaqCats(); renderFaqList();
+
+window.addEventListener("hashchange", route);
+renderList();
+route();
+</script>
+
+</body>
+</html>
