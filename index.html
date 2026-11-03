@@ -333,8 +333,6 @@ footer{border-top:1px solid var(--line);background:var(--bg-2);padding:56px 0 30
       <div class="lang-dd-menu" id="langDDMenu">
         <button type="button" data-lang="zh">中文</button>
         <button type="button" data-lang="en">English</button>
-        <button type="button" data-lang="ko">한국어</button>
-        <button type="button" data-lang="ja">日本語</button>
       </div>
     </div>
     <button class="nav-cta" onclick="location.hash='#contact'" data-i18n="ctaBook">预约体验课</button>
@@ -349,7 +347,7 @@ footer{border-top:1px solid var(--line);background:var(--bg-2);padding:56px 0 30
     <a href="#news" onclick="toggleMobile()">新闻动态</a>
     <a href="#contact" onclick="toggleMobile()">联系我们</a>
     <div class="lang-switch" id="langSwitchMobile" style="margin-top:12px">
-      <button data-lang="zh">中</button><button data-lang="en">EN</button><button data-lang="ko">한</button><button data-lang="ja">日</button>
+      <button data-lang="zh">中</button><button data-lang="en">EN</button>
     </div>
   </div>
 </header>
@@ -1015,7 +1013,7 @@ const FAQ_ZH = [
     a:"基础 AI 功能（如语音识别、感应交互的机器人）会在高阶课程中接触；完整复杂的 AI 机器人难度很高，我们会一步步先打好基础。"}
 ];
 
-/* ===== i18n：UI 静态文案（中/英/韩/日） ===== */
+/* ===== i18n：UI 静态文案（中 / 英） ===== */
 const I18N_UI = {
 zh: {
 ctaBook:"预约体验课", heroBadge:"河西区科学探索好评榜 · 第 2 名 · 大众点评 4.8 分",
@@ -1528,7 +1526,7 @@ ja: [
 
 /* ===== 运行时状态与切换 ===== */
 let state = { lang: (localStorage.getItem("prefLang") || "zh") };
-if(!["zh","en","ko","ja"].includes(state.lang)) state.lang = "zh";
+if(!["zh","en"].includes(state.lang)) state.lang = "zh";
 function curArticles(){ return state.lang==="zh" ? ARTICLES_ZH : I18N_A[state.lang]; }
 function curFaq(){ return state.lang==="zh" ? FAQ_ZH : I18N_F[state.lang]; }
 
@@ -1619,12 +1617,12 @@ renderQuickQs(); greet();
 /* ===== 语言切换 ===== */
 function applyI18n(){
   const U = I18N_UI[state.lang];
-  document.documentElement.lang = {zh:"zh-CN",en:"en",ko:"ko",ja:"ja"}[state.lang];
+  document.documentElement.lang = {zh:"zh-CN",en:"en"}[state.lang];
   document.querySelectorAll("[data-i18n]").forEach(el => { const k=el.getAttribute("data-i18n"); if(U[k]!=null) el.textContent=U[k]; });
   document.querySelectorAll("[data-i18n-html]").forEach(el => { const k=el.getAttribute("data-i18n-html"); if(U[k]!=null) el.innerHTML=U[k]; });
   document.querySelectorAll("[data-i18n-ph]").forEach(el => { const k=el.getAttribute("data-i18n-ph"); if(U[k]!=null) el.placeholder=U[k]; });
   document.querySelectorAll(".lang-switch button").forEach(b => b.classList.toggle("on", b.dataset.lang===state.lang));
-  const LANG_LABEL = {zh:"中文", en:"English", ko:"한국어", ja:"日本語"};
+  const LANG_LABEL = {zh:"中文", en:"English"};
   document.getElementById("langDDBtn").textContent = LANG_LABEL[state.lang] + " ▾";
   document.querySelectorAll("#langDDMenu button").forEach(b => b.classList.toggle("on", b.dataset.lang===state.lang));
   faqActiveCat = null;
