@@ -320,13 +320,13 @@ footer{border-top:1px solid var(--line);background:var(--bg-2);padding:56px 0 30
       </span>
     </a>
     <nav class="menu" id="menu">
-      <a href="#/" data-nav="home">首页</a>
-      <a href="#about" data-nav="about">学校简介</a>
-      <a href="#courses" data-nav="courses">课程体系</a>
-      <a href="#reviews" data-nav="reviews">学员口碑</a>
-      <a href="#faq" data-nav="faq">常见问答</a>
-      <a href="#news" data-nav="news">新闻动态</a>
-      <a href="#contact" data-nav="contact">联系我们</a>
+      <a href="#/" data-nav="home" data-i18n="navHome">首页</a>
+      <a href="#about" data-nav="about" data-i18n="navAbout">学校简介</a>
+      <a href="#courses" data-nav="courses" data-i18n="navCourses">课程体系</a>
+      <a href="#reviews" data-nav="reviews" data-i18n="navReviews">学员口碑</a>
+      <a href="#faq" data-nav="faq" data-i18n="navFaq">常见问答</a>
+      <a href="#news" data-nav="news" data-i18n="navNews">新闻动态</a>
+      <a href="#contact" data-nav="contact" data-i18n="navContact">联系我们</a>
     </nav>
     <div class="lang-dd" id="langDD">
       <button class="lang-dd-btn" id="langDDBtn" type="button" aria-haspopup="true" aria-expanded="false">中文 ▾</button>
@@ -339,13 +339,13 @@ footer{border-top:1px solid var(--line);background:var(--bg-2);padding:56px 0 30
     <button class="burger" id="burger" aria-label="菜单"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
   </div>
   <div class="mobile-menu" id="mobileMenu">
-    <a href="#/" onclick="goHome()">首页</a>
-    <a href="#about" onclick="toggleMobile()">学校简介</a>
-    <a href="#courses" onclick="toggleMobile()">课程体系</a>
-    <a href="#reviews" onclick="toggleMobile()">学员口碑</a>
-    <a href="#faq" onclick="toggleMobile()">常见问答</a>
-    <a href="#news" onclick="toggleMobile()">新闻动态</a>
-    <a href="#contact" onclick="toggleMobile()">联系我们</a>
+    <a href="#/" onclick="goHome()" data-i18n="navHome">首页</a>
+    <a href="#about" onclick="toggleMobile()" data-i18n="navAbout">学校简介</a>
+    <a href="#courses" onclick="toggleMobile()" data-i18n="navCourses">课程体系</a>
+    <a href="#reviews" onclick="toggleMobile()" data-i18n="navReviews">学员口碑</a>
+    <a href="#faq" onclick="toggleMobile()" data-i18n="navFaq">常见问答</a>
+    <a href="#news" onclick="toggleMobile()" data-i18n="navNews">新闻动态</a>
+    <a href="#contact" onclick="toggleMobile()" data-i18n="navContact">联系我们</a>
     <div class="lang-switch" id="langSwitchMobile" style="margin-top:12px">
       <button data-lang="zh">中</button><button data-lang="en">EN</button>
     </div>
@@ -1016,6 +1016,7 @@ const FAQ_ZH = [
 /* ===== i18n：UI 静态文案（中 / 英） ===== */
 const I18N_UI = {
 zh: {
+navHome:"首页", navAbout:"学校简介", navCourses:"课程体系", navReviews:"学员口碑", navFaq:"常见问答", navNews:"新闻动态", navContact:"联系我们",
 ctaBook:"预约体验课", heroBadge:"河西区科学探索好评榜 · 第 2 名 · 大众点评 4.8 分",
 heroTitle:'把世界最好的<br><span class="accent">科技教育</span>，带给每一个孩子',
 heroLead:"AI 人工智能启蒙 · 机器人编程 · Scratch / Python 代码编程 · 3D 建模与打印 · 创客电子实验。2014 年创办于天津下瓦房，按孩子水平分班进阶，在动手搭建与编程实践中锻炼逻辑思维、想象力与解决问题的能力。",
@@ -1062,6 +1063,7 @@ chatFallback:"这个问题我暂时没有匹配到固定解答。您可以换一
 quickQs:["几岁可以学？","零基础能跟上吗？","怎么收费？","有没有试听课？","一节课多久？","可以参加什么比赛？"]
 },
 en: {
+navHome:"Home", navAbout:"About", navCourses:"Courses", navReviews:"Reviews", navFaq:"FAQ", navNews:"News", navContact:"Contact",
 ctaBook:"Book a Trial Class", heroBadge:"Hexi District Science Exploration Top-Rated · #2 · Dianping 4.8",
 heroTitle:'Bringing the world\'s best <span class="accent">STEM education</span> to every child',
 heroLead:"AI introduction · Robotics programming · Scratch / Python coding · 3D modeling & printing · Maker electronics. Founded in 2014 at Xiawafang, Tianjin. Children advance by skill level, building logic, imagination and problem-solving through hands-on projects.",
