@@ -913,12 +913,12 @@ document.querySelectorAll("#menu a").forEach(a => {
   });
 });
 
-/* ===== 表单提交（真实通知：邮件 formsubmit.co + 微信 Server酱） ===== */
+/* ===== 表单提交（真实通知：邮件 formsubmit.co + 微信中转函数） ===== */
 /* 邮件：提交数据由 formsubmit.co 转发到校区邮箱（首次提交需到收件邮箱点击激活确认邮件）。
-   微信：浏览器直接调用推送接口有跨域与密钥暴露风险，SendKey 填写后才会启用；
-         建议同时在 Server酱后台设置消息频率限制，降低 SendKey 被查看后盗刷的影响。 */
+   微信：SendKey 已隐藏到免费中转函数（Cloudflare Worker）内，前端只调用中转函数地址，不暴露密钥；
+         中转函数内部用环境变量 SENDKEY 调用 Server酱 推送。 */
 const BOOK_FORM_EMAIL = "2603571557@qq.com"; // 预约登记邮件接收地址（formsubmit.co 转发）
-const WECHAT_SENDKEY  = "SCT460202Ts9uXNJ2jwDB2Si2DKA4zTTU0"; // Server酱 SendKey（已开通微信推送）
+const WECHAT_ENDPOINT = "https://legoedu-wx-notify.billfu1975.workers.dev/"; // 微信中转函数（SendKey 已隐藏）
 
 function showToast(msg){
   const t = $("#toast");
@@ -952,18 +952,15 @@ async function submitBooking(e){
     });
     if(!r.ok) mailOk = false;
   }catch(err){ mailOk = false; }
-  // 2) 微信通知（Server酱，no-cors 发出即可收到推送；SendKey 为空则跳过）
-  if(WECHAT_SENDKEY){
-    try{
-      const title = "官网预约：" + data["家长称呼"] + " " + data["联系电话"];
-      const desp = Object.entries(data)
-        .filter(function(p){ return p[0] !== "_subject"; })
-        .map(function(p){ return "**" + p[0] + "**：" + p[1]; })
-        .join("\n\n");
-      await fetch("https://sctapi.ftqq.com/" + WECHAT_SENDKEY + ".send?title=" +
-        encodeURIComponent(title) + "&desp=" + encodeURIComponent(desp), { mode: "no-cors" });
-    }catch(err){ wxOk = false; }
-  }
+  // 2) 微信通知（经中转函数，SendKey 已隐藏；text/plain 简单请求避免 CORS 预检）
+  try{
+    const r = await fetch(WECHAT_ENDPOINT, {
+      method: "POST",
+      headers: {"Content-Type":"text/plain;charset=UTF-8"},
+      body: JSON.stringify(data)
+    });
+    if(!r.ok) wxOk = false;
+  }catch(err){ wxOk = false; }
   showToast((mailOk && wxOk) ? U.formOk : U.formErr);
   e.target.reset();
   return false;
