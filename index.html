@@ -51,6 +51,10 @@ nav.menu a{padding:9px 13px;border-radius:10px;font-size:15px;color:var(--text-2
 nav.menu a:hover,nav.menu a.active{color:var(--text);background:rgba(53,230,200,.08)}
 .nav-cta{padding:10px 18px;border-radius:12px;background:var(--teal);color:#04221C;font-weight:700;border:none;font-size:15px;white-space:nowrap}
 .nav-cta:hover{filter:brightness(1.08)}
+.lang-switch{display:flex;gap:2px;align-items:center;border:1px solid var(--line-2);border-radius:10px;padding:3px}
+.lang-switch button{background:none;border:none;color:var(--text-3);font-size:13px;font-weight:600;padding:4px 8px;border-radius:7px;cursor:pointer;line-height:1}
+.lang-switch button.on{background:var(--teal);color:#04221C}
+.lang-switch button:not(.on):hover{color:var(--text)}
 .burger{display:none;background:none;border:1px solid var(--line-2);border-radius:10px;width:42px;height:42px;color:var(--text);place-items:center}
 .burger svg{width:22px;height:22px}
 .mobile-menu{display:none;position:fixed;top:68px;left:0;right:0;z-index:59;background:rgba(7,12,21,.97);border-bottom:1px solid var(--line);padding:12px 22px 20px}
@@ -274,6 +278,7 @@ footer{border-top:1px solid var(--line);background:var(--bg-2);padding:56px 0 30
   section{padding:64px 0}
   nav.menu{display:none}
   .nav-cta{display:none}
+  #langSwitch{display:none}
   .burger{display:grid}
   .stats-grid{grid-template-columns:repeat(2,1fr)}
   .course-grid,.review-grid,.news-list,.deal-grid,.form-grid{grid-template-columns:1fr}
@@ -314,7 +319,10 @@ footer{border-top:1px solid var(--line);background:var(--bg-2);padding:56px 0 30
       <a href="#news" data-nav="news">新闻动态</a>
       <a href="#contact" data-nav="contact">联系我们</a>
     </nav>
-    <button class="nav-cta" onclick="location.hash='#contact'">预约体验课</button>
+    <div class="lang-switch" id="langSwitch">
+      <button data-lang="zh" class="on">中</button><button data-lang="en">EN</button><button data-lang="ko">한</button><button data-lang="ja">日</button>
+    </div>
+    <button class="nav-cta" onclick="location.hash='#contact'" data-i18n="ctaBook">预约体验课</button>
     <button class="burger" id="burger" aria-label="菜单"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
   </div>
   <div class="mobile-menu" id="mobileMenu">
@@ -325,6 +333,9 @@ footer{border-top:1px solid var(--line);background:var(--bg-2);padding:56px 0 30
     <a href="#faq" onclick="toggleMobile()">常见问答</a>
     <a href="#news" onclick="toggleMobile()">新闻动态</a>
     <a href="#contact" onclick="toggleMobile()">联系我们</a>
+    <div class="lang-switch" id="langSwitchMobile" style="margin-top:12px">
+      <button data-lang="zh">中</button><button data-lang="en">EN</button><button data-lang="ko">한</button><button data-lang="ja">日</button>
+    </div>
   </div>
 </header>
 
@@ -333,19 +344,19 @@ footer{border-top:1px solid var(--line);background:var(--bg-2);padding:56px 0 30
   <div class="hero-bg"><img src="assets/hero.jpg" alt="少年儿童在科技教室搭建可编程机器人"></div>
   <div class="hero-inner">
     <div class="hero-logo"><img src="assets/logo-wordmark.jpg" alt="乐之疆教育 学校标识"></div>
-    <span class="hero-badge"><span class="dot"></span>河西区科学探索好评榜 · 第 2 名 · 大众点评 4.8 分</span>
-    <h1>把世界最好的<br><span class="accent">科技教育</span>，带给每一个孩子</h1>
-    <p class="lead">AI 人工智能启蒙 · 机器人编程 · Scratch / Python 代码编程 · 3D 建模与打印 · 创客电子实验。2014 年创办于天津下瓦房，按孩子水平分班进阶，在动手搭建与编程实践中锻炼逻辑思维、想象力与解决问题的能力。</p>
+    <span class="hero-badge"><span class="dot"></span><span data-i18n="heroBadge">河西区科学探索好评榜 · 第 2 名 · 大众点评 4.8 分</span></span>
+    <h1 data-i18n-html="heroTitle">把世界最好的<br><span class="accent">科技教育</span>，带给每一个孩子</h1>
+    <p class="lead" data-i18n="heroLead">AI 人工智能启蒙 · 机器人编程 · Scratch / Python 代码编程 · 3D 建模与打印 · 创客电子实验。2014 年创办于天津下瓦房，按孩子水平分班进阶，在动手搭建与编程实践中锻炼逻辑思维、想象力与解决问题的能力。</p>
     <div class="hero-actions">
-      <a class="btn btn-primary" href="#contact">预约 1 元体验课
+      <a class="btn btn-primary" href="#contact" data-i18n-html="heroCta1">预约 1 元体验课
         <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
       </a>
-      <a class="btn btn-ghost" href="#courses">查看课程体系</a>
+      <a class="btn btn-ghost" href="#courses" data-i18n="heroCta2">查看课程体系</a>
     </div>
     <div class="hero-meta">
-      <div class="score"><b>4.8 / 5.0</b>课程 · 师资 · 环境 同评 4.8</div>
-      <div><b>473</b>条家长评价（大众点评公示）</div>
-      <div><b>2014</b>年创办至今</div>
+      <div class="score"><b>4.8 / 5.0</b><span data-i18n="heroMeta1">课程 · 师资 · 环境 同评 4.8</span></div>
+      <div><b>473</b><span data-i18n="heroMeta2">条家长评价（大众点评公示）</span></div>
+      <div><b>2014</b><span data-i18n="heroMeta3">年创办至今</span></div>
     </div>
   </div>
 </section>
@@ -353,10 +364,10 @@ footer{border-top:1px solid var(--line);background:var(--bg-2);padding:56px 0 30
 <!-- ===== 数据条 ===== -->
 <div class="stats">
   <div class="wrap stats-grid">
-    <div class="stat"><div class="num">2014<small>年</small></div><div class="lbl">学校成立于天津河西</div></div>
-    <div class="stat"><div class="num">4.8</div><div class="lbl">大众点评综合评分（473 条评价）</div></div>
-    <div class="stat"><div class="num">6<small>大</small></div><div class="lbl">科技课程方向（以当期课表为准）</div></div>
-    <div class="stat"><div class="num">40<small>米</small></div><div class="lbl">距地铁下瓦房站 A 口步行距离</div></div>
+    <div class="stat"><div class="num">2014</div><div class="lbl" data-i18n="stat1">学校成立于天津河西</div></div>
+    <div class="stat"><div class="num">4.8</div><div class="lbl" data-i18n="stat2">大众点评综合评分（473 条评价）</div></div>
+    <div class="stat"><div class="num">6</div><div class="lbl" data-i18n="stat3">科技课程方向（以当期课表为准）</div></div>
+    <div class="stat"><div class="num">40<small>m</small></div><div class="lbl" data-i18n="stat4">距地铁下瓦房站 A 口步行距离</div></div>
   </div>
 </div>
 
@@ -365,7 +376,7 @@ footer{border-top:1px solid var(--line);background:var(--bg-2);padding:56px 0 30
   <div class="wrap about-grid">
     <div class="about-photo">
       <img src="assets/classroom.jpg" alt="教师在课堂上指导学生调试机器人模型">
-      <div class="tag-float">校区地址：<b>下瓦房晶采大厦写字楼四楼</b></div>
+      <div class="tag-float"><span data-i18n="aboutTagLabel">校区地址：</span><b data-i18n="aboutTagVal">下瓦房晶采大厦写字楼四楼</b></div>
     </div>
     <div class="about-copy">
       <div class="about-badge">
@@ -375,15 +386,15 @@ footer{border-top:1px solid var(--line);background:var(--bg-2);padding:56px 0 30
           <span class="org-sub">LEZHIJIANG TRAINING SCHOOL · EST 2012</span>
         </span>
       </div>
-      <span class="section-tag">About Us · 学校简介</span>
-      <h2 class="section-title">十年专注科技素养，<br>从积木搭建走向代码创造</h2>
-      <p><strong>天津市河西区乐之疆教育培训学校</strong>（曾用名：天津市河西区乐高教育培训学校）成立于 2014 年 1 月，是经河西区民政局登记、由河西区教育局与河西区科学技术局业务主管的民办非学历教育机构，业务范围为<strong>非学科（科技类）校外培训</strong>。</p>
-      <p>学校面向学龄前与小学阶段孩子，提供齿轮机械搭建、可编程机器人、图形化与代码编程、创客电子、3D 建模打印、AI 启蒙等阶梯式课程。教学上根据孩子当前水平推荐班型，能力达标后逐级升班，课堂形式注重启发式引导与动手实践，让孩子在完成项目的过程中建立自信与创造力。</p>
+      <span class="section-tag" data-i18n="aboutTag">About Us · 学校简介</span>
+      <h2 class="section-title" data-i18n-html="aboutTitle">十年专注科技素养，<br>从积木搭建走向代码创造</h2>
+      <p data-i18n-html="aboutP1"><strong>天津市河西区乐之疆教育培训学校</strong>（曾用名：天津市河西区乐高教育培训学校）成立于 2014 年 1 月，是经河西区民政局登记、由河西区教育局与河西区科学技术局业务主管的民办非学历教育机构，业务范围为<strong>非学科（科技类）校外培训</strong>。</p>
+      <p data-i18n="aboutP2">学校面向学龄前与小学阶段孩子，提供齿轮机械搭建、可编程机器人、图形化与代码编程、创客电子、3D 建模打印、AI 启蒙等阶梯式课程。教学上根据孩子当前水平推荐班型，能力达标后逐级升班，课堂形式注重启发式引导与动手实践，让孩子在完成项目的过程中建立自信与创造力。</p>
       <div class="qual-list">
-        <div class="qual"><div class="k">登记证号</div><div class="v">津西民政字 010265</div></div>
-        <div class="qual"><div class="k">统一社会信用代码</div><div class="v">521201030915540754</div></div>
-        <div class="qual"><div class="k">业务主管单位</div><div class="v">河西区教育局 · 河西区科学技术局</div></div>
-        <div class="qual"><div class="k">机构性质</div><div class="v">民办非企业单位 · 非学科科技类培训</div></div>
+        <div class="qual"><div class="k" data-i18n="qual1k">登记证号</div><div class="v">津西民政字 010265</div></div>
+        <div class="qual"><div class="k" data-i18n="qual2k">统一社会信用代码</div><div class="v">521201030915540754</div></div>
+        <div class="qual"><div class="k" data-i18n="qual3k">业务主管单位</div><div class="v" data-i18n="qual3v">河西区教育局 · 河西区科学技术局</div></div>
+        <div class="qual"><div class="k" data-i18n="qual4k">机构性质</div><div class="v" data-i18n="qual4v">民办非企业单位 · 非学科科技类培训</div></div>
       </div>
     </div>
   </div>
@@ -394,94 +405,94 @@ footer{border-top:1px solid var(--line);background:var(--bg-2);padding:56px 0 30
   <div class="wrap">
     <div class="head-row">
       <div>
-        <span class="section-tag">Courses · 课程体系</span>
-        <h2 class="section-title">从动手搭建到代码创造的进阶路径</h2>
-        <p class="section-lead">围绕机器人、编程、创客电子、3D 与 AI 五条线索设置阶梯课程，孩子按测评结果进入对应班型，能力达标后逐级升班。</p>
+        <span class="section-tag" data-i18n="coursesTag">Courses · 课程体系</span>
+        <h2 class="section-title" data-i18n="coursesTitle">从动手搭建到代码创造的进阶路径</h2>
+        <p class="section-lead" data-i18n="coursesLead">围绕机器人、编程、创客电子、3D 与 AI 五条线索设置阶梯课程，孩子按测评结果进入对应班型，能力达标后逐级升班。</p>
       </div>
     </div>
     <div class="course-grid">
       <article class="course-card">
         <div class="course-thumb">
           <img src="assets/course-robot.jpg" alt="可编程积木机器人与机械臂套件">
-          <span class="age">5–6 岁 · 启蒙体验</span>
+          <span class="age" data-i18n="c1Age">5–6 岁 · 启蒙体验</span>
         </div>
         <div class="course-body">
           <span class="course-no">COURSE 01</span>
-          <h3>齿轮机械与动力搭建</h3>
-          <p>认识齿轮、杠杆、连杆与动力传动，在积木搭建中理解简单机械原理；课堂以项目任务驱动，保护孩子最初的好奇心与动手欲。</p>
-          <div class="course-tags"><span>机械原理</span><span>动手搭建</span><span>体验课 ¥1</span></div>
+          <h3 data-i18n="c1Title">齿轮机械与动力搭建</h3>
+          <p data-i18n="c1Desc">认识齿轮、杠杆、连杆与动力传动，在积木搭建中理解简单机械原理；课堂以项目任务驱动，保护孩子最初的好奇心与动手欲。</p>
+          <div class="course-tags"><span data-i18n="c1t1">机械原理</span><span data-i18n="c1t2">动手搭建</span><span data-i18n="c1t3">体验课 ¥1</span></div>
         </div>
       </article>
       <article class="course-card">
         <div class="course-thumb">
           <img src="assets/course-coding.jpg" alt="平板上的图形化积木编程界面">
-          <span class="age">6 岁起 · 进阶</span>
+          <span class="age" data-i18n="c2Age">6 岁起 · 进阶</span>
         </div>
         <div class="course-body">
           <span class="course-no">COURSE 02</span>
-          <h3>智能机器人与机械手编程</h3>
-          <p>使用可编程机器人套件，学习马达、传感器与动作控制，完成巡线、抓取、机械手等任务项目，并提供校内外展示与竞赛项目辅导。</p>
-          <div class="course-tags"><span>机器人</span><span>传感器</span><span>参赛项目辅导</span></div>
+          <h3 data-i18n="c2Title">智能机器人与机械手编程</h3>
+          <p data-i18n="c2Desc">使用可编程机器人套件，学习马达、传感器与动作控制，完成巡线、抓取、机械手等任务项目，并提供校内外展示与竞赛项目辅导。</p>
+          <div class="course-tags"><span data-i18n="c2t1">机器人</span><span data-i18n="c2t2">传感器</span><span data-i18n="c2t3">参赛项目辅导</span></div>
         </div>
       </article>
       <article class="course-card">
         <div class="course-thumb">
           <img src="assets/course-science.jpg" alt="面包板、导线与 LED 组成的电子实验装置">
-          <span class="age">7 岁起 · 图形化编程</span>
+          <span class="age" data-i18n="c3Age">7 岁起 · 图形化编程</span>
         </div>
         <div class="course-body">
           <span class="course-no">COURSE 03</span>
-          <h3>Scratch 图形化编程</h3>
-          <p>学习事件、循环、变量与条件判断，用积木式指令创作故事、动画、音乐与小游戏，在作品完成中建立顺序、分支与循环的编程思维。</p>
-          <div class="course-tags"><span>逻辑思维</span><span>创意作品</span><span>零基础友好</span></div>
+          <h3 data-i18n="c3Title">Scratch 图形化编程</h3>
+          <p data-i18n="c3Desc">学习事件、循环、变量与条件判断，用积木式指令创作故事、动画、音乐与小游戏，在作品完成中建立顺序、分支与循环的编程思维。</p>
+          <div class="course-tags"><span data-i18n="c3t1">逻辑思维</span><span data-i18n="c3t2">创意作品</span><span data-i18n="c3t3">零基础友好</span></div>
         </div>
       </article>
       <article class="course-card">
         <div class="course-icon-panel">
           <svg viewBox="0 0 24 24" fill="none" stroke="#5596FF" stroke-width="1.6"><path d="M8 6l-5 6 5 6M16 6l5 6-5 6M13 4l-2 16"/></svg>
-          <span class="age">进阶阶段 · 代码编程</span>
+          <span class="age" data-i18n="c4Age">进阶阶段 · 代码编程</span>
         </div>
         <div class="course-body">
           <span class="course-no">COURSE 04</span>
-          <h3>Python 代码编程</h3>
-          <p>从变量、数据类型、判断与循环等基础语法起步，逐步完成 2D 小游戏与小工具应用，为后续接触人工智能与数据应用打下代码基础。</p>
-          <div class="course-tags"><span>Python</span><span>代码思维</span><span>项目实战</span></div>
+          <h3 data-i18n="c4Title">Python 代码编程</h3>
+          <p data-i18n="c4Desc">从变量、数据类型、判断与循环等基础语法起步，逐步完成 2D 小游戏与小工具应用，为后续接触人工智能与数据应用打下代码基础。</p>
+          <div class="course-tags"><span>Python</span><span data-i18n="c4t2">代码思维</span><span data-i18n="c4t3">项目实战</span></div>
         </div>
       </article>
       <article class="course-card">
         <div class="course-icon-panel">
           <svg viewBox="0 0 24 24" fill="none" stroke="#35E6C8" stroke-width="1.6"><rect x="3" y="8" width="18" height="10" rx="2"/><path d="M7 12h.01M11 12h.01M15 12h.01M9 8V5M15 8V5"/></svg>
-          <span class="age">进阶阶段 · 创客硬件</span>
+          <span class="age" data-i18n="c5Age">进阶阶段 · 创客硬件</span>
         </div>
         <div class="course-body">
           <span class="course-no">COURSE 05</span>
-          <h3>创客电子与硬件实验</h3>
-          <p>使用面包板、LED、传感器与主控板，动手搭建智能小灯、报警器、小车等创客作品，理解电路、输入与输出之间的关系。</p>
-          <div class="course-tags"><span>电路实验</span><span>传感器</span><span>创客作品</span></div>
+          <h3 data-i18n="c5Title">创客电子与硬件实验</h3>
+          <p data-i18n="c5Desc">使用面包板、LED、传感器与主控板，动手搭建智能小灯、报警器、小车等创客作品，理解电路、输入与输出之间的关系。</p>
+          <div class="course-tags"><span data-i18n="c5t1">电路实验</span><span data-i18n="c5t2">传感器</span><span data-i18n="c5t3">创客作品</span></div>
         </div>
       </article>
       <article class="course-card">
         <div class="course-icon-panel">
           <svg viewBox="0 0 24 24" fill="none" stroke="#FFC266" stroke-width="1.6"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M19 5l-2 2M7 17l-2 2"/></svg>
-          <span class="age">拓展方向 · 科技前沿</span>
+          <span class="age" data-i18n="c6Age">拓展方向 · 科技前沿</span>
         </div>
         <div class="course-body">
           <span class="course-no">COURSE 06</span>
-          <h3>3D 建模与 AI 启蒙</h3>
-          <p>体验基础三维建模与 3D 打印流程；认识人工智能，了解语音识别、图像识别等常见 AI 应用场景，建立面向未来的科技视野。</p>
-          <div class="course-tags"><span>3D 建模</span><span>3D 打印</span><span>AI 认知</span></div>
+          <h3 data-i18n="c6Title">3D 建模与 AI 启蒙</h3>
+          <p data-i18n="c6Desc">体验基础三维建模与 3D 打印流程；认识人工智能，了解语音识别、图像识别等常见 AI 应用场景，建立面向未来的科技视野。</p>
+          <div class="course-tags"><span data-i18n="c6t1">3D 建模</span><span data-i18n="c6t2">3D 打印</span><span data-i18n="c6t3">AI 认知</span></div>
         </div>
       </article>
     </div>
-    <p class="note-line">说明：以上为学校课程方向介绍，具体班型、适龄段、课时与收费以到校测评后出具的当期课表与方案为准。</p>
+    <p class="note-line" data-i18n="coursesNote">说明：以上为学校课程方向介绍，具体班型、适龄段、课时与收费以到校测评后出具的当期课表与方案为准。</p>
   </div>
 </section>
 <!-- ===== 学员口碑 ===== -->
 <section id="reviews">
   <div class="wrap">
-    <span class="section-tag">Reviews · 学员口碑</span>
-    <h2 class="section-title">家长怎么评价这里的课堂</h2>
-    <p class="section-lead">以下评分、评价标签与精选评价摘自大众点评店铺公开页面（473 条评价），评价原文保留平台用户化名与日期。</p>
+    <span class="section-tag" data-i18n="revTag">Reviews · 学员口碑</span>
+    <h2 class="section-title" data-i18n="revTitle">家长怎么评价这里的课堂</h2>
+    <p class="section-lead" data-i18n="revLead">以下评分、评价标签与精选评价摘自大众点评店铺公开页面（473 条评价），评价原文保留平台用户化名与日期。</p>
     <div class="review-top" style="margin-top:34px">
       <div class="score-card">
         <div class="score-big">4.8</div>
@@ -492,50 +503,50 @@ footer{border-top:1px solid var(--line);background:var(--bg-2);padding:56px 0 30
           <svg viewBox="0 0 24 24" fill="#FFC266"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.2 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg>
           <svg viewBox="0 0 24 24" fill="#FFC266"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.2 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg>
         </div>
-        <div class="count">共 473 条家长评价</div>
+        <div class="count" data-i18n="revCount">共 473 条家长评价</div>
         <div class="sub-scores">
-          <div class="row"><span>课程评分</span><b>4.8</b></div>
-          <div class="row"><span>师资评分</span><b>4.8</b></div>
-          <div class="row"><span>环境评分</span><b>4.8</b></div>
+          <div class="row"><span data-i18n="revSub1">课程评分</span><b>4.8</b></div>
+          <div class="row"><span data-i18n="revSub2">师资评分</span><b>4.8</b></div>
+          <div class="row"><span data-i18n="revSub3">环境评分</span><b>4.8</b></div>
         </div>
       </div>
       <div>
         <div class="tag-cloud">
-          <span class="chip">孩子兴趣浓厚<b>171</b></span>
-          <span class="chip">老师耐心负责<b>153</b></span>
-          <span class="chip">教学水平高<b>44</b></span>
-          <span class="chip">知识吸收轻松<b>10</b></span>
-          <span class="chip">激发学生想象力<b>6</b></span>
+          <span class="chip" data-i18n-html="chip1">孩子兴趣浓厚<b>171</b></span>
+          <span class="chip" data-i18n-html="chip2">老师耐心负责<b>153</b></span>
+          <span class="chip" data-i18n-html="chip3">教学水平高<b>44</b></span>
+          <span class="chip" data-i18n-html="chip4">知识吸收轻松<b>10</b></span>
+          <span class="chip" data-i18n-html="chip5">激发学生想象力<b>6</b></span>
         </div>
         <div class="review-grid">
           <article class="review-card">
-            <div class="head"><span class="user">alioyer</span><span class="date">10月16日 · 超预期</span></div>
-            <span class="verdict">好评</span>
-            <p>娃在这上了八年了，也是他目前唯一主动想上的兴趣班。一直跟着倪老师上课，从刚开始的小宝宝到现在大哥哥，时间过得真快，娃还是一如既往地喜欢倪老师——超级耐心且热爱自己的工作，可盐可甜，既能正向引导又会偶尔展现威严。孩子玩得挺开心，又能学到东西，赞一个！</p>
+            <div class="head"><span class="user">alioyer</span><span class="date" data-i18n="rv1Date">10月16日 · 超预期</span></div>
+            <span class="verdict" data-i18n="rvVerdict">好评</span>
+            <p data-i18n="rv1Text">娃在这上了八年了，也是他目前唯一主动想上的兴趣班。一直跟着倪老师上课，从刚开始的小宝宝到现在大哥哥，时间过得真快，娃还是一如既往地喜欢倪老师——超级耐心且热爱自己的工作，可盐可甜，既能正向引导又会偶尔展现威严。孩子玩得挺开心，又能学到东西，赞一个！</p>
           </article>
           <article class="review-card">
-            <div class="head"><span class="user">xiaxia1028</span><span class="date">10月17日 · 超预期</span></div>
-            <span class="verdict">好评</span>
-            <p>我们从幼儿园开始就在这里上课，会根据孩子的水平推荐上课的级别，到了一定程度也会升班，上课形式不死板。孩子一直和王老师上课，孩子很喜欢王老师的授课形式，拓展的很多，寓教于乐。</p>
+            <div class="head"><span class="user">xiaxia1028</span><span class="date" data-i18n="rv2Date">10月17日 · 超预期</span></div>
+            <span class="verdict" data-i18n="rvVerdict">好评</span>
+            <p data-i18n="rv2Text">我们从幼儿园开始就在这里上课，会根据孩子的水平推荐上课的级别，到了一定程度也会升班，上课形式不死板。孩子一直和王老师上课，孩子很喜欢王老师的授课形式，拓展的很多，寓教于乐。</p>
           </article>
           <article class="review-card">
-            <div class="head"><span class="user">缘妙不可言</span><span class="date">9月18日 · 超预期</span></div>
-            <span class="verdict">好评</span>
-            <p>孩子跟着倪老师上了两三年课程了，孩子进步很大。倪老师很专业，而且非常耐心，教学风格很幽默，启发式教学真的很棒，会一直坚持下去。</p>
+            <div class="head"><span class="user">缘妙不可言</span><span class="date" data-i18n="rv3Date">9月18日 · 超预期</span></div>
+            <span class="verdict" data-i18n="rvVerdict">好评</span>
+            <p data-i18n="rv3Text">孩子跟着倪老师上了两三年课程了，孩子进步很大。倪老师很专业，而且非常耐心，教学风格很幽默，启发式教学真的很棒，会一直坚持下去。</p>
           </article>
         </div>
       </div>
     </div>
-    <p class="source-note">数据来源：大众点评「乐之疆教育学校·AI人工智能·机器人编程·3d建模打印(晶采中心)」店铺公开页面；完整 473 条评价与问答需在大众点评 App 内查看。</p>
+    <p class="source-note" data-i18n="revSource">数据来源：大众点评「乐之疆教育学校·AI人工智能·机器人编程·3d建模打印(晶采中心)」店铺公开页面；完整 473 条评价与问答需在大众点评 App 内查看。</p>
   </div>
 </section>
 
 <!-- ===== 常见问答专栏 ===== -->
 <section id="faq">
   <div class="wrap">
-    <span class="section-tag">FAQ · 常见问答</span>
-    <h2 class="section-title">家长最常问的问题，这里一次说清楚</h2>
-    <p class="section-lead" style="color:var(--text-2);max-width:680px;margin-bottom:8px">以下问答整理自校区固定咨询口径，覆盖入学年龄、零基础、课时安排、收费、竞赛升学与师资效果；点击问题展开答案，也可以直接使用右下角问答窗口提问。</p>
+    <span class="section-tag" data-i18n="faqTag">FAQ · 常见问答</span>
+    <h2 class="section-title" data-i18n="faqTitle">家长最常问的问题，这里一次说清楚</h2>
+    <p class="section-lead" style="color:var(--text-2);max-width:680px;margin-bottom:8px" data-i18n="faqLead">以下问答整理自校区固定咨询口径，覆盖入学年龄、零基础、课时安排、收费、竞赛升学与师资效果；点击问题展开答案，也可以直接使用右下角问答窗口提问。</p>
     <div class="faq-cats" id="faqCats"></div>
     <div class="faq-list" id="faqList"></div>
   </div>
@@ -546,9 +557,9 @@ footer{border-top:1px solid var(--line);background:var(--bg-2);padding:56px 0 30
     <div id="listView">
       <div class="head-row">
         <div>
-          <span class="section-tag">News · 新闻动态</span>
-          <h2 class="section-title">学校动态与课程科普</h2>
-          <p class="section-lead">了解学校发展、课程进阶路径、家长常见问题与校区到访信息。</p>
+          <span class="section-tag" data-i18n="newsTag">News · 新闻动态</span>
+          <h2 class="section-title" data-i18n="newsTitle">学校动态与课程科普</h2>
+          <p class="section-lead" data-i18n="newsLead">了解学校发展、课程进阶路径、家长常见问题与校区到访信息。</p>
         </div>
       </div>
       <div class="news-list" id="newsList"></div>
@@ -557,7 +568,7 @@ footer{border-top:1px solid var(--line);background:var(--bg-2);padding:56px 0 30
     <div id="articleView">
       <button class="article-back" onclick="goHome()">
         <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
-        返回新闻列表
+        <span data-i18n="backNews">返回新闻列表</span>
       </button>
       <div id="articleBody"></div>
     </div>
@@ -566,61 +577,61 @@ footer{border-top:1px solid var(--line);background:var(--bg-2);padding:56px 0 30
 <!-- ===== 联系我们 ===== -->
 <section id="contact">
   <div class="wrap">
-    <span class="section-tag">Contact · 联系我们</span>
-    <h2 class="section-title">预约一节体验课，到校区实地看看</h2>
-    <p class="section-lead">留下孩子年龄与意向课程，校区老师会在工作时间与你联系；也可直接按下方地址到访。</p>
+    <span class="section-tag" data-i18n="contactTag">Contact · 联系我们</span>
+    <h2 class="section-title" data-i18n="contactTitle">预约一节体验课，到校区实地看看</h2>
+    <p class="section-lead" data-i18n="contactLead">留下孩子年龄与意向课程，校区老师会在工作时间与你联系；也可直接按下方地址到访。</p>
 
     <div class="visit-grid" style="margin-top:34px">
       <div class="visit-card">
-        <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s-7-5.5-7-11a7 7 0 1114 0c0 5.5-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>校区位置与到访指引</h3>
-        <div class="visit-row"><b>地址</b><span>天津市河西区大沽南路 459 号下瓦房晶采大厦写字楼四楼（麦当劳楼上）</span></div>
-        <div class="visit-row"><b>地铁</b><span>地铁 1 号线 / 5 号线下瓦房站 A 口，步行约 40 米</span></div>
-        <div class="visit-row"><b>营业时间</b><span>09:00 – 19:00（以校区当期排课为准）</span></div>
-        <div class="visit-row"><b>咨询电话</b><span>请以大众点评店铺最新公示号码为准，或到店现场咨询</span></div>
+        <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s-7-5.5-7-11a7 7 0 1114 0c0 5.5-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg><span data-i18n="visit1h">校区位置与到访指引</span></h3>
+        <div class="visit-row"><b data-i18n="addrL">地址</b><span>天津市河西区大沽南路 459 号下瓦房晶采大厦写字楼四楼（麦当劳楼上）</span></div>
+        <div class="visit-row"><b data-i18n="metroL">地铁</b><span data-i18n="metroV">地铁 1 号线 / 5 号线下瓦房站 A 口，步行约 40 米</span></div>
+        <div class="visit-row"><b data-i18n="hoursL">营业时间</b><span data-i18n="hoursV">09:00 – 19:00（以校区当期排课为准）</span></div>
+        <div class="visit-row"><b data-i18n="phoneL">咨询电话</b><span data-i18n="phoneV">请以大众点评店铺最新公示号码为准，或到店现场咨询</span></div>
       </div>
       <div class="visit-card">
-        <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 7h18v12H3zM3 7l9 6 9-6"/></svg>体验课团购（平台公示）</h3>
+        <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 7h18v12H3zM3 7l9 6 9-6"/></svg><span data-i18n="visit2h">体验课团购（平台公示）</span></h3>
         <div class="deal-grid">
           <div class="deal">
-            <div class="name">5–6 岁 齿轮机械体验学习</div>
+            <div class="name" data-i18n="deal1n">5–6 岁 齿轮机械体验学习</div>
             <div class="price">¥1<s>¥260</s></div>
-            <div class="sold">平台体验团购 · 年售 1</div>
+            <div class="sold" data-i18n="deal1s">平台体验团购 · 年售 1</div>
           </div>
           <div class="deal">
-            <div class="name">人工智能机械手编程 Scratch / Python</div>
+            <div class="name" data-i18n="deal2n">人工智能机械手编程 Scratch / Python</div>
             <div class="price">¥7.9<s>¥260</s></div>
-            <div class="sold">平台体验团购 · 年售 0</div>
+            <div class="sold" data-i18n="deal2s">平台体验团购 · 年售 0</div>
           </div>
         </div>
-        <p class="note-line" style="margin-top:16px">团购名额、有效期与购买规则以大众点评店铺当期页面为准。</p>
+        <p class="note-line" style="margin-top:16px" data-i18n="dealNote">团购名额、有效期与购买规则以大众点评店铺当期页面为准。</p>
       </div>
     </div>
 
     <div class="visit-card">
-      <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 5h16v14H4zM4 7l8 6 8-6"/></svg>预约登记（演示表单）</h3>
+      <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 5h16v14H4zM4 7l8 6 8-6"/></svg><span data-i18n="formH">预约登记（演示表单）</span></h3>
       <form id="bookForm" class="form-grid" onsubmit="return submitBooking(event)">
-        <div class="field"><label for="fName">家长称呼</label><input id="fName" required placeholder="怎么称呼您"></div>
-        <div class="field"><label for="fAge">孩子年龄</label>
+        <div class="field"><label for="fName" data-i18n="fNameL">家长称呼</label><input id="fName" required placeholder="" data-i18n-ph="fNamePh"></div>
+        <div class="field"><label for="fAge" data-i18n="fAgeL">孩子年龄</label>
           <select id="fAge" required>
-            <option value="">请选择年龄段</option>
+            <option value="" data-i18n="fAgePh">请选择年龄段</option>
             <option>4–5 岁</option><option>5–6 岁</option><option>7–8 岁</option><option>9–10 岁</option><option>11 岁及以上</option>
           </select>
         </div>
-        <div class="field"><label for="fCourse">意向课程</label>
+        <div class="field"><label for="fCourse" data-i18n="fCourseL">意向课程</label>
           <select id="fCourse">
-            <option>齿轮机械与动力搭建</option>
-            <option>智能机器人与机械手编程</option>
-            <option>Scratch 图形化编程</option>
-            <option>Python 代码编程</option>
-            <option>创客电子与硬件实验</option>
-            <option>3D 建模与 AI 启蒙</option>
+            <option data-i18n="optC1">齿轮机械与动力搭建</option>
+            <option data-i18n="optC2">智能机器人与机械手编程</option>
+            <option data-i18n="optC3">Scratch 图形化编程</option>
+            <option data-i18n="optC4">Python 代码编程</option>
+            <option data-i18n="optC5">创客电子与硬件实验</option>
+            <option data-i18n="optC6">3D 建模与 AI 启蒙</option>
           </select>
         </div>
-        <div class="field"><label for="fPhone">联系电话</label><input id="fPhone" required type="tel" placeholder="便于校区老师联系您"></div>
-        <div class="field full"><label for="fMsg">补充留言（可选）</label><textarea id="fMsg" placeholder="孩子是否有编程 / 机器人基础，希望了解的问题……"></textarea></div>
+        <div class="field"><label for="fPhone" data-i18n="fPhoneL">联系电话</label><input id="fPhone" required type="tel" placeholder="" data-i18n-ph="fPhonePh"></div>
+        <div class="field full"><label for="fMsg" data-i18n="fMsgL">补充留言（可选）</label><textarea id="fMsg" placeholder="" data-i18n-ph="fMsgPh"></textarea></div>
         <div class="field full">
-          <button type="submit" class="btn btn-primary" style="border:none">提交预约登记</button>
-          <p class="form-note">本站为静态演示站点，表单不会真实发送到服务器；正式预约请通过大众点评店铺团购或到店登记。</p>
+          <button type="submit" class="btn btn-primary" style="border:none" data-i18n="submitBtn">提交预约登记</button>
+          <p class="form-note" data-i18n="formNote">本站为静态演示站点，表单不会真实发送到服务器；正式预约请通过大众点评店铺团购或到店登记。</p>
         </div>
       </form>
     </div>
@@ -632,25 +643,25 @@ footer{border-top:1px solid var(--line);background:var(--bg-2);padding:56px 0 30
     <div class="foot-grid">
       <div>
         <div class="foot-logo"><img src="assets/logo-wordmark.jpg" alt="乐之疆教育 学校标识"></div>
-        <h4>乐之疆教育学校</h4>
-        <p>天津市河西区乐之疆教育培训学校（曾用名：天津市河西区乐高教育培训学校），2014 年创办，面向少年儿童开展非学科科技类校外培训：机器人搭建、图形化与代码编程、创客电子、3D 建模打印与 AI 启蒙。</p>
+        <h4 data-i18n="footBrand">乐之疆教育学校</h4>
+        <p data-i18n="footAbout">天津市河西区乐之疆教育培训学校（曾用名：天津市河西区乐高教育培训学校），2014 年创办，面向少年儿童开展非学科科技类校外培训：机器人搭建、图形化与代码编程、创客电子、3D 建模打印与 AI 启蒙。</p>
       </div>
       <div class="foot-links">
-        <h4>快速导航</h4>
-        <a href="#about">学校简介</a>
-        <a href="#courses">课程体系</a>
-        <a href="#reviews">学员口碑</a>
-        <a href="#news">新闻动态</a>
-        <a href="#contact">联系我们</a>
+        <h4 data-i18n="footNavH">快速导航</h4>
+        <a href="#about" data-i18n="navAbout">学校简介</a>
+        <a href="#courses" data-i18n="navCourses">课程体系</a>
+        <a href="#reviews" data-i18n="navReviews">学员口碑</a>
+        <a href="#news" data-i18n="navNews">新闻动态</a>
+        <a href="#contact" data-i18n="navContact">联系我们</a>
       </div>
       <div class="foot-links">
-        <h4>机构资质</h4>
-        <p>登记证号：津西民政字 010265<br>统一社会信用代码：521201030915540754<br>业务主管：河西区教育局 · 河西区科学技术局</p>
+        <h4 data-i18n="footQualH">机构资质</h4>
+        <p data-i18n-html="footQualV">登记证号：津西民政字 010265<br>统一社会信用代码：521201030915540754<br>业务主管：河西区教育局 · 河西区科学技术局</p>
       </div>
     </div>
     <div class="foot-bottom">
-      <span>© 2014–2026 天津市河西区乐之疆教育培训学校 · 本站内容依据大众点评公开店铺信息与工商登记资料整理，课程、价格与排课以校区当期公示为准。</span>
-      <span>网站备案号待补充（正式上线前需完成 ICP 备案）</span>
+      <span data-i18n="footCopy">© 2014–2026 天津市河西区乐之疆教育培训学校 · 本站内容依据大众点评公开店铺信息与工商登记资料整理，课程、价格与排课以校区当期公示为准。</span>
+      <span data-i18n="footIcp">网站备案号待补充（正式上线前需完成 ICP 备案）</span>
     </div>
   </div>
 </footer>
@@ -662,15 +673,15 @@ footer{border-top:1px solid var(--line);background:var(--bg-2);padding:56px 0 30
   <div class="chat-head">
     <img src="assets/logo-badge.jpg" alt="校徽">
     <div>
-      <div class="chat-name">乐之疆智能问答</div>
-      <div class="chat-sub">在线解答课程、年龄、收费与排课问题</div>
+      <div class="chat-name" data-i18n="chatName">乐之疆智能问答</div>
+      <div class="chat-sub" data-i18n="chatSub">在线解答课程、年龄、收费与排课问题</div>
     </div>
     <button class="chat-close" id="chatClose" aria-label="关闭">×</button>
   </div>
   <div class="chat-body" id="chatBody"></div>
   <div class="chat-quick" id="chatQuick"></div>
   <div class="chat-input">
-    <input id="chatInput" type="text" placeholder="输入您的问题，例如：几岁可以学？" autocomplete="off">
+    <input id="chatInput" type="text" placeholder="" autocomplete="off" data-i18n-ph="chatPh">
     <button id="chatSend" aria-label="发送">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4z"/></svg>
     </button>
@@ -679,7 +690,7 @@ footer{border-top:1px solid var(--line);background:var(--bg-2);padding:56px 0 30
 <div class="toast" id="toast"></div>
 <script>
 /* ===== 数据：新闻动态（站点演示内容，事实部分均来自公开登记与大众点评店铺页） ===== */
-const ARTICLES = [
+const ARTICLES_ZH = [
   {
     id: "history",
     cat: "学校动态",
@@ -786,15 +797,17 @@ const $ = (s) => document.querySelector(s);
 const listView = $("#listView"), articleView = $("#articleView");
 
 function renderList(){
+  const A = curArticles();
+  const U = I18N_UI[state.lang];
   const wrap = $("#newsList");
-  wrap.innerHTML = ARTICLES.map(a => `
+  wrap.innerHTML = A.map(a => `
     <article class="news-card" onclick="openArticle('${a.id}')">
       <div class="thumb"><img src="${a.cover}" alt="${a.title}"></div>
       <div class="body">
         <div class="news-meta"><span class="cat">${a.cat}</span><span>${a.date}</span></div>
         <h3>${a.title}</h3>
         <p>${a.excerpt}</p>
-        <span class="read-more">阅读全文
+        <span class="read-more">${U.readMore}
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
         </span>
       </div>
@@ -802,8 +815,10 @@ function renderList(){
 }
 
 function renderArticle(id){
-  const a = ARTICLES.find(x => x.id === id);
+  const A = curArticles();
+  const a = A.find(x => x.id === id);
   if(!a){ goHome(); return; }
+  const U = I18N_UI[state.lang];
   $("#articleBody").innerHTML = `
     <div class="article-head">
       <div class="news-meta"><span class="cat">${a.cat}</span><span>${a.date}</span></div>
@@ -812,17 +827,17 @@ function renderArticle(id){
     </div>
     <div class="article-hero"><img src="${a.cover}" alt="${a.title}"></div>
     <div class="article-body">${a.body}
-      <div class="article-tags"><span>${a.cat}</span><span>乐之疆教育学校</span></div>
+      <div class="article-tags"><span>${a.cat}</span><span>Lezhijiang</span></div>
     </div>
     <div class="related">
-      <h3>相关文章</h3>
-      <div class="news-list">${ARTICLES.filter(x => x.id !== id).slice(0,3).map(x => `
+      <h3>${U.relatedTitle}</h3>
+      <div class="news-list">${A.filter(x => x.id !== id).slice(0,3).map(x => `
         <article class="news-card" onclick="openArticle('${x.id}')">
           <div class="thumb"><img src="${x.cover}" alt="${x.title}"></div>
           <div class="body">
             <div class="news-meta"><span class="cat">${x.cat}</span><span>${x.date}</span></div>
             <h3>${x.title}</h3><p>${x.excerpt}</p>
-            <span class="read-more">阅读全文
+            <span class="read-more">${U.readMore}
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
             </span>
           </div>
@@ -892,15 +907,16 @@ function showToast(msg){
 }
 function submitBooking(e){
   e.preventDefault();
+  const U = I18N_UI[state.lang];
   const phone = $("#fPhone").value.trim();
-  if(!/^1[3-9]\d{9}$/.test(phone)){ showToast("请填写有效的 11 位手机号"); return false; }
-  showToast("登记信息已记录（演示站点，未发送到服务器）。请通过大众点评店铺或到店完成正式预约。");
+  if(!/^1[3-9]\d{9}$/.test(phone)){ showToast(U.formPhoneErr); return false; }
+  showToast(U.formOk);
   e.target.reset();
   return false;
 }
 
 /* ===== 常见问答数据（校区固定咨询口径，原文整理） ===== */
-const FAQ = [
+const FAQ_ZH = [
   {cat:"基础入门", q:"多大孩子可以学？我家这个年纪适合吗？", k:["几岁","年龄","多大","适合","3岁","4岁","5岁","6岁","7岁","10岁","12岁","年纪","入学年龄","宝宝"],
     a:"乐高教育 LEGO EDUCATION 全球同步课程面向 3–12 岁，配有符合相应年龄能力目标的全系列教学类零件：\n· 学前：以编程思维训练为主，采用乐高结合无屏化编程零件（磁性板模块编程、玛塔模块编程等）；\n· 7–10 岁：使用图形化编程 Scratch 驱动乐高简单主机（WeDo 2.0）或高级主机（SPIKE），配合传感器、电机与机械零件，自主设计完成个性化机器人方案；\n· 10–15 岁：学习 Python 编程，并利用大疆 EP 机甲大师自动导向车完成基础或赛事任务。\n可以先约一节免费试听课，由老师指导孩子完成原创乐高编程机器人，之后再建议开始阶段与对应主机器材。"},
   {cat:"基础入门", q:"零基础、从来没接触过机器人和编程，能跟上吗？", k:["零基础","没接触","跟不上","新手","不会学","没学过","基础差","第一次"],
@@ -952,18 +968,540 @@ const FAQ = [
     a:"基础 AI 功能（如语音识别、感应交互的机器人）会在高阶课程中接触；完整复杂的 AI 机器人难度很高，我们会一步步先打好基础。"}
 ];
 
+/* ===== i18n：UI 静态文案（中/英/韩/日） ===== */
+const I18N_UI = {
+zh: {
+ctaBook:"预约体验课", heroBadge:"河西区科学探索好评榜 · 第 2 名 · 大众点评 4.8 分",
+heroTitle:'把世界最好的<br><span class="accent">科技教育</span>，带给每一个孩子',
+heroLead:"AI 人工智能启蒙 · 机器人编程 · Scratch / Python 代码编程 · 3D 建模与打印 · 创客电子实验。2014 年创办于天津下瓦房，按孩子水平分班进阶，在动手搭建与编程实践中锻炼逻辑思维、想象力与解决问题的能力。",
+heroCta1:'预约 1 元体验课 <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg>',
+heroCta2:"查看课程体系", heroMeta1:"课程 · 师资 · 环境 同评 4.8", heroMeta2:"条家长评价（大众点评公示）", heroMeta3:"年创办至今",
+stat1:"学校成立于天津河西", stat2:"大众点评综合评分（473 条评价）", stat3:"科技课程方向（以当期课表为准）", stat4:"距地铁下瓦房站 A 口步行距离",
+aboutTagLabel:"校区地址：", aboutTagVal:"下瓦房晶采大厦写字楼四楼",
+aboutTag:"About Us · 学校简介", aboutTitle:"十年专注科技素养，<br>从积木搭建走向代码创造",
+aboutP1:'<strong>天津市河西区乐之疆教育培训学校</strong>（曾用名：天津市河西区乐高教育培训学校）成立于 2014 年 1 月，是经河西区民政局登记、由河西区教育局与河西区科学技术局业务主管的民办非学历教育机构，业务范围为<strong>非学科（科技类）校外培训</strong>。',
+aboutP2:"学校面向学龄前与小学阶段孩子，提供齿轮机械搭建、可编程机器人、图形化与代码编程、创客电子、3D 建模打印、AI 启蒙等阶梯式课程。教学上根据孩子当前水平推荐班型，能力达标后逐级升班，课堂形式注重启发式引导与动手实践，让孩子在完成项目的过程中建立自信与创造力。",
+qual1k:"登记证号", qual2k:"统一社会信用代码", qual3k:"业务主管单位", qual3v:"河西区教育局 · 河西区科学技术局", qual4k:"机构性质", qual4v:"民办非企业单位 · 非学科科技类培训",
+coursesTag:"Courses · 课程体系", coursesTitle:"从动手搭建到代码创造的进阶路径", coursesLead:"围绕机器人、编程、创客电子、3D 与 AI 五条线索设置阶梯课程，孩子按测评结果进入对应班型，能力达标后逐级升班。",
+c1Age:"5–6 岁 · 启蒙体验", c1Title:"齿轮机械与动力搭建", c1Desc:"认识齿轮、杠杆、连杆与动力传动，在积木搭建中理解简单机械原理；课堂以项目任务驱动，保护孩子最初的好奇心与动手欲。", c1t1:"机械原理", c1t2:"动手搭建", c1t3:"体验课 ¥1",
+c2Age:"6 岁起 · 进阶", c2Title:"智能机器人与机械手编程", c2Desc:"使用可编程机器人套件，学习马达、传感器与动作控制，完成巡线、抓取、机械手等任务项目，并提供校内外展示与竞赛项目辅导。", c2t1:"机器人", c2t2:"传感器", c2t3:"参赛项目辅导",
+c3Age:"7 岁起 · 图形化编程", c3Title:"Scratch 图形化编程", c3Desc:"学习事件、循环、变量与条件判断，用积木式指令创作故事、动画、音乐与小游戏，在作品完成中建立顺序、分支与循环的编程思维。", c3t1:"逻辑思维", c3t2:"创意作品", c3t3:"零基础友好",
+c4Age:"进阶阶段 · 代码编程", c4Title:"Python 代码编程", c4Desc:"从变量、数据类型、判断与循环等基础语法起步，逐步完成 2D 小游戏与小工具应用，为后续接触人工智能与数据应用打下代码基础。", c4t2:"代码思维", c4t3:"项目实战",
+c5Age:"进阶阶段 · 创客硬件", c5Title:"创客电子与硬件实验", c5Desc:"使用面包板、LED、传感器与主控板，动手搭建智能小灯、报警器、小车等创客作品，理解电路、输入与输出之间的关系。", c5t1:"电路实验", c5t2:"传感器", c5t3:"创客作品",
+c6Age:"拓展方向 · 科技前沿", c6Title:"3D 建模与 AI 启蒙", c6Desc:"体验基础三维建模与 3D 打印流程；认识人工智能，了解语音识别、图像识别等常见 AI 应用场景，建立面向未来的科技视野。", c6t1:"3D 建模", c6t2:"3D 打印", c6t3:"AI 认知",
+coursesNote:"说明：以上为学校课程方向介绍，具体班型、适龄段、课时与收费以到校测评后出具的当期课表与方案为准。",
+revTag:"Reviews · 学员口碑", revTitle:"家长怎么评价这里的课堂", revLead:"以下评分、评价标签与精选评价摘自大众点评店铺公开页面（473 条评价），评价原文保留平台用户化名与日期。",
+revCount:"共 473 条家长评价", revSub1:"课程评分", revSub2:"师资评分", revSub3:"环境评分",
+chip1:"孩子兴趣浓厚<b>171</b>", chip2:"老师耐心负责<b>153</b>", chip3:"教学水平高<b>44</b>", chip4:"知识吸收轻松<b>10</b>", chip5:"激发学生想象力<b>6</b>",
+rv1Date:"10月16日 · 超预期", rv2Date:"10月17日 · 超预期", rv3Date:"9月18日 · 超预期", rvVerdict:"好评",
+rv1Text:"娃在这上了八年了，也是他目前唯一主动想上的兴趣班。一直跟着倪老师上课，从刚开始的小宝宝到现在大哥哥，时间过得真快，娃还是一如既往地喜欢倪老师——超级耐心且热爱自己的工作，可盐可甜，既能正向引导又会偶尔展现威严。孩子玩得挺开心，又能学到东西，赞一个！",
+rv2Text:"我们从幼儿园开始就在这里上课，会根据孩子的水平推荐上课的级别，到了一定程度也会升班，上课形式不死板。孩子一直和王老师上课，孩子很喜欢王老师的授课形式，拓展的很多，寓教于乐。",
+rv3Text:"孩子跟着倪老师上了两三年课程了，孩子进步很大。倪老师很专业，而且非常耐心，教学风格很幽默，启发式教学真的很棒，会一直坚持下去。",
+revSource:"数据来源：大众点评「乐之疆教育学校·AI人工智能·机器人编程·3d建模打印(晶采中心)」店铺公开页面；完整 473 条评价与问答需在大众点评 App 内查看。",
+faqTag:"FAQ · 常见问答", faqTitle:"家长最常问的问题，这里一次说清楚", faqLead:"以下问答整理自校区固定咨询口径，覆盖入学年龄、零基础、课时安排、收费、竞赛升学与师资效果；点击问题展开答案，也可以直接使用右下角问答窗口提问。",
+faqAll:"全部", faqEmpty:"该分类下暂无问答",
+newsTag:"News · 新闻动态", newsTitle:"学校动态与课程科普", newsLead:"了解学校发展、课程进阶路径、家长常见问题与校区到访信息。",
+backNews:"返回新闻列表", relatedTitle:"相关文章", readMore:"阅读全文",
+contactTag:"Contact · 联系我们", contactTitle:"预约一节体验课，到校区实地看看", contactLead:"留下孩子年龄与意向课程，校区老师会在工作时间与你联系；也可直接按下方地址到访。",
+visit1h:"校区位置与到访指引", addrL:"地址", metroL:"地铁", metroV:"地铁 1 号线 / 5 号线下瓦房站 A 口，步行约 40 米", hoursL:"营业时间", hoursV:"09:00 – 19:00（以校区当期排课为准）", phoneL:"咨询电话", phoneV:"请以大众点评店铺最新公示号码为准，或到店现场咨询",
+visit2h:"体验课团购（平台公示）", deal1n:"5–6 岁 齿轮机械体验学习", deal1s:"平台体验团购 · 年售 1", deal2n:"人工智能机械手编程 Scratch / Python", deal2s:"平台体验团购 · 年售 0", dealNote:"团购名额、有效期与购买规则以大众点评店铺当期页面为准。",
+formH:"预约登记（演示表单）", fNameL:"家长称呼", fNamePh:"怎么称呼您", fAgeL:"孩子年龄", fAgePh:"请选择年龄段", fCourseL:"意向课程", optC1:"齿轮机械与动力搭建", optC2:"智能机器人与机械手编程", optC3:"Scratch 图形化编程", optC4:"Python 代码编程", optC5:"创客电子与硬件实验", optC6:"3D 建模与 AI 启蒙", fPhoneL:"联系电话", fPhonePh:"便于校区老师联系您", fMsgL:"补充留言（可选）", fMsgPh:"孩子是否有编程 / 机器人基础，希望了解的问题……", submitBtn:"提交预约登记", formNote:"本站为静态演示站点，表单不会真实发送到服务器；正式预约请通过大众点评店铺团购或到店登记。",
+formOk:"登记信息已记录（演示站点，未发送到服务器）。请通过大众点评店铺或到店完成正式预约。", formPhoneErr:"请填写有效的 11 位手机号",
+footBrand:"乐之疆教育学校", footAbout:"天津市河西区乐之疆教育培训学校（曾用名：天津市河西区乐高教育培训学校），2014 年创办，面向少年儿童开展非学科科技类校外培训：机器人搭建、图形化与代码编程、创客电子、3D 建模打印与 AI 启蒙。",
+footNavH:"快速导航", navAbout:"学校简介", navCourses:"课程体系", navReviews:"学员口碑", navNews:"新闻动态", navContact:"联系我们",
+footQualH:"机构资质", footQualV:"登记证号：津西民政字 010265<br>统一社会信用代码：521201030915540754<br>业务主管：河西区教育局 · 河西区科学技术局",
+footCopy:"© 2014–2026 天津市河西区乐之疆教育培训学校 · 本站内容依据大众点评公开店铺信息与工商登记资料整理，课程、价格与排课以校区当期公示为准。", footIcp:"网站备案号待补充（正式上线前需完成 ICP 备案）",
+chatName:"乐之疆智能问答", chatSub:"在线解答课程、年龄、收费与排课问题", chatPh:"输入您的问题，例如：几岁可以学？",
+chatWelcome:"您好！我是乐之疆智能问答助手，可以问我入学年龄、课程安排、收费、试听、竞赛与师资等问题，点击下方常见问题即可快速查看答案。",
+chatFallback:"这个问题我暂时没有匹配到固定解答。您可以换一种说法，也可以直接留下联系方式，由校区老师为您详细解答；或点击底部预约体验课到校区实地了解。",
+quickQs:["几岁可以学？","零基础能跟上吗？","怎么收费？","有没有试听课？","一节课多久？","可以参加什么比赛？"]
+},
+en: {
+ctaBook:"Book a Trial Class", heroBadge:"Hexi District Science Exploration Top-Rated · #2 · Dianping 4.8",
+heroTitle:'Bringing the world\'s best <span class="accent">STEM education</span> to every child',
+heroLead:"AI introduction · Robotics programming · Scratch / Python coding · 3D modeling & printing · Maker electronics. Founded in 2014 at Xiawafang, Tianjin. Children advance by skill level, building logic, imagination and problem-solving through hands-on projects.",
+heroCta1:'Book a ¥1 Trial <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg>',
+heroCta2:"Explore Courses", heroMeta1:"Courses · Teachers · Environment all rated 4.8", heroMeta2:"parent reviews on Dianping", heroMeta3:"since founding",
+stat1:"Founded in Tianjin, Hexi", stat2:"Dianping overall score (473 reviews)", stat3:"STEM course tracks (per current schedule)", stat4:"~40 m walk from Xiawafang Metro Exit A",
+aboutTagLabel:"Campus: ", aboutTagVal:"4F Jingcai Tower, Xiawafang",
+aboutTag:"About Us", aboutTitle:"A decade of STEM literacy,<br>from bricks to code creation",
+aboutP1:'<strong>Tianjin Hexi Lezhijiang Training School</strong> (formerly Tianjin Hexi LEGO Education Training School), founded January 2014, is a private non-degree educational institution registered with Hexi Civil Affairs Bureau, supervised by Hexi Education Bureau and Hexi Science & Technology Bureau, specializing in <strong>non-academic (STEM) after-school training</strong>.',
+aboutP2:"We offer step-by-step tracks in geared mechanisms, programmable robots, block-based and text coding, maker electronics, 3D modeling/printing and AI introduction for preschool and primary-age children. Classes are placed by assessed level and advanced when ready, with inquiry-based, hands-on teaching that builds confidence and creativity.",
+qual1k:"Registration No.", qual2k:"Unified Social Credit Code", qual3k:"Supervising Authorities", qual3v:"Hexi Education Bureau · Hexi Science & Technology Bureau", qual4k:"Type", qual4v:"Private non-profit · Non-academic STEM training",
+coursesTag:"Courses", coursesTitle:"From hands-on building to code creation", coursesLead:"Five tracks — robotics, coding, maker electronics, 3D and AI. Children enter by assessment level and advance step by step.",
+c1Age:"Ages 5–6 · Intro", c1Title:"Gears & Power Mechanics", c1Desc:"Explore gears, levers, linkages and power transmission through brick builds, understanding simple machines via project tasks that preserve children's natural curiosity.", c1t1:"Mechanics", c1t2:"Hands-on", c1t3:"Trial ¥1",
+c2Age:"Ages 6+ · Intermediate", c2Title:"Smart Robots & Robot Arm Coding", c2Desc:"Use programmable robot kits to learn motors, sensors and motion control; complete line-following, grasping and arm tasks, with coaching for school and competitions.", c2t1:"Robotics", c2t2:"Sensors", c2t3:"Competition coaching",
+c3Age:"Ages 7+ · Block coding", c3Title:"Scratch Block Coding", c3Desc:"Learn events, loops, variables and conditionals; create stories, animations, music and mini-games with block instructions, building sequential, branching and looping thinking.", c3t1:"Logic", c3t2:"Creative projects", c3t3:"Beginner-friendly",
+c4Age:"Advanced · Text coding", c4Title:"Python Coding", c4Desc:"Start from variables, types, conditionals and loops, then build 2D mini-games and tools — a foundation for AI and data applications.", c4t2:"Coding thinking", c4t3:"Real projects",
+c5Age:"Advanced · Maker hardware", c5Title:"Maker Electronics & Hardware Lab", c5Desc:"Use breadboards, LEDs, sensors and microcontrollers to build smart lamps, alarms and small cars, understanding circuits, input and output.", c5t1:"Circuits", c5t2:"Sensors", c5t3:"Maker builds",
+c6Age:"Extension · Frontier tech", c6Title:"3D Modeling & AI Intro", c6Desc:"Try basic 3D modeling and 3D printing; meet AI, speech and image recognition, building a forward-looking tech worldview.", c6t1:"3D modeling", c6t2:"3D printing", c6t3:"AI awareness",
+coursesNote:"Note: The above describes our course directions. Class types, age bands, hours and pricing follow the current schedule issued after on-site assessment.",
+revTag:"Reviews", revTitle:"What parents say about our classes", revLead:"Ratings, tags and selected reviews are quoted from our public Dianping page (473 reviews), keeping usernames and dates.",
+revCount:"473 parent reviews in total", revSub1:"Courses", revSub2:"Teachers", revSub3:"Environment",
+chip1:"Strong child interest<b>171</b>", chip2:"Patient teachers<b>153</b>", chip3:"High teaching quality<b>44</b>", chip4:"Easy to absorb<b>10</b>", chip5:"Sparks imagination<b>6</b>",
+rv1Date:"Oct 16 · Above expectations", rv2Date:"Oct 17 · Above expectations", rv3Date:"Sep 18 · Above expectations", rvVerdict:"Positive",
+rv1Text:"My child has studied here for eight years — the only class he actively wants to attend. He's stayed with Teacher Ni from toddler to big-kid age. Teacher Ni is endlessly patient and loves the work, guiding positively while setting boundaries. He has fun and actually learns — highly recommended!",
+rv2Text:"We started in kindergarten. Classes are placed by level and advanced when ready; the format isn't rigid. My child loves Teacher Wang's teaching — lots of enrichment, learning through play.",
+rv3Text:"My child has studied with Teacher Ni for two or three years and progressed a lot. Teacher Ni is professional, patient and humorous; the inquiry-based style is wonderful. We'll keep going.",
+revSource:"Source: Public Dianping store page (Lezhijiang Education · AI / Robotics / 3D Printing, Jingcai Center). All 473 reviews and Q&A are in the Dianping app.",
+faqTag:"FAQ", faqTitle:"Parents' most common questions, answered here", faqLead:"Compiled from our standard consultation answers: age, beginners, class hours, fees, competitions, outcomes. Tap a question to expand, or use the chat window on the bottom right.",
+faqAll:"All", faqEmpty:"No questions in this category yet",
+newsTag:"News", newsTitle:"School updates and course guides", newsLead:"School history, course paths, parent questions and visit info.",
+backNews:"Back to news", relatedTitle:"Related articles", readMore:"Read more",
+contactTag:"Contact", contactTitle:"Book a trial and visit our campus", contactLead:"Leave your child's age and preferred course; we'll reach out during office hours, or drop by the address below.",
+visit1h:"Location & Directions", addrL:"Address", metroL:"Metro", metroV:"Lines 1 / 5, Xiawafang Station, Exit A, ~40 m walk", hoursL:"Hours", hoursV:"09:00 – 19:00 (subject to current schedule)", phoneL:"Phone", phoneV:"Please see the latest number on our Dianping store, or visit in person",
+visit2h:"Trial deals (as listed on Dianping)", deal1n:"Ages 5–6 Gear Mechanics Trial", deal1s:"Platform deal · sold 1 this year", deal2n:"AI Robot Arm Scratch / Python", deal2s:"Platform deal · sold 0 this year", dealNote:"Deals, validity and rules follow the current Dianping store page.",
+formH:"Booking form (demo only)", fNameL:"Parent name", fNamePh:"How should we address you?", fAgeL:"Child's age", fAgePh:"Select age range", fCourseL:"Preferred course", optC1:"Gears & Power Mechanics", optC2:"Smart Robots & Robot Arm", optC3:"Scratch Block Coding", optC4:"Python Coding", optC5:"Maker Electronics", optC6:"3D Modeling & AI Intro", fPhoneL:"Phone", fPhonePh:"So our teachers can reach you", fMsgL:"Notes (optional)", fMsgPh:"Any coding/robotics background, questions...", submitBtn:"Submit booking", formNote:"This is a static demo site; the form is not sent to a server. Please book through Dianping or in person.",
+formOk:"Recorded (demo only — nothing is sent to a server). Please book officially via Dianping or in person.", formPhoneErr:"Please enter a valid 11-digit mobile number",
+footBrand:"Lezhijiang Education", footAbout:"Tianjin Hexi Lezhijiang Training School, founded 2014, offers non-academic STEM after-school training for children: robotics, block and text coding, maker electronics, 3D printing and AI introduction.",
+footNavH:"Navigate", navAbout:"About", navCourses:"Courses", navReviews:"Reviews", navNews:"News", navContact:"Contact",
+footQualH:"Credentials", footQualV:"Reg. No.: Jin Xi Min Zheng 010265<br>Unified Social Credit Code: 521201030915540754<br>Supervised by: Hexi Education Bureau · Hexi Science & Technology Bureau",
+footCopy:"© 2014–2026 Tianjin Hexi Lezhijiang Training School. Content compiled from public Dianping store info and business registration; courses, prices and schedules follow current campus notices.", footIcp:"ICP filing to be completed before official launch",
+chatName:"Lezhijiang Assistant", chatSub:"Ask about courses, age, fees and schedule", chatPh:"Type your question, e.g. 'What age can start?'",
+chatWelcome:"Hello! I'm the Lezhijiang assistant. Ask me about age, courses, fees, trial classes, competitions or teachers — or tap a common question below.",
+chatFallback:"I don't have a fixed answer for that yet. Try rephrasing, leave your contact details for our teachers, or book a trial to visit the campus.",
+quickQs:["What age can start?","Can beginners keep up?","How much does it cost?","Is there a trial class?","How long is a class?","What competitions are there?"]
+},
+ko: {
+ctaBook:"체험 수업 예약", heroBadge:"하이구구 과학탐험 평가 2위 · 디엔핑 4.8점",
+heroTitle:"세계 최고의 <span class=\"accent\">과학·기술 교육</span>을 모든 아이에게",
+heroLead:"AI 입문 · 로봇 프로그래밍 · Scratch / Python 코딩 · 3D 모델링 & 프린팅 · 메이커 전자실험. 2014년 톈진 샤와팡에 개원. 수준별 반 편성으로 논리력·상상력·문제해결력을 키웁니다.",
+heroCta1:"1위안 체험 예약 <svg width=\"17\" height=\"17\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.4\"><path d=\"M5 12h14M13 6l6 6-6 6\"/></svg>",
+heroCta2:"커리큘럼 보기", heroMeta1:"수업·강사·환경 모두 4.8점", heroMeta2:"학부모 리뷰 (디엔핑 공개)", heroMeta3:"2014년 개원 이후",
+stat1:"톈진 허시구에 개교", stat2:"디엔핑 종합 평점 (리뷰 473건)", stat3:"6대 STEM 과정 (당차표 기준)", stat4:"샤와팡역 A출구 도보 약 40m",
+aboutTagLabel:"캠퍼스: ", aboutTagVal:"샤와팡 징차이 빌딩 4층",
+aboutTag:"학교 소개", aboutTitle:"10년간 이어온 과학 소양 교육,<br>블록에서 코딩으로",
+aboutP1:"<strong>톈진 허시구 르즈장 훈련학교</strong>(구 톈진 허시구 레고 교육 훈련학교)은 2014년 1월 설립됐으며, 허시구 민정국에 등록되고 허시구 교육국·과학기술국이 감독하는 민간 비학력 교육기관으로, <strong>비교과(과학기술) 방과후 훈련</strong>을 주 업무로 합니다.",
+aboutP2:"학령전·초등 대상으로 기어 메커니즘, 프로그래밍 로봇, 블록·텍스트 코딩, 메이커 전자, 3D 모델링/프린팅, AI 입문 등 단계별 과정을 제공합니다. 수준별 반 편성, 도달 시 승급, 발견식·손중심 수업으로 자신감과 창의력을 기릅니다.",
+qual1k:"등록증번호", qual2k:"통일사회신용코드", qual3k:"감독기관", qual3v:"허시구 교육국 · 허시구 과학기술국", qual4k:"기관성격", qual4v:"민간비영리 · 비교과 과학기술 훈련",
+coursesTag:"커리큘럼", coursesTitle:"손으로 만들며 코딩으로 이어지는 단계", coursesLead:"로봇·코딩·메이커전자·3D·AI 다섯 갈래, 평가 후 수준별 편성, 도달 시 승급합니다.",
+c1Age:"만 5–6세 · 입문", c1Title:"기어와 동력 메커니즘", c1Desc:"기어·지렛대·연결대·동력전달을 블록으로 이해합니다. 프로젝트 과제 중심으로 아이의 호기심과 손놀이 욕구를 살립니다.", c1t1:"메커니즘", c1t2:"손조립", c1t3:"체험 1위안",
+c2Age:"만 6세 이상 · 중급", c2Title:"스마트로봇과 로봇팔 코딩", c2Desc:"프로그래밍 로봇 키트로 모터·센서·동작제어를 익히고 라인트레이스·집게·로봇팔 과제를 수행하며 대회 지도를 병행합니다.", c2t1:"로봇", c2t2:"센서", c2t3:"대회 지도",
+c3Age:"만 7세 이상 · 블록코딩", c3Title:"Scratch 블록 코딩", c3Desc:"이벤트·반복·변수·조건을 블록으로 익히고 이야기·애니메이션·음악·미니게임을 만들며 순차·분기·반복 사고를 기릅니다.", c3t1:"논리력", c3t2:"창작물", c3t3:"초보 친화",
+c4Age:"심화 · 텍스트 코딩", c4Title:"Python 코딩", c4Desc:"변수·자료형·조건·반복 기초부터 2D 미니게임과 도구 앱을 만들어 AI·데이터 응용의 토대를 닦습니다.", c4t2:"코딩 사고", c4t3:"프로젝트 실전",
+c5Age:"심화 · 메이커 하드웨어", c5Title:"메이커 전자와 하드웨어 실험", c5Desc:"브레드보드·LED·센서·컨트롤러로 스마트 조명·경보기·자동차를 만들며 회로와 입출력 관계를 이해합니다.", c5t1:"회로 실험", c5t2:"센서", c5t3:"메이커 작품",
+c6Age:"확장 · 첨단기술", c6Title:"3D 모델링과 AI 입문", c6Desc:"기초 3D 모델링·3D 프린팅을 체험하고, 음성·이미지 인식 등 AI 응용을 만나 미래 기술 시야를 넓힙니다.", c6t1:"3D 모델링", c6t2:"3D 프린팅", c6t3:"AI 인식",
+coursesNote:"안내: 위는 과정 방향 소개이며, 반 편성·연령·시수·비용은 방문 평가 후 당차표为准합니다.",
+revTag:"학부모 평가", revTitle:"학부모가 말하는 우리 수업", revLead:"평점·태그·선정평은 디엔핑 공개 페이지(리뷰 473건)에서 발췌했으며, 아이디와 날짜를 원문 그대로 둡니다.",
+revCount:"총 473건의 학부모 리뷰", revSub1:"수업 평점", revSub2:"강사 평점", revSub3:"환경 평점",
+chip1:"아이 흥미 높음<b>171</b>", chip2:"선생님 인솔자<b>153</b>", chip3:"수준 높은 지도<b>44</b>", chip4:"습득 쉬움<b>10</b>", chip5:"상상력 자극<b>6</b>",
+rv1Date:"10월 16일 · 기대 이상", rv2Date:"10월 17일 · 기대 이상", rv3Date:"9월 18일 · 기대 이상", rvVerdict:"긍정",
+rv1Text:"아이가 벌써 8년째 다니고 있고, 스스로 가고 싶어 하는 유일한 특기활동입니다. 니 선생님만 쭉 따라왔는데, 정말 인내심 많고 일을 사랑하세요. 긍정적으로 이끌어주시면서도 때로는 엄격하게. 아이가 즐겁게 놀면서 배우니 추천합니다!",
+rv2Text:"유치원 때부터 다녔어요. 수준별로 급을 배정하고 도달하면 승급하며, 수업 방식이 경직되지 않아요. 아이가 왕 선생님 수업을 정말 좋아하고 확장 내용이 풍부해요.",
+rv3Text:"아이가 니 선생님께 2, 3년 배웠는데 발달이 크게 좋아졌어요. 전문적이고 인내심 있으시며 유머러스한 발견식 수업이 최고예요. 계속 다닐 겁니다.",
+revSource:"출처: 디엔핑 공개 매장 페이지 (르즈장 교육·AI·로봇·3D프린팅 징차이센터). 전체 473건은 디엔핑 앱에서 확인하세요.",
+faqTag:"자주 묻는 질문", faqTitle:"학부모가 가장 많이 묻는 질문을 한 곳에", faqLead:"입학 연령·초보·시수·비용·대회·강사 효과까지. 질문을 클릭하면 펼쳐지고, 오른쪽 아래 채팅창으로도 바로 질문할 수 있습니다.",
+faqAll:"전체", faqEmpty:"이 분류에는 질문이 없습니다",
+newsTag:"소식", newsTitle:"학교 소식과 과정 가이드", newsLead:"학교 연혁, 승급 경로, 학부모 질문, 방문 안내.",
+backNews:"뉴스 목록으로", relatedTitle:"관련 글", readMore:"더 보기",
+contactTag:"문의", contactTitle:"체험 수업을 예약하고 캠퍼스를 둘러보세요", contactLead:"아이 연령과 희망 과정을 남겨주시면 근무시간 중 연락드립니다. 아래 주소로 방문하셔도 됩니다.",
+visit1h:"위치와 방문 안내", addrL:"주소", metroL:"지하철", metroV:"1호선·5호선 샤와팡역 A출구, 도보 약 40m", hoursL:"영업시간", hoursV:"09:00–19:00 (당차표 기준)", phoneL:"문의전화", phoneV:"디엔핑 매장 최신 공지 번호를 확인하거나 방문해 주세요",
+visit2h:"체험 클딩 (플랫폼 공개)", deal1n:"만 5–6세 기어 메커니즘 체험", deal1s:"플랫폼 클딩 · 연간 1건", deal2n:"AI 로봇팔 Scratch / Python", deal2s:"플랫폼 클딩 · 연간 0건", dealNote:"클딩 정원·유효기간·구매 규칙은 디엔핑 당차 페이지를 따릅니다.",
+formH:"예약 등록 (데모 폼)", fNameL:"보호자 성함", fNamePh:"어떻게 불러드릴까요?", fAgeL:"아이 연령", fAgePh:"연령대를 선택하세요", fCourseL:"희망 과정", optC1:"기어와 동력 메커니즘", optC2:"스마트로봇과 로봇팔", optC3:"Scratch 블록 코딩", optC4:"Python 코딩", optC5:"메이커 전자", optC6:"3D 모델링과 AI 입문", fPhoneL:"연락처", fPhonePh:"선생님이 연락드릴 번호", fMsgL:"메모 (선택)", fMsgPh:"코딩·로봇 경험, 궁금한 점…", submitBtn:"예약 등록 제출", formNote:"정적 데모 사이트로 폼은 서버로 전송되지 않습니다. 공식 예약은 디엔핑 클딩 또는 방문으로 해 주세요.",
+formOk:"기록되었습니다 (데모 — 서버 전송 안 됨). 디엔핑 또는 방문으로 공식 예약해 주세요.", formPhoneErr:"유효한 11자리 휴대폰 번호를 입력하세요",
+footBrand:"Lezhijiang Education", footAbout:"톈진 허시구 르즈장 훈련학교, 2014년 개원. 아동 대상 비교과 과학기술 방과후 훈련: 로봇 조립, 블록·텍스트 코딩, 메이커 전자, 3D 프린팅, AI 입문.",
+footNavH:"바로가기", navAbout:"학교 소개", navCourses:"커리큘럼", navReviews:"학부모 평가", navNews:"소식", navContact:"문의",
+footQualH:"자격", footQualV:"등록증: 진서민정 010265<br>통일사회신용코드: 521201030915540754<br>감독: 허시구 교육국 · 허시구 과학기술국",
+footCopy:"© 2014–2026 톈진 허시구 르즈장 훈련학교. 본문은 디엔핑 공개 매장 정보와 공산 등록 자료를 바탕으로 정리됐으며, 과정·가격·시간표는 캠퍼스 공지를 따릅니다.", footIcp:"정식 오픈 전 ICP备案 예정",
+chatName:"르즈장 어시스턴트", chatSub:"과정·연령·비용·시간표 문의", chatPh:"질문을 입력하세요, 예: 몇 살부터 가능한가요?",
+chatWelcome:"안녕하세요! 르즈장 어시스턴트입니다. 입학 연령·과정·비용·체험·대회·강사에 대해 물어보세요. 아래 흔한 질문을 누르면 빠르게 답을 볼 수 있어요.",
+chatFallback:"질문에 해당하는 고정 답을 아직 찾지 못했어요. 다르게 표현해 보시거나 연락처를 남겨주시면 선생님이 자세히 안내해 드립니다. 또는 체험 예약을 통해 캠퍼스를 방문해 보세요.",
+quickQs:["몇 살부터 가능한가요?","초보도 따라갈 수 있나요?","비용은 어떻게 되나요?","체험 수업이 있나요?","수업은 몇 분인가요?","어떤 대회에 나갈 수 있나요?"]
+},
+ja: {
+ctaBook:"体験レッスンを予約", heroBadge:"河西区科学探究ランキング2位・大衆点評4.8点",
+heroTitle:"世界最高の<span class=\"accent\">STEAM教育</span>を、すべての子どもたちへ",
+heroLead:"AI入門・ロボットプログラミング・Scratch/Pythonコーディング・3Dモデリング＆プリント・メイカー電子実験。2014年に天津下瓦房に開校。習熟度別クラスで、ものづくりとコーディングを通じ論理力・想像力・課題解決力を育てます。",
+heroCta1:"1元体験を予約 <svg width=\"17\" height=\"17\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.4\"><path d=\"M5 12h14M13 6l6 6-6 6\"/></svg>",
+heroCta2:"コースを見る", heroMeta1:"授業・講師・環境すべて4.8", heroMeta2:"件の保護者レビュー（大衆点評公開）", heroMeta3:"年開校以来",
+stat1:"天津河西に開校", stat2:"大衆点評総合評価（473件）", stat3:"6つのSTEAMコース（当期時間割による）", stat4:"地下鉄下瓦房駅A出口より徒歩約40m",
+aboutTagLabel:"キャンパス：", aboutTagVal:"下瓦房 Jingcaiビル4階",
+aboutTag:"学校概要", aboutTitle:"10年間のSTEAM教育、<br>ブロックからコード創造へ",
+aboutP1:"<strong>天津市河西区楽之疆培訓学校</strong>（旧称：天津市河西区乐高教育培训学校）は2014年1月設立。河西区民政局に登記され、河西区教育局・河西区科学技術局が主管する民間非学歴教育機関で、業務範囲は<strong>教科外（科学技術系）課外訓練</strong>です。",
+aboutP2:"就学前・小学生を対象に、歯車機構・プログラミングロボット・ビジュアル／テキストコーディング・メイカー電子・3Dモデリング／プリント・AI入門など段階的コースを提供。習熟度でクラスを選定し、到達度で昇級。発見型・実践型の授業で自信と創造力を育てます。",
+qual1k:"登記証番号", qual2k:"統一社会信用コード", qual3k:"主管官庁", qual3v:"河西区教育局・河西区科学技術局", qual4k:"機関の種類", qual4v:"民間非営利・教科外科学技術訓練",
+coursesTag:"コース", coursesTitle:"手を動かすところからコード創造への段階", coursesLead:"ロボット・コーディング・メイカー電子・3D・AIの5系統。査定でクラスを決め、到達度で昇級します。",
+c1Age:"5–6歳・入門", c1Title:"歯車と動力機構", c1Desc:"歯車・てこ・リンク・動力伝達をブロックで理解。プロジェクト課題中心で、子どもの好奇心と手を動かしたい気持ちを育てます。", c1t1:"機構", c1t2:"手組み", c1t3:"体験¥1",
+c2Age:"6歳以上・中級", c2Title:"スマートロボットとロボットアーム", c2Desc:"プログラミングロボットキットでモーター・センサー・動作制御を学び、ライントレース・把持・アーム課題を実施。校内・対外展示や大会指導も。", c2t1:"ロボット", c2t2:"センサー", c2t3:"大会指導",
+c3Age:"7歳以上・ビジュアル", c3Title:"Scratchブロックプログラミング", c3Desc:"イベント・ループ・変数・条件分岐をブロックで学び、物語・アニメ・音楽・ミニゲームを制作。順次・分岐・反復の思考を養います。", c3t1:"論理的思考", c3t2:"作品づくり", c3t3:"初心者歓迎",
+c4Age:"応用・テキスト", c4Title:"Pythonコーディング", c4Desc:"変数・型・条件・ループの基礎から、2Dミニゲームやツールを制作。AI・データ応用の土台を作ります。", c4t2:"コード思考", c4t3:"実プロジェクト",
+c5Age:"応用・メイカー", c5Title:"メイカー電子とハード実験", c5Desc:"ブレッドボード・LED・センサー・マイコンでスマートライト・警報機・車を作り、回路と入出力の関係を理解します。", c5t1:"回路実験", c5t2:"センサー", c5t3:"メイカー作品",
+c6Age:"発展・先端技術", c6Title:"3DモデリングとAI入門", c6Desc:"基礎的な3Dモデリングと3Dプリントを体験。音声認識・画像認識など身近なAIに触れ、未来の視野を広げます。", c6t1:"3Dモデリング", c6t2:"3Dプリント", c6t3:"AI入門",
+coursesNote:"※上記はコースの方向性の紹介です。クラス・対象年齢・授業時間・料金は来校査定後の当期時間割・提案によります。",
+revTag:"受講生の声", revTitle:"保護者さんの声", revLead:"評価・タグ・選りすぎは大衆点評の公開ページ（473件）から引用。ユーザー名と日付は原文のままです。",
+revCount:"保護者レビュー計473件", revSub1:"授業評価", revSub2:"講師評価", revSub3:"環境評価",
+chip1:"子どもの食いつき◎<b>171</b>", chip2:"先生が丁寧<b>153</b>", chip3:"指導レベル高<b>44</b>", chip4:"吸収が楽<b>10</b>", chip5:"想像力刺激<b>6</b>",
+rv1Date:"10月16日・期待以上", rv2Date:"10月17日・期待以上", rv3Date:"9月18日・期待以上", rvVerdict:"好評",
+rv1Text:"もう8年通っていますが、自分から進んで行きたがる唯一の習い事です。ずっと倪先生に習っていて、先生は本当に忍耐強く仕事を愛しています。前向きに導きつつ、時には厳しく。子どもは楽しく学んでいます。おすすめ！",
+rv2Text:"幼稚園の頃から通っています。習熟度でクラスを選び、到達すると昇級。授業も堅苦しくありません。子どもは王先生の授業が大好きで、拡張が多くて楽しく学べます。",
+rv3Text:"倪先生に2〜3年習っていて、子どもの伸びを感じます。専門的で忍耐強く、ユーモアのある発見型授業が素晴らしい。これからも続けます。",
+revSource:"出典：大衆点評の公開店舗ページ（楽之疆教育・AI・ロボット・3Dプリント Jingcaiセンター）。全473件はアプリでご覧ください。",
+faqTag:"よくある質問", faqTitle:"保護者の疑問にまとめてお答えします", faqLead:"対象年齢・初心者・授業時間・料金・大会・講師・効果まで。質問をクリックで展開。右下のチャットからもどうぞ。",
+faqAll:"すべて", faqEmpty:"このカテゴリには質問がありません",
+newsTag:"お知らせ", newsTitle:"学校の動きとコース解説", newsLead:"沿革、進級ルート、保護者の疑問、来校案内。",
+backNews:"ニュース一覧へ戻る", relatedTitle:"関連記事", readMore:"続きを読む",
+contactTag:"お問い合わせ", contactTitle:"体験レッスンを予約して、キャンパスを見てみましょう", contactLead:"お子さんの年齢と希望コースをお知らせください。営業時間内にご連絡します。下記住所へ直接お越しいただいてもOKです。",
+visit1h:"アクセス・来校案内", addrL:"住所", metroL:"地下鉄", metroV:"1号線・5号線下瓦房駅A出口より徒歩約40m", hoursL:"営業時間", hoursV:"09:00–19:00（当期時間割による）", phoneL:"電話", phoneV:"最新番号は大衆点評の店舗ページ、または来店にてご確認ください",
+visit2h:"体験クーポン（プラットフォーム公開）", deal1n:"5–6歳歯車メカ体験", deal1s:"プラットフォーム体験・年間1件", deal2n:"AIロボットアーム Scratch/Python", deal2s:"プラットフォーム体験・年間0件", dealNote:"定員・有効期限・購入条件は大衆点評の当期ページによります。",
+formH:"予約フォーム（デモ）", fNameL:"保護者お名前", fNamePh:"お名前を教えてください", fAgeL:"お子さんの年齢", fAgePh:"年齢を選択", fCourseL:"希望コース", optC1:"歯車と動力機構", optC2:"スマートロボットとロボットアーム", optC3:"Scratchブロック", optC4:"Pythonコーディング", optC5:"メイカー電子", optC6:"3DモデリングとAI入門", fPhoneL:"電話番号", fPhonePh:"先生からご連絡できる番号", fMsgL:"メッセージ（任意）", fMsgPh:"経験や聞きたいこと…", submitBtn:"予約を送信", formNote:"静的デモサイトのため、フォームはサーバーに送信されません。正式予約は大衆点評または来店にて。",
+formOk:"記録しました（デモのため送信されません）。正式予約は大衆点評または来店でお願いします。", formPhoneErr:"有効な11桁の携帯番号を入力してください",
+footBrand:"Lezhijiang Education", footAbout:"天津市河西区楽之疆培訓学校、2014年開校。子ども向け教科外STEAM課外訓練：ロボット組み立て、ビジュアル／テキストコーディング、メイカー電子、3Dプリント、AI入門。",
+footNavH:"ナビ", navAbout:"学校概要", navCourses:"コース", navReviews:"受講生の声", navNews:"お知らせ", navContact:"お問い合わせ",
+footQualH:"資格", footQualV:"登記証：津西民政字010265<br>統一社会信用コード：521201030915540754<br>主管：河西区教育局・河西区科学技術局",
+footCopy:"© 2014–2026 天津市河西区楽之疆培訓学校。本内容は大衆点評の公開店舗情報と工商登録資料に基づきます。コース・価格・時間割は当期のキャンパス公示によります。", footIcp:"正式公開前にICP届出予定",
+chatName:"Lezhijiangアシスタント", chatSub:"コース・年齢・料金・時間割にお答えします", chatPh:"ご質問をどうぞ。例：何歳から始められますか？",
+chatWelcome:"こんにちは！Lezhijiangアシスタントです。対象年齢・コース・料金・体験・大会・講師についてどうぞ。下のよくある質問をタップでも回答できます。",
+chatFallback:"そのご質問に該当する定型回答が見つかりません。言い換えるか、連絡先を残していただければ先生がご案内します。体験予約でキャンパスへもどうぞ。",
+quickQs:["何歳から始められますか？","初心者でもついていけますか？","料金はいくらですか？","体験レッスンはありますか？","1回の授業は何分ですか？","どんな大会に出られますか？"]
+}
+};
+
+const I18N_A = {
+en: [
+{id:"history", cat:"School", date:"2026-10-20", title:"From Bricks to STEM: Our School's Story", cover:"assets/classroom.jpg",
+ excerpt:"Founded in January 2014 as Tianjin Hexi LEGO Education Training School and later renamed Lezhijiang, we have long run non-academic STEM after-school training at our Xiawafang campus.",
+ body:`<p>Tianjin Hexi Lezhijiang Training School (formerly Tianjin Hexi LEGO Education Training School) was founded on January 17, 2014. It is registered with Hexi Civil Affairs Bureau and supervised by Hexi Education Bureau and Hexi Science & Technology Bureau, for non-academic (STEM) after-school training.</p>
+<p>Early courses focused on brick building and mechanical fundamentals. As the curriculum grew, we extended into block coding, text coding, maker electronics, 3D modeling/printing and AI introduction, forming a step-by-step path for different age groups.</p>
+<h3>What we stick to</h3>
+<ul>
+<li>Place children by current level, not by age; advance when ready.</li>
+<li>Project-task-driven classes: kids learn while building robots, mini-games and maker projects.</li>
+<li>Inquiry-based teaching that protects curiosity and self-expression.</li>
+</ul>
+<p>Class types, hours and fees follow the current plan issued after on-site assessment.</p>`},
+{id:"scratch-to-python", cat:"Course Guide", date:"2026-10-12", title:"After Scratch, How Kids Move on to Python", cover:"assets/course-coding.jpg",
+ excerpt:"Block coding builds confidence and logic; text coding builds clean, project-level code. The two stages don't replace each other — they build on each other.",
+ body:`<p>Parents often ask: when is the right time to move from Scratch to Python? We treat the two stages as different goals, not a simple software switch.</p>
+<h3>Scratch: build programming thinking first</h3>
+<p>Scratch uses blocks, so kids understand events, sequences, conditionals, loops and variables without memorizing English syntax. They make animations, stories and mini-games. The point is to practice "breaking a problem into steps."</p>
+<h3>Python: enter real code</h3>
+<p>Once a child can finish a Scratch project independently and understands variables and loops, we move to Python: start from variables, types, conditionals and loops, then build 2D mini-games and tools, and later touch introductory AI concepts.</p>
+<h3>Timing is decided by assessment</h3>
+<p>Every child's pace differs. We decide promotion based on class performance and project completion, not a fixed age. Parents can discuss the child's level at the trial class.</p>`},
+{id:"competition", cat:"Competitions", date:"2026-09-28", title:"Robot Arm & Robotics: Our Competition Coaching", cover:"assets/course-robot.jpg",
+ excerpt:"Our listed trial includes 'AI robot arm Scratch/Python' for competition. Beyond regular classes, we coach motivated students on exhibitions and competition tasks.",
+ body:`<p>Our Dianping trial listing includes "AI robot arm programming Scratch/Python." This track is for children who already have some robotics or coding background, focusing on arm motion, sensor feedback and task programming.</p>
+<h3>What training covers</h3>
+<ul>
+<li>Understanding and tuning robot structures and arm mechanisms;</li>
+<li>Writing motion sequences and task logic in blocks or text code;</li>
+<li>Repeated testing, revision and optimization for exhibition or competition tasks;</li>
+<li>Practicing presenting the project and explaining the approach.</li>
+</ul>
+<p>We do not promise specific ranks. Eligible competitions and exhibitions follow current education authorities' and organizers' notices; our teachers share options with parents at the project stage.</p>`},
+{id:"faq-age-fee", cat:"FAQ", date:"2026-09-15", title:"Parents Ask: What Age? How Much?", cover:"assets/course-science.jpg",
+ excerpt:"On Dianping, the two most asked questions are 'what age can start' and 'how much for a 6-year-old'. Here is a consolidated answer by course direction.",
+ body:`<p>In Dianping's Q&A section, parents ask most about starting age and fees. Because every child differs, we place students after on-site assessment. Below is direction-level guidance.</p>
+<h3>What age?</h3>
+<p>Gears & Power Mechanics is aimed at ages 5–6; robotics and Scratch generally start at 6–7; Python, maker electronics and 3D modeling are advanced and require prerequisite courses or a level test.</p>
+<h3>How is pricing calculated?</h3>
+<p>Pricing depends on class type, hour package and course direction. The ¥1 and ¥7.9 listed prices are trial deals, not regular class fees. Regular hours and fees are proposed after assessment, by class type. Per Tianjin after-school training rules, non-academic payments follow hour and fee caps.</p>
+<p>Full Q&A is in the Dianping app store page.</p>`},
+{id:"teaching-philosophy", cat:"Teaching", date:"2026-09-03", title:"Why We Level by Skill, Not Age", cover:"assets/classroom.jpg",
+ excerpt:"'Patient', 'strong interest' and 'high quality' recur in reviews. Behind them is how we place classes and run lessons.",
+ body:`<p>On our public Dianping page, "strong child interest", "patient teachers" and "high teaching quality" are the most frequent tags. They connect directly to how we teach.</p>
+<h3>Level by skill, not age</h3>
+<p>Same-age children differ widely in hands-on ability, focus and pace. We place by assessment and class performance, promoting when ready — avoiding "can't keep up" frustration and "too easy" boredom.</p>
+<h3>Inquiry class, less lecturing, more projects</h3>
+<p>Teachers give a task goal and guide kids to observe, debug and discover, with hints at key points. The "learning through play" parents mention is exactly this format.</p>
+<h3>Patience is the baseline</h3>
+<p>STEM classes allow repeated trial and error. Our job is not to finish the project for the child, but to stay patient, break down problems, and let the child reach the solution themselves.</p>`},
+{id:"visit-guide", cat:"Visit", date:"2026-08-22", title:"How to Find Our Xiawafang Campus", cover:"assets/hero.jpg",
+ excerpt:"4F Jingcai Tower, 459 Dagu South Road, Xiawafang. Metro Lines 1/5, Xiawafang Station Exit A, ~40 m. Open 09:00–19:00.",
+ body:`<p>Address: 4F Jingcai Tower, 459 Dagu South Road, Hexi District, Tianjin (above McDonald's, next to Xiawafang Metro Exit A).</p>
+<h3>Getting here</h3>
+<ul>
+<li>Metro: Lines 1 / 5, Xiawafang Station, Exit A, ~40 m walk;</li>
+<li>Driving: nearby parking, subject to on-site guidance;</li>
+<li>Hours: 09:00–19:00; formal classes follow the current schedule.</li>
+</ul>
+<p>For first visits, book a trial via Dianping so teachers can arrange assessment and reception. Call ahead to confirm classroom location and hours.</p>`}
+],
+ko: [
+{id:"history", cat:"학교소식", date:"2026-10-20", title:"블록 교실에서 과학 소양으로: 르즈장의 연혁", cover:"assets/classroom.jpg",
+ excerpt:"2014년 1월 설립, 전신은 톈진 허시구 레고 교육 훈련학교. 이후 르즈장 훈련학교로 개명해 하이구구 샤와팡 캠퍼스에서 비교과 과학기술 방과후 훈련을 이어오고 있습니다.",
+ body:`<p>톈진 허시구 르즈장 훈련학교(구 톈진 허시구 레고 교육 훈련학교)는 2014년 1월 17일 설립됐습니다. 등록기관은 톈진 허시구 민정국, 주관은 허시구 교육국·과학기술국이며, 업무 범위는 비교과(과학기술) 방과후 훈련입니다.</p>
+<p>초창기에는 블록 조립과 기계 구조 입문이 주를 이루었고, 커리큘럼이 확장되면서 로봇 조립에 더해 블록 코딩·텍스트 코딩·메이커 전자·3D 모델링/프린팅·AI 입문 방향이 추가되어 연령별 단계 경로를 갖추게 되었습니다.</p>
+<h3>우리가 지키는 것</h3>
+<ul>
+<li>나이로 획일화하지 않고, 수준으로 반을 배정하고 도달 시 승급합니다.</li>
+<li>프로젝트 과제 중심으로 로봇·미니게임·메이커 작품을 만들며 배웁니다.</li>
+<li>발견식 지도로 아이의 흥미와 표현 욕구를 보호합니다.</li>
+</ul>
+<p>반 편성·시수·비용은 방문 평가 후 당차 안내를 따릅니다.</p>`},
+{id:"scratch-to-python", cat:"코스해설", date:"2026-10-12", title:"Scratch 다음, Python은 어떻게 연결되나요", cover:"assets/course-coding.jpg",
+ excerpt:"블록 코딩은 '두려움 없이 논리를 익히는' 단계, 텍스트 코딩은 '규범과 프로젝트를 완성하는' 단계. 대체 관계가 아니라 점진적 연결입니다.",
+ body:`<p>많은 학부모가 묻습니다: Scratch를 끝내면 언제 Python을 시작하나요? 저희는 두 단계를 다른 목표로 보며, 단순히 소프트웨어만 바꾸지 않습니다.</p>
+<h3>Scratch: 먼저 프로그래밍 사고를</h3>
+<p>Scratch는 블록으로 프로그램을 만들어, 영어 문법을 외우지 않아도 이벤트·순차·조건·반복·변수를 이해하고 애니메이션·이야기·미니게임을 만듭니다. 이 단계의 핵심은 '문제를 단계로 쪼개는' 사고를 익히는 것입니다.</p>
+<h3>Python: 진짜 코드 세계로</h3>
+<p>아이가 Scratch 프로젝트를 혼자 완성하고 변수와 반복을 이해하면 Python으로 넘어갑니다. 변수·자료형·조건·반복 기초부터 2D 미니게임과 도구 앱을 만들고, 이후 AI 입문 개념을 접합니다.</p>
+<h3>승급 시기는 평가로 정합니다</h3>
+<p>아이마다 속도가 다릅니다. 고정 나이로 바꾸지 않고 수업 태도와 작품 완성도로 판단합니다. 체험 수업에서 선생님과 현재 수준·흥미 방향을 상담할 수 있습니다.</p>`},
+{id:"competition", cat:"대회", date:"2026-09-28", title:"로봇팔·로봇 프로젝트: 대회 지도 방향", cover:"assets/course-robot.jpg",
+ excerpt:"공개된 체험 과정에 '참가용 AI 로봇팔 Scratch/Python'이 포함되어 있으며, 정규 수업 외에 의향 있는 아이에게 전시·대회 과제 지도를 제공합니다.",
+ body:`<p>디엔핑 매장에 공개된 체험 클딩에는 '참가용 AI 로봇팔 프로그래밍 Scratch/Python' 방향이 포함되어 있습니다. 일정 수준의 로봇 조립이나 코딩 경험이 있는 아이를 대상으로 로봇팔 동작, 센서 피드백, 과제 프로그램 설계를 다룹니다.</p>
+<h3>훈련 내용</h3>
+<ul>
+<li>로봇 구조와 로봇팔 메커니즘 이해 및 조정;</li>
+<li>블록 또는 텍스트 코딩으로 동작 시퀀스와 과제 로직 작성;</li>
+<li>전시·대회 과제를 반복 테스트·수정·최적화;</li>
+<li>작품 설명과 발표 연습.</li>
+</ul>
+<p>구체 입상 순위를 보장하지 않습니다. 참가 가능한 대회·전시는 당초 교육 주관 부처와 주최측 공지를 따르며, 담당 선생님이 프로젝트 단계에서 선택지를 공유합니다.</p>`},
+{id:"faq-age-fee", cat:"자주묻는질문", date:"2026-09-15", title:"학부모 Q&A: 몇 살부터? 비용은?", cover:"assets/course-science.jpg",
+ excerpt:"디엔핑 'Q&A'에서 가장 많이 묻는 두 가지는 '몇 살부터 가능한가요'와 '6세 과정 비용은 어떻게 되나요'입니다. 코스 방향별로 정리했습니다.",
+ body:`<p>디엔핑 매장의 'Q&A' 코너에서 입학 연령과 수강료 관련 질문이 가장 많습니다. 아이마다 기초가 다르므로 방문 평가 후 반을 배정하며, 아래는 코스 방향 기준 안내입니다.</p>
+<h3>몇 살부터 시작하나요?</h3>
+<p>기어·동력 메커니즘은 만 5–6세 입문 대상, 로봇 프로그래밍과 Scratch는 일반적으로 만 6–7세부터, Python·메이커 전자·3D 모델링은 심화 방향으로 선수 과정이나 수준 평가가 필요합니다.</p>
+<h3>비용은 어떻게 계산되나요?</h3>
+<p>수강료는 반·시수 패키지·코스 방향에 따라 달라집니다. 플랫폼에 공개된 1위안·7.9위안은 체험 클딩 가격으로 정규 반 요금이 아닙니다. 정규 시수와 비용은 방문 평가 후 반별로 안내하며, 톈진시 과외 교육 규정에 따라 비교과 훈련은 시수·비용 상한을 준수합니다.</p>
+<p>전체 Q&A는 디엔핑 앱 매장 'Q&A'에서 확인하세요.</p>`},
+{id:"teaching-philosophy", cat:"교육이념", date:"2026-09-03", title:"왜 '수준별 반 편성, 발견식 수업'을 고집하나요", cover:"assets/classroom.jpg",
+ excerpt:"리뷰에 '인내심', '흥미', '수준 높은 지도'가 반복해서 나옵니다. 그 배경에는 오랫동안 지켜온 반 편성 방식과 수업 스타일이 있습니다.",
+ body:`<p>디엔핑 공개 리뷰 태그 중 '아이 흥미 높음', '선생님 인솔자', '수준 높은 지도'가 가장 빈번하게 등장합니다. 이는 학교가 일관되게 유지해 온 교육 방식과 직결됩니다.</p>
+<h3>나이가 아닌 수준으로 반 편성</h3>
+<p>같은 또래라도 손동작·집중력·이해 속도는 차이가 큽니다. 평가와 수업 태도로 반을 정하고, 기준에 도달하면 승급시켜, '뒤처짐'으로 인한 자신감 저하와 '배부름'으로 인한 시간 낭비를 모두 피합니다.</p>
+<h3>결론을 적게 말하고 프로젝트를 많이</h3>
+<p>수업에서 선생님은 과제 목표를 먼저 제시하고, 아이가 스스로 구조를 관찰하고 프로그램을 디버깅하며 문제를 발견하도록 이끌고, 핵심 지점에서 힌트를 줍니다. 학부모 리뷰의 '놀이 속 학습', '확장 풍부'가 바로 이 수업 방식의 결과입니다.</p>
+<h3>인내심은 교육의 선</h3>
+<p>과학기술 수업은 아이가 반복해 시행착오를 겪도록 허용합니다. 선생님의 역할은 작품을 대신 만들어 주는 것이 아니라, 막혔을 때 인내심을 갖고 문제를 쪼개어 아이 스스로 해결에 도달하도록 돕는 것입니다.</p>`},
+{id:"visit-guide", cat:"캠퍼스안내", date:"2026-08-22", title:"방문 안내: 샤와팡 징차이 빌딩 찾아오는 길", cover:"assets/hero.jpg",
+ excerpt:"대구남로 459호 샤와팡 징차이 빌딩 4층. 지하철 1·5호선 샤와팡역 A출구 도보 약 40m. 영업 09:00–19:00.",
+ body:`<p>캠퍼스 주소: 톈진시 허시구 대구남로 459호 샤와팡 징차이 빌딩 4층(맥도날드 건물, 샤와팡역 A출구 옆).</p>
+<h3>교통</h3>
+<ul>
+<li>지하철: 1호선·5호선 샤와팡역 A출구, 도보 약 40m;</li>
+<li>자차: 빌딩 주변 주차장 이용, 빈자리는 현장 안내를 따름;</li>
+<li>영업: 09:00–19:00, 정규 수업은 당차 시간 기준.</li>
+</ul>
+<p>처음 방문 시 디엔핑 매장에서 체험 수업을 예약해 주시면 평가와 안내가 원활합니다. 방문 전 강의실 위치와 당직 시간을 전화로 확인하세요.</p>`}
+],
+ja: [
+{id:"history", cat:"学校ニュース", date:"2026-10-20", title:"ブロック教室からSTEAM教育へ：本校の歩み", cover:"assets/classroom.jpg",
+ excerpt:"2014年1月設立。前身は天津市河西区乐高教育培训学校、のち楽之疆へ改称。河西区下瓦房キャンパスで教科外STEAM課外訓練を続けています。",
+ body:`<p>天津市河西区楽之疆培訓学校（旧：天津市河西区乐高教育培训学校）は2014年1月17日に設立されました。登記機関は河西区民政局、主管は河西区教育局・河西区科学技術局で、業務範囲は教科外（科学技術系）課外訓練です。</p>
+<p>当初はブロック組み立てと機構の入門が中心でしたが、カリキュラムの充実に伴い、ロボット組み立てに加えビジュアルコーディング・テキストコーディング・メイカー電子・3Dモデリング／プリント・AI入門へと広がり、年齢別の段階的な道筋を形成しました。</p>
+<h3>大切にしていること</h3>
+<ul>
+<li>年齢で一律にせず、習熟度でクラスを決め、到達度で昇級します。</li>
+<li>プロジェクト課題中心で、ロボット・ミニゲーム・メイカー作品を作りながら学びます。</li>
+<li>発見型の授業で、子どもの興味と表現欲を守ります。</li>
+</ul>
+<p>クラス・授業時間・料金は来校査定後の当期提案によります。</p>`},
+{id:"scratch-to-python", cat:"コース解説", date:"2026-10-12", title:"Scratchの後、どうPythonへ進むか", cover:"assets/course-coding.jpg",
+ excerpt:"ビジュアルコーディングは「手を動かし論理を知る」段階、テキストコーディングは「きちんとしたコードで作品を作る」段階。置き換えではなく段階的接続です。",
+ body:`<p>保護者からよく聞かれます：Scratchの後、いつPythonを始めますか？私たちは二つの段階を別の目標として捉え、単にソフトを替えません。</p>
+<h3>Scratch：まずプログラミング思考を</h3>
+<p>Scratchはブロックでプログラムを作るので、英語の文法を覚えなくてもイベント・順次・条件分岐・反復・変数を理解し、アニメ・物語・ミニゲームを作れます。この段階では「問題を手順に分解する」思考を鍛えます。</p>
+<h3>Python：本物のコードの世界へ</h3>
+<p>お子さんがScratch作品を一人で完成させ、変数とループを理解できるようになったらPythonへ。変数・型・条件・ループの基礎から、2Dミニゲームやツールを作り、後にAI入門概念に触れます。</p>
+<h3>移行は査定で決まります</h3>
+<p>ペースは一人ひとり違います。年齢で一律に切り替えず、授業態度と作品の完成度で昇級を判断します。体験授業で先生に現在のレベルや希望をご相談ください。</p>`},
+{id:"competition", cat:"大会", date:"2026-09-28", title:"ロボットアーム・ロボット：大会指導について", cover:"assets/course-robot.jpg",
+ excerpt:"体験枠に「大会向けAIロボットアーム Scratch/Python」があります。通常授業に加え、希望するお子さんに展示・大会課題の指導を行います。",
+ body:`<p>大衆点評の体験枠には「大会向けAIロボットアーム Scratch/Python」が含まれています。ある程度ロボット組み立てやコーディング経験のあるお子さん向けで、アーム動作、センサー・フィードバック、課題プログラム設計を扱います。</p>
+<h3>練習内容</h3>
+<ul>
+<li>ロボット構造とアーム機構の理解・調整;</li>
+<li>ブロックまたはテキストで動作シーケンスと課題ロジックを記述;</li>
+<li>展示・大会課題を繰り返しテスト・修正・最適化;</li>
+<li>作品の発表と説明の練習。</li>
+</ul>
+<p>順位をお約束するものではありません。出られる大会・展示は当期の教育当局や主催者の告知によります。先生がプロジェクト段階で選択肢を共有します。</p>`},
+{id:"faq-age-fee", cat:"よくある質問", date:"2026-09-15", title:"保護者Q&A：何歳から？料金は？", cover:"assets/course-science.jpg",
+ excerpt:"大衆点評のQ&Aで最多の質問は「何歳から？」と「6歳のコースはいくら？」。コースの方向性ごとにまとめました。",
+ body:`<p>大衆点評店舗のQ&Aでは、対象年齢と料金の質問が最も多く寄せられます。お子さんにより基礎が異なるため、来校査定後にクラスを決定します。以下はコース方向別のご案内です。</p>
+<h3>何歳から？</h3>
+<p>歯車・動力機構は5–6歳の入門向け、ロボット・Scratchは一般に6–7歳から、Python・メイカー電子・3Dモデリングは応用方向で、前提コースまたはレベル査定が必要です。</p>
+<h3>料金のしくみは？</h3>
+<p>料金はクラス・時間パック・コース方向によります。プラットフォーム公開の¥1・¥7.9は体験価格で、通常クラスの料金ではありません。通常の時間数・料金は査定後にクラス別にご提案します。天津市の課外訓練規定に従い、教科外訓練は時間数・料金の上限を遵守します。</p>
+<p>詳しいQ&Aは大衆点評アプリ店舗のQ&Aでご覧ください。</p>`},
+{id:"teaching-philosophy", cat:"指導方針", date:"2026-09-03", title:"なぜ「習熟度別クラス・発見型授業」なのか", cover:"assets/classroom.jpg",
+ excerpt:"レビューには「丁寧」「興味」「指導レベル」が繰り返し出ます。その背後にあるのが、長年続けるクラス編成と授業スタイルです。",
+ body:`<p>大衆点評の公開レビュータグで最も多いのは「子どもの食いつき」「先生が丁寧」「指導レベル高」です。これは本校が一貫して続ける指導と直接結びついています。</p>
+<h3>年齢ではなく習熟度で編成</h3>
+<p>同じ年齢でも、手先の力・集中力・理解スピードは大きく違います。査定と授業態度でクラスを決め、基準に達したら昇級。「ついていけない」で自信をなくすことも、「簡単すぎる」で時間を無駄にすることも避けます。</p>
+<h3>発見型、講義よりプロジェクト</h3>
+<p>先生は課題のゴールを示し、子どもが自ら構造を観察し、プログラムをデバッグし、問題を発見するよう導き、要所でヒントを出します。保護者の言う「楽しく学べる」「広がりがある」は、まさにこの授業スタイルの結果です。</p>
+<h3>忍耐が基本</h3>
+<p>STEAMの授業では、子どもが何度も試行錯誤することを許します。先生の役割は作品を代わりに作ることではなく、行き詰まったときに忍耐強く問題を分解し、自分で解決にたどり着けるよう支えることです。</p>`},
+{id:"visit-guide", cat:"来校案内", date:"2026-08-22", title:"下瓦房Jingcaiビルへの道順", cover:"assets/hero.jpg",
+ excerpt:"大古南路459号下瓦房Jingcaiビル4階。地下鉄1・5号線下瓦房駅A出口より徒歩約40m。営業09:00–19:00。",
+ body:`<p>住所：天津市河西区大古南路459号下瓦房Jingcaiビル4階（マクドナルド上、下瓦房駅A出口そば）。</p>
+<h3>アクセス</h3>
+<ul>
+<li>地下鉄：1号線・5号線下瓦房駅A出口、徒歩約40m;</li>
+<li>車：ビル周辺に駐車場、空きは現地の案内に従います;</li>
+<li>営業：09:00–19:00、正式授業は当期時間割によります。</li>
+</ul>
+<p>初回は大衆点評で体験をご予約いただくと、査定とご案内がスムーズです。来校前に教室の場所と担当時間をお電話でご確認ください。</p>`}
+]
+};
+const I18N_F = {
+en: [
+{cat:"Getting Started", q:"What age can children start? Is my child's age suitable?", k:["age","start","years","old","toddler","preschool","4","5","6","7","10","12","begin"],
+ a:"LEGO Education's global curriculum is aimed at ages 3–12, with parts matched to each age group:\n· Preschool: coding-thinking training using LEGO with screen-free coding (magnetic boards, Matata blocks);\n· Ages 7–10: Scratch block coding drives LEGO WeDo 2.0 or SPIKE hubs with sensors, motors and mechanical parts to build personalized robots;\n· Ages 10–15: Python programming, using DJI RoboMaster EP for basic or competition tasks.\nBook a free trial first: a teacher guides your child through an original LEGO coding robot, then recommends the right starting level and hub."},
+{cat:"Getting Started", q:"Total beginner, never done robots or coding — can they keep up?", k:["beginner","never","new","keep up","zero","first","no experience","lost"],
+ a:"Most children start with zero background; the course is designed from the ground up. The first lesson is a gentle onboarding. Classes are small (2–4 children), so teachers can attend to each child. As long as the child is willing to try, there is nothing to worry about.\nThe class is not about copying a standard model — children design, build, fail, debug and rebuild, finishing a unique project and gaining real confidence."},
+{cat:"Getting Started", q:"How is robot coding different from regular kids' coding?", k:["difference","different","regular coding","kids coding","compare","hardware","software","robot coding"],
+ a:"Regular kids' coding is mostly writing code on a computer to make animations or mini-games. Robot coding combines hardware and software: children build mechanical structures and write code to make the robot move, seeing the result directly. It builds hands-on skill, spatial thinking and engineering thinking."},
+{cat:"Getting Started", q:"Is this just playing on computers and bricks? Will it help school? Will kids get addicted to screens?", k:["computer","games","useful","homework","math","time","screen","vision","addicted"],
+ a:"It's more than bricks and screens. Building trains spatial geometry; coding trains logic, problem decomposition and a trial-and-error habit — skills that transfer to math and science.\nTeachers manage screen time, and class is task-driven, not free play, so children don't get addicted to computers."},
+{cat:"Getting Started", q:"Do we need to buy a robot kit or computer?", k:["buy","kit","computer","bring","own","equipment","cost","home"],
+ a:"We provide all robot equipment and computers in class — bring nothing. If a child reaches advanced level and wants to practice at home or prepare for competitions, we'll recommend suitable equipment; it is never required."},
+{cat:"Classes & Schedule", q:"How long is a class? How often? How many kids per class?", k:["length","long","time","week","how often","class size","kids","small class","schedule","hours"],
+ a:"Under Grade 3: 60 minutes per class; Grade 3 and above: 120 minutes. One class per week. Classes are small (2–4 children), so teachers can guide each child one-on-one on building and coding."},
+{cat:"Classes & Schedule", q:"What curriculum? Scratch, Python or C++?", k:["textbook","scratch","python","c++","language","software","wedo","spike","dji","curriculum"],
+ a:"We use our own step-by-step curriculum: younger stages use Scratch block coding with different-level robot hubs, then Python + DJI smart vehicle. Competition-bound students can join advanced white-listed event tasks during holidays.\nWe don't fix one language; children advance by age and readiness."},
+{cat:"Classes & Schedule", q:"I missed a class — can I make it up?", k:["missed","makeup","absent","leave","catch up","reschedule","skip"],
+ a:"Tell us in advance and we'll arrange a make-up class in another same-level section. If timing doesn't work, teachers share that lesson's tasks and project materials with short follow-up coaching. Exact arrangements follow the campus schedule."},
+{cat:"Classes & Schedule", q:"Can parents sit in and watch?", k:["watch","observe","sit in","parent","open day","monitor"],
+ a:"During regular class, parents are asked not to enter the classroom so children stay focused. Rooms have CCTV, and teachers share class project photos and feedback after class. We hold open days when parents may sit in."},
+{cat:"Classes & Schedule", q:"Is there a trial class? Is it free? Do I need to book?", k:["trial","demo","free","experience","book","try"],
+ a:"Yes, there's a free trial. Please book in advance so we can reserve equipment and arrange a teacher who matches the right difficulty for your child."},
+{cat:"Competitions", q:"What competitions can kids join? Do you coach for Olympiad, innovation and robotics contests?", k:["competition","contest","olympiad","team","event","train","prepare","white list"],
+ a:"We connect with age-appropriate innovation, robotics and informatics events and have a dedicated coaching channel. Qualified students may be grouped into camps and taken to events. Events are an extension option, not a required course."},
+{cat:"Competitions", q:"Does coding help middle/high school or college admissions? Can kids be STEM specialty students?", k:["school admission","middle","high","college","specialty","bonus","policy","STEM talent"],
+ a:"Coding and innovation ability can highlight a child's overall profile. Local specialty-student policies differ and change yearly; we can explain public policies, but cannot guarantee admission advantages. The course mainly builds science thinking."},
+{cat:"Competitions", q:"Are there grade exams? Are certificates valuable?", k:["grade exam","certificate","value","level","accreditation"],
+ a:"There are recognized youth innovation and coding level exams, taken on a volunteer basis. Certificates support portfolios but carry no standardized admissions bonus. Taking them is entirely optional."},
+{cat:"Fees & Rules", q:"How much? Per class? Annual fee or packages?", k:["price","cost","fee","tuition","package","annual","quote","expensive","discount"],
+ a:"Priced by hour packages; rates differ by class type. Short packages and better-value long packages are available. Get a quote on-site or from our teachers — fees include class materials with no hidden charges."},
+{cat:"Fees & Rules", q:"How long is a package valid? Can I refund or transfer if we stop?", k:["refund","transfer","valid","expire","cancel","rules"],
+ a:"Packages have a fixed validity written in the contract. Refund and transfer rules follow the enrollment agreement; teachers explain all terms before you sign up."},
+{cat:"Fees & Rules", q:"Any winter/summer camps or short programs?", k:["winter","summer","camp","holiday","short","intensive"],
+ a:"We run short STEM summer camps, robotics intensive sessions and competition bootcamps in winter and summer, usually announced 1–2 months ahead. Register early and we'll notify you first when spots open."},
+{cat:"Teachers & Outcomes", q:"What's the teachers' background? Competition experience?", k:["teacher","staff","background","qualification","experience","degree"],
+ a:"Most teachers hold CS, automation or engineering degrees and receive systematic in-house training. Advanced and competition-track teachers have event coaching experience. You can see teacher profile boards on campus."},
+{cat:"Teachers & Outcomes", q:"How long until I see results? What can kids build?", k:["result","how long","progress","project","build","outcome"],
+ a:"After a few trial lessons, most children can independently build a simple car or sensor device. After about six months they can design and debug robot programs on their own. Each lesson produces a project; kids take home project videos."},
+{cat:"Teachers & Outcomes", q:"My child is weak at math or has short attention span — is it suitable?", k:["math","attention","focus","shy","weak","restless","fidget"],
+ a:"Many children who struggle with math or focus actually thrive in robot coding. It's hands-on and task-driven; fun projects draw children in gently. The math used is gradual and learned through play, never thrown at them all at once."},
+{cat:"Fun Q&A", q:"Can the robot make a car that walks and avoids obstacles?", k:["obstacle","car","walk","avoid","wheels"],
+ a:"Absolutely! At the right stage, we teach children to build the chassis, mount sensors, and program the car to detect obstacles and turn away automatically."},
+{cat:"Fun Q&A", q:"Can we make games and animations?", k:["game","animation","story","mini game","scratch game"],
+ a:"In Scratch stage, children make their own mini-games and animated stories. In Python stage, they can build richer program projects."},
+{cat:"Fun Q&A", q:"After learning, can my child build an AI robot?", k:["ai","artificial intelligence","smart robot","speech","recognition"],
+ a:"Basic AI functions (speech recognition, sensor-based interactive robots) are introduced in advanced courses. A full complex AI robot is very advanced; we build the foundation step by step."}
+],
+ko: [
+{cat:"입문", q:"몇 살부터 배울 수 있나요? 우리 아이 나이에 맞나요?", k:["나이","몇 살","적합","아이","취학","유아","4세","5세","6세","7세","10세","12세"],
+ a:"레고 에듀케이션 글로벌 커리큘럼은 3–12세 대상이며, 연령별 능력에 맞는 교구를 갖추고 있습니다:\n· 유아: 프로그래밍 사고 훈련 중심, 레고+무화면 모듈 프로그래밍(마그네틱 보드, 마타 모듈 등) 사용;\n· 7–10세: 스크래치 블록 코딩으로 레고 WeDo 2.0 또는 SPIKE 메인보드를 구동, 센서·모터·기어 부품으로 개별 로봇 설계;\n· 10–15세: Python을 배우고 DJI RoboMaster EP 자율주행차로 기본·대회 과제 수행.\n먼저 무료 체험 수업을 예약하세요. 선생님이 아이와 함께 오리지널 레고 코딩 로봇을 완성한 뒤, 시작 단계와 주요 기종을 추천해 드립니다."},
+{cat:"입문", q:"완전 초보인데 로봇이나 코딩 해본 적이 없어요. 따라갈 수 있나요?", k:["초보","처음","무경험","따라","걱정","기초"],
+ a:"대부분의 아이가 올 때 완전 초보이고, 과정 자체가 제로부터 설계되어 있습니다. 첫 수업은 선생님이 천천히 적응시키고, 2–4명 소규모 수업이라 한 명 한 명 챙겨줍니다. 아이가 손대보려 한다면 전혀 걱정할 게 없습니다.\n수업은 선생님이 똑같은 모델을 따라 만들게 하는 방식이 아니라, 아이가 스스로 설계하고 실패·수정·분해를 거쳐 유일한 작품을 완성하며 성취감을 얻습니다."},
+{cat:"입문", q:"로봇 코딩과 일반 키즈 코딩은 무엇이 다른가요?", k:["차이","다르다","일반 코딩","키즈 코딩","비교","하드웨어","소프트웨어"],
+ a:"일반 키즈 코딩은 컴퓨터로 코드를 짜 애니메이션이나 미니게임을 만드는 방식이 주입니다. 로봇 코딩은 하드웨어와 소프트웨어를 결합해, 기계 구조를 조립하면서 코드로 로봇을 움직이고 결과를 눈으로 확인합니다. 손재주, 공간 감각, 공학적 사고를 함께 기릅니다."},
+{cat:"입문", q:"그냥 컴퓨터랑 블록 가지고 노는 거 아니에요? 학습에 도움 되나요? 중독되지 않나요?", k:["중독","게임","컴퓨터","도움","학업","수학","시간","시력"],
+ a:"블록과 컴퓨터 노는 것만이 아닙니다. 조립은 공간 기하를, 코딩은 논리력·문제 분해·시행착오 습관을 길러 수학·이과 학습으로 이어집니다.\n수업에서는 선생님이 기기 사용 시간을 관리하고 과제 중심으로 운영하여 자유롭게 게임하지 않으므로, 컴퓨터에 빠지지 않습니다."},
+{cat:"입문", q:"로봇 키트나 컴퓨터를 따로 사야 하나요?", k:["구매","키트","컴퓨터","지참","장비","준비"],
+ a:"수업 시간에는 캠퍼스가 전체 로봇 기자재와 컴퓨터를 제공하니 따로 가져올 필요가 없습니다. 심화 과정에 오르고 집 연습이나 대회 준비를 원할 때 적합한 장비를 추천해 드리며, 강제 구매는 없습니다."},
+{cat:"수업과 진도", q:"수업 시간은 어떻게 되나요? 주 몇 회? 한 반에 몇 명인가요?", k:["시간","길이","주","횟수","정원","인원","소수","수업","스케줄"],
+ a:"초등 3학년 이하는 1회 60분, 초등 3학년 이상은 1회 120분이며, 모두 주 1회입니다. 2–4명 소규모 반으로 선생님이 한 명씩 지도하며 조립과 코딩 모두 개별 지도합니다."},
+{cat:"수업과 진도", q:"교재는 무엇인가요? Scratch, Python, C++ 중 무엇을 배우나요?", k:["교재","스크래치","파이썬","C++","언어","소프트","웨이두","스파이크","대강","커리큘럼"],
+ a:"자체 개발 커리큘럼으로 단계적으로 진행합니다: 저학년에는 Scratch 그래픽 코딩에 다양한 등급의 로봇 메인보드를 연결하고, 이후 Python + DJI 지능형 차량으로 넘어갑니다. 대회 목표가 있는 아이는 방학에 심화 화이트리스트 대회 과정에 참여할 수 있습니다.\n하나만 고정으로 배우는 것이 아니라, 나이와 이해도에 따라 단계적으로 올라갑니다."},
+{cat:"수업과 진도", q:"결석하면 보강이 되나요?", k:["결석","보강","결근","보충","휴강","보충수업"],
+ a:"미리 알려주시면 동단계 다른 반에 보강을 우선 배정해 드립니다. 시간이 맞지 않으면 선생님이 그날의 학습 과제와 작품 자료를 보내드리고, 간단한 후속 지도로 진도를 따라가게 합니다. 구체는 캠퍼스 시간표에 따릅니다."},
+{cat:"수업과 진도", q:"학부모가 교실에 들어가 참관할 수 있나요?", k:["참관","관찰","수업","학부모","오픈데이","모니터"],
+ a:"정규 수업 중에는 아이 집중력 분산을 막기 위해 학부모의 교실 입장을 권장하지 않습니다. 교실에는 CCTV가 있고, 수업 후 선생님이 아이의 작품과 학습 피드백을 공유합니다. 정기 오픈데이에는 교실 참관이 가능합니다."},
+{cat:"수업과 진도", q:"체험 수업이 있나요? 무료인가요? 예약해야 하나요?", k:["체험","시범","무료","참관","예약","체험수업"],
+ a:"체험 수업이 있으며 현재 무료입니다. 사전 예약을 해 주셔야 기자재를 준비하고 아이 수준에 맞는 내용을 진행할 선생님을 배정할 수 있습니다."},
+{cat:"대회·진학", q:"배우면 어떤 대회에 나갈 수 있나요? 정보올림피아드, 과학창신대회, 로봇 대회도 인솔하나요?", k:["대회","경시","올림피아드","인솔","참가","훈련","화이트리스트"],
+ a:"청소년 대상 과학창신·로봇·정보 관련 대회를 연결하며 전용 대회 준비 채널을 운영합니다. 조건이 되고 기초가 갖춰진 아이는 캠퍼스에서 합숙 훈련과 대회 인솔을 진행합니다. 대회는 확장 선택이지 필수 과목은 아닙니다."},
+{cat:"대회·진학", q:"코딩이 초중고 입시에 도움되나요? 과학기술 특기생이 가능한가요?", k:["입시","초중고","대입","특기생","가산점","정책","진학"],
+ a:"코딩과 과학창신 능력은 아이의 종합 역량을 돋보이게 하는 요소가 될 수 있습니다. 지역별 과학기술 특기생 정책은 매년 다르고 바뀌므로, 공개 정책은 안내할 수 있어도 특기생 합격이나 가산점을 약속할 수는 없습니다. 수업은 주로 이과 사고력을 기르는 데 중점을 둡니다."},
+{cat:"대회·진학", q:"급수 시험이 있나요? 자격증 효력은 어느 정도인가요?", k:["급수","자격증","효력","레벨","인증"],
+ a:"정식 청소년 과학창신·코딩 등급 시험이 있으며 자원으로 응시합니다. 자격증은 학습 성과물과 종합 역량 자료로 참고될 수 있으나, 통일된 입시 가산점 효력은 없으며 응시는 전적으로 자율입니다."},
+{cat:"비용·규정", q:"비용은 어떻게 되나요? 1회당 얼마인가요? 연간 회비나 패키지가 있나요?", k:["비용","가격","수강료","패키지","연간","시간팩","견적","할인"],
+ a:"시간 패키지별로 과금하며 반별 단가가 다릅니다. 단기 패키지와 더 합리적인 장기 패키지가 있습니다. 정확한 견적은 방문하거나 캠퍼스 선생님께 문의해 주세요. 비용에는 수업 소모품이 포함되어 있고 숨은 비용은 없습니다."},
+{cat:"비용·규정", q:"수업 시간 유효기간은 얼마인가요? 안 하게 되면 환불이나 시간 이전이 되나요?", k:["환불","반환","이전","유효","취소","규정"],
+ a:"수업 시간에는 고정 유효기간이 있으며 계약서에 명시됩니다. 환불·이전 규정은 등록 협약에 따르고, 등록 전 선생님이 관련 조항을 자세히 설명해 드립니다."},
+{cat:"비용·규정", q:"방학 때 캠프나 겨울·여름 단기 집중반이 있나요?", k:["겨울","여름","캠프","집중","방학","단기"],
+ a:"방학 기간에 단기 과학창신 서머캠프, 로봇 집중훈련, 대회 스프린트반을 열며 보통 1–2개월 전에 공지합니다. 미리 등록해 주시면 정원이 나오는 대로 가장 먼저 알려드립니다."},
+{cat:"강사·효과", q:"선생님은 어떤 배경인가요? 대회 지도 경험이 있나요?", k:["선생님","강사","배경","자격","경력","대회경험","학력"],
+ a:"강사진은 대부분 컴퓨터·자동화·이공학 전공이며 입사 후 체계적인 연수를 받습니다. 심화·대회 방향 선생님은 대회 인솔 경험이 있습니다. 캠퍼스에 비치된 선생님 소개 패널도 참고할 수 있습니다."},
+{cat:"강사·효과", q:"얼마나 배워야 효과가 보이나요? 아이가 무엇을 만들 수 있나요?", k:["효과","기간","발전","작품","결과","변화"],
+ a:"대부분 아이는 체험 수업 몇 차례 만에 간단한 자동차나 감지 장치를 혼자 만들 수 있습니다. 약 6개월 꾸준히 배우면 로봇 프로그램을 독자적으로 설계·디버깅할 수 있습니다. 매 수업 작품이 나오고, 작품 영상을 집으로 가져갈 수 있습니다."},
+{cat:"강사·효과", q:"수학을 못하거나 집중력이 낮은 아이도 맞나요?", k:["수학","집중력","주의","소심","기초","적합","산만"],
+ a:"수학을 어려워하거나 집중력이 약한 아이일수록 로봇 코딩이 잘 맞는 경우가 많습니다. 손으로 직접 하는 활동 중심이라 흥미로운 과제가 아이를 몰입하게 하고, 수학 지식도 점진적으로 놀이 속에서 익혀 처음부터 어렵지 않습니다."},
+{cat:"재미질문", q:"장애물을 스스로 피해 걷는 자동차를 직접 만들 수 있나요?", k:["장애물","자동차","걷기","피하기","바퀴"],
+ a:"물론이죠! 해당 단계에 오면 차체를 조립하고 센서를 장착한 뒤, 장애물을 인식해 자동으로 방향을 틀어 피하도록 코드를 작성하게 됩니다."},
+{cat:"재미질문", q:"게임이나 애니메이션도 만들 수 있나요?", k:["게임","애니메이션","이야기","미니게임","작품"],
+ a:"Scratch 단계에서 직접 미니게임과 애니메이션 이야기를 만들 수 있습니다. Python 단계에 오면 더 풍부한 프로그램 프로젝트도 할 수 있습니다."},
+{cat:"재미질문", q:"배우면 제가 AI 로봇을 직접 만들 수 있나요?", k:["AI","인공지능","스스로","지능로봇","음성","인식"],
+ a:"기본적인 AI 기능(음성 인식, 감지형 인터랙티브 로봇 등)은 심화 과정에서 접합니다. 완성도 높은 복잡한 AI 로봇은 난도가 매우 높으므로, 단계별로 기초를 탄탄히 다져 나갑니다."}
+],
+ja: [
+{cat:"入門", q:"何歳から始められますか？うちの子の年齢で大丈夫ですか？", k:["age","年齢","何歳","適して","幼児","4歳","5歳","6歳","7歳","始める","対象"],
+ a:"レゴエデュケーションの世界共通カリキュラムは3–12歳対象で、年齢に応じた教材を備えています:\n· 幼児期: プログラミング思考を中心に、レゴ＋画面なしモジュール（マグネットボード、マータなど）を使用;\n· 7–10歳: ScratchブロックでレゴWeDo 2.0またはSPIKEハブを動かし、センサー・モーター・機構部品でオリジナルロボットを設計;\n· 10–15歳: Pythonを学び、DJI RoboMaster EPで基礎・競技課題を実施.\nまず無料体験をご予約ください。先生がお子さんとオリジナルのレゴコーディングロボットを作り、開始レベルとメイン機種をご提案します。"},
+{cat:"入門", q:"完全初心者でロボットもコーディングも未経験。ついていけますか？", k:["初心者","未経験","初めて","ついていける","ゼロ","不安"],
+ a:"ほとんどのお子さんはゼロから始めます。コース自体がゼロ設計です。初回は先生がゆっくり慣らし、2–4人の少人数クラスで一人ひとりに目が届きます。やってみたい気持ちがあれば大丈夫です。\n先生が同じモデルを手本に作らせるのではなく、子どもが自分で設計し、失敗・調整・分解を経て唯一無二の作品を完成させ、達成感を得ます。"},
+{cat:"入門", q:"ロボットプログラミングと普通のキッズコーディングは何が違いますか？", k:["違い","普通","キッズコード","比較","ハード","ソフト"],
+ a:"普通のキッズコーディングはパソコンでコードを書き、アニメやミニゲームを作るものが中心です。ロボットプログラミングはハードとソフトを組み合わせ、機構を組みながらコードでロボットを動かし、結果を目で見て確認できます。手先・空間認識・工学的思考を鍛えます。"},
+{cat:"入門", q:"パソコンやブロックで遊ぶだけ？勉強に役立つ？画面依存になりませんか？", k:["依存","ゲーム","パソコン","役に立つ","勉強","数学","時間","視力"],
+ a:"ブロックやパソコンで遊ぶだけではありません。組み立ては空間幾何を、コーディングは論理力・問題分解・試行錯誤の習慣を育て、数学や理科に活きます。\n授業では先生が画面時間を管理し、課題中心で進めるので、自由にゲームをするわけではなく、画面依存にはなりません。"},
+{cat:"入門", q:"ロボットキットやパソコンを自前で用意する必要はありますか？", k:["購入","キット","パソコン","持参","装備","自宅"],
+ a:"授業で使うロボット教材とパソコンはすべて教室が用意するので、持ち込みは不要です。上級に進み、自宅練習や大会準備をご希望の場合に適した機材をご案内します。買取強制はありません。"},
+{cat:"授業について", q:"1回の授業は何分ですか？週に何回？クラス人数は？", k:["時間","長さ","週","回数","人数","少人数","授業","スケジュール"],
+ a:"小学3年生未満は1回60分、小学3年生以上は1回120分、いずれも週1回です。2–4人の少人数クラスで、先生が一人ひとりの組み立てとコーディングを個別に指導します。"},
+{cat:"授業について", q:"教材は？Scratch、Python、C++のどれをやりますか？", k:["教材","スクラッチ","パイソン","C++","言語","ソフト","wedo","spike","DJI"],
+ a:"自社開発の段階的カリキュラムで進めます。低年齢期はScratchブロックに各レベルのロボットハブを組み合わせ、その後Python＋DJIスマートカーへ進みます。大会志向のお子さんは、夏休み・冬休みに公募制大会向けの上級プログラムに参加できます。\n1つの言語に固定せず、年齢と理解度に応じて段階的に進みます。"},
+{cat:"授業について", q:"欠席した場合、振替はできますか？", k:["欠席","振替","欠課","補講","調整"],
+ a:"事前にご連絡いただければ、同レベルの他クラスへの振替を優先手配します。時間が合わない場合は、先生がその回の課題と作品資料をお渡しし、短いフォローで進度に追いつけるようにします。詳細は教室の時間割によります。"},
+{cat:"授業について", q:"保護者は教室に入って見学できますか？", k:["見学","保護者","参観","オープン","監視"],
+ a:"通常授業中はお子さんの集中が切れるため、保護者の教室入室はご遠慮いただいています。教室にはカメラがあり、授業後に先生が作品や学習フィードバックを共有します。定期の参観日には教室でご見学いただけます。"},
+{cat:"授業について", q:"体験授業はありますか？無料ですか？予約は必要ですか？", k:["体験","見学","無料","予約","トライアル"],
+ a:"体験授業があり、現在無料です。教材の確保とお子さんのレベルに合わせた先生の手配のため、事前予約をお願いします。"},
+{cat:"大会・進学", q:"学ぶとどんな大会に出られますか？情報オリンピックやロボット大会の引率はありますか？", k:["大会","コンテスト","オリンピック","引率","出場","強化","公募"],
+ a:"青少年向けの科学創新・ロボット・情報系の大会をご紹介し、専用の指導枠を設けています。条件を満たし基礎が整ったお子さんは、合宿や引率で大会に出場します。大会はあくまで選択肢で、必須ではありません。"},
+{cat:"大会・進学", q:"プログラミングは中学・高校・大学受験に有利になりますか？科技特技は可能ですか？", k:["受験","中学","高校","大学","特技","加点","政策","進学"],
+ a:"コーディングや科学創新の力は、お子さんの総合力のアピールポイントになります。各地の科技特技制度は毎年変わるため、公開情報はご案内できますが、特技合格や加点をお約束するものではありません。授業は主に理科的思考を育てることを目的にしています。"},
+{cat:"大会・進学", q:"検定はありますか？資格の価値は？", k:["検定","資格","価値","レベル","認定"],
+ a:"公的な青少年科学創新・コーディング等級試験があり、任意で受験できます。証明書は学習成果や総合力資料として参考になりますが、統一の加点効力はありません。受験は完全任意です。"},
+{cat:"料金・規約", q:"料金はいくらですか？1回あたり？年間やパックはありますか？", k:["料金","価格","費用","授業料","パック","年間","見積もり","割引"],
+ a:"時間パック制で、クラス種別に単価が異なります。短期パックとお得な長期パックがあります。正確な見積もりは来校または教室の先生よりお受け取りください。費用には教材費が含まれ、隠れた料金はありません。"},
+{cat:"料金・規約", q:"有効期限は？通えなくなったら返金や振替はできますか？", k:["返金","振替","有効","期限","キャンセル","規則"],
+ a:"時間パックには定められた有効期間があり、契約書に記載します。返金・振替のルールは入会協定に従い、入会前に先生が条項を丁寧にご説明します。"},
+{cat:"料金・規約", q:"長期休暇にキャンプや短期集中講座はありますか？", k:["冬","夏","キャンプ","集中","休暇","短期"],
+ a:"冬休み・夏休みに、科学創新サマーキャンプ・ロボット集中講座・大会直前講座を開講し、通常1–2か月前に告知します。事前にご登録いただければ、定員が決まり次第いち早くご連絡します。"},
+{cat:"講師・成果", q:"先生の経歴は？大会指導の経験はありますか？", k:["先生","講師","経歴","資格","経験","学歴"],
+ a:"講師の多くはコンピュータ・自動化・理工系出身で、入社後に体系的な研修を受けています。上級・大会クラスの先生は引率経験を持ちます。教室にある先生紹介ボードもご覧いただけます。"},
+{cat:"講師・成果", q:"どのくらいで成果が出ますか？何が作れるようになりますか？", k:["成果","期間","進歩","作品","効果"],
+ a:"体験数回で、多くのお子さんが簡単な車やセンサー装置を一人で作れるようになります。半年ほど続ければ、ロボットプログラムを自分で設計・デバッグできるようになります。毎回作品があり、動画を持ち帰れます。"},
+{cat:"講師・成果", q:"算数が苦手・集中力が弱い子でも向いていますか？", k:["算数","集中力","注意力","引っ込み思案","不安","多動"],
+ a:"算数が苦手な子や集中が続かない子ほど、ロボットコーディングが合うことがよくあります。手を動かす課題中心なので、楽しいテーマが自然と没頭を促します。使う算数も段階的で、遊びながら理解でき、最初から高難度にはしません。"},
+{cat:"ギモン", q:"自分で歩いて障害物を避ける車を作れますか？", k:["障害物","車","歩く","避ける","車輪"],
+ a:"もちろん!該当ステージでは、シャーシを組み、センサーを付け、障害物を検知して自動で避けるようプログラムを書きます。"},
+{cat:"ギモン", q:"ゲームやアニメも作れますか？", k:["ゲーム","アニメ","物語","ミニゲーム","作品"],
+ a:"Scratchの段階で、自分のミニゲームやアニメ作品を作れます。Pythonに進めば、より本格的なプログラム作品にも挑戦できます。"},
+{cat:"ギモン", q:"学んだら自分でAIロボットを作れますか？", k:["AI","人工知能","自分で","スマートロボット","音声","認識"],
+ a:"基本的なAI機能（音声認識、センサー連動のインタラクティブロボットなど）は上級コースで扱います。完成度の高い複雑なAIロボットは非常に高度なので、基礎から段階的に積み上げます。"}
+]
+};
+
+/* ===== 运行时状态与切换 ===== */
+let state = { lang: (localStorage.getItem("prefLang") || "zh") };
+if(!["zh","en","ko","ja"].includes(state.lang)) state.lang = "zh";
+function curArticles(){ return state.lang==="zh" ? ARTICLES_ZH : I18N_A[state.lang]; }
+function curFaq(){ return state.lang==="zh" ? FAQ_ZH : I18N_F[state.lang]; }
+
 /* ===== FAQ 专栏：分类筛选 + 手风琴 ===== */
-const faqCats = ["全部", ...new Set(FAQ.map(x => x.cat))];
-let faqActiveCat = "全部";
+let faqActiveCat = null;
+function getFaqCats(){ const f=curFaq(); return [I18N_UI[state.lang].faqAll, ...new Set(f.map(x=>x.cat))]; }
 function renderFaqCats(){
-  $("#faqCats").innerHTML = faqCats.map(c =>
-    `<button class="${c===faqActiveCat?"active":""}" onclick="setFaqCat('${c}')">${c}</button>`).join("");
+  const cats = getFaqCats();
+  if(!faqActiveCat) faqActiveCat = cats[0];
+  if(!cats.includes(faqActiveCat)) faqActiveCat = cats[0];
+  $("#faqCats").innerHTML = cats.map(c =>
+    `<button class="${c===faqActiveCat?"active":""}" onclick="setFaqCat(this.textContent)">${c}</button>`).join("");
 }
 function setFaqCat(c){ faqActiveCat = c; renderFaqCats(); renderFaqList(); }
 function renderFaqList(){
-  const list = FAQ.map((f,i)=>({...f, idx:i}))
-    .filter(f => faqActiveCat==="全部" || f.cat===faqActiveCat);
-  if(!list.length){ $("#faqList").innerHTML = `<div class="faq-empty">该分类下暂无问答</div>`; return; }
+  const F = curFaq();
+  const cats = getFaqCats();
+  const list = F.map((f,i)=>({...f, idx:i}))
+    .filter(f => faqActiveCat===cats[0] || f.cat===faqActiveCat);
+  if(!list.length){ $("#faqList").innerHTML = `<div class="faq-empty">${I18N_UI[state.lang].faqEmpty}</div>`; return; }
   $("#faqList").innerHTML = list.map(f => `
     <details class="faq-item">
       <summary>
@@ -980,8 +1518,9 @@ const chatPanel = $("#chatPanel"), chatBody = $("#chatBody"), chatInput = $("#ch
 function normalize(s){ return (s||"").toLowerCase().replace(/[\s，。？!！、,?·:：;；“”"'（）()【】\-_\/\\]/g,""); }
 function matchFaq(text){
   const q = normalize(text);
+  const F = curFaq();
   let best = null, bestScore = 0;
-  FAQ.forEach((f) => {
+  F.forEach((f) => {
     let score = 0;
     f.k.forEach(kw => { if(q.includes(normalize(kw))) score += 2; });
     if(q && normalize(f.q).includes(q)) score += 3;
@@ -1004,7 +1543,7 @@ function botReply(faq){
   if(faq){
     addMsg(faq.a, "bot", faq.cat + " · " + faq.q);
   }else{
-    addMsg("这个问题我暂时没有匹配到固定解答。您可以换一种说法（比如“几岁可以学”“怎么收费”“有没有试听课”），也可以直接留下联系方式，由校区老师为您详细解答；或点击底部“预约体验课”到校区实地了解。", "bot");
+    addMsg(I18N_UI[state.lang].chatFallback, "bot");
   }
 }
 function askFaq(text){
@@ -1021,15 +1560,45 @@ $("#chatClose").addEventListener("click", () => chatPanel.classList.remove("open
 function sendChat(){ askFaq(chatInput.value); chatInput.value = ""; }
 $("#chatSend").addEventListener("click", sendChat);
 chatInput.addEventListener("keydown", e => { if(e.key==="Enter") sendChat(); });
-const quickQs = ["几岁可以学？","零基础能跟上吗？","怎么收费？","有没有试听课？","一节课多久？","可以参加什么比赛？"];
-$("#chatQuick").innerHTML = quickQs.map(q => `<button onclick='askFaq(this.textContent)'>${q}</button>`).join("");
-addMsg("您好！我是乐之疆智能问答助手，可以问我入学年龄、课程安排、收费、试听、竞赛与师资等问题，点击下方常见问题即可快速查看答案。", "bot");
+function renderQuickQs(){
+  $("#chatQuick").innerHTML = I18N_UI[state.lang].quickQs.map(q => `<button onclick='askFaq(this.textContent)'>${q}</button>`).join("");
+}
+function greet(){
+  chatBody.innerHTML = "";
+  addMsg(I18N_UI[state.lang].chatWelcome, "bot");
+}
+renderQuickQs(); greet();
+
+/* ===== 语言切换 ===== */
+function applyI18n(){
+  const U = I18N_UI[state.lang];
+  document.documentElement.lang = {zh:"zh-CN",en:"en",ko:"ko",ja:"ja"}[state.lang];
+  document.querySelectorAll("[data-i18n]").forEach(el => { const k=el.getAttribute("data-i18n"); if(U[k]!=null) el.textContent=U[k]; });
+  document.querySelectorAll("[data-i18n-html]").forEach(el => { const k=el.getAttribute("data-i18n-html"); if(U[k]!=null) el.innerHTML=U[k]; });
+  document.querySelectorAll("[data-i18n-ph]").forEach(el => { const k=el.getAttribute("data-i18n-ph"); if(U[k]!=null) el.placeholder=U[k]; });
+  document.querySelectorAll(".lang-switch button").forEach(b => b.classList.toggle("on", b.dataset.lang===state.lang));
+  faqActiveCat = null;
+  renderFaqCats(); renderFaqList();
+  renderList();
+  // 若当前在文章阅读模式，重渲文章
+  if(document.body.classList.contains("reading")){
+    const m = (location.hash||"").match(/^#\/news\/([\w-]+)$/);
+    if(m) renderArticle(m[1]);
+  }
+  renderQuickQs(); greet();
+}
+function setLang(l){
+  state.lang = l; localStorage.setItem("prefLang", l);
+  applyI18n();
+}
+document.querySelectorAll(".lang-switch button").forEach(b => b.addEventListener("click", () => setLang(b.dataset.lang)));
 
 renderFaqCats(); renderFaqList();
 
 window.addEventListener("hashchange", route);
 renderList();
 route();
+applyI18n();
 </script>
 
 </body>
