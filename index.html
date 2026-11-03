@@ -37,6 +37,8 @@ h2.section-title{font-size:clamp(26px,4vw,38px);font-weight:900;letter-spacing:.
 /* ===== 顶部导航 ===== */
 header.nav{position:fixed;top:0;left:0;right:0;z-index:60;transition:background .25s,border-color .25s;border-bottom:1px solid transparent}
 header.nav.scrolled{background:rgba(6,10,18,.86);backdrop-filter:blur(12px);border-color:var(--line)}
+html{scroll-behavior:smooth}
+section[id]{scroll-margin-top:84px}
 .nav-inner{max-width:var(--maxw);margin:0 auto;padding:0 22px;height:68px;display:flex;align-items:center;justify-content:space-between;gap:20px}
 .brand{display:flex;align-items:center;gap:12px;min-width:0}
 .brand-mark{width:38px;height:38px;flex:none;border-radius:50%;background:#fff;border:1px solid var(--line-2);overflow:hidden;display:grid;place-items:center}
@@ -853,7 +855,15 @@ function route(){
   const h = location.hash || "#/";
   const m = h.match(/^#\/news\/([\w-]+)$/);
   if(m){ showArticle(m[1]); return; }
-  showList();
+  // 回到首页列表视图（退出新闻阅读模式）
+  document.body.classList.remove("reading");
+  articleView.classList.remove("active");
+  listView.classList.remove("hidden");
+  // 裸锚点导航：一次平滑滚动到对应板块，而不是先回顶
+  const id = h.replace(/^#\/?/, "");
+  const el = id && document.getElementById(id);
+  if(el){ el.scrollIntoView({behavior:"smooth", block:"start"}); return; }
+  window.scrollTo({top:0, behavior:"smooth"});
 }
 
 /* ===== 导航与菜单 ===== */
