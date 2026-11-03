@@ -39,22 +39,30 @@ header.nav{position:fixed;top:0;left:0;right:0;z-index:60;transition:background 
 header.nav.scrolled{background:rgba(6,10,18,.86);backdrop-filter:blur(12px);border-color:var(--line)}
 html{scroll-behavior:smooth}
 section[id]{scroll-margin-top:84px}
-.nav-inner{max-width:var(--maxw);margin:0 auto;padding:0 22px;height:68px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.nav-inner{max-width:var(--maxw);margin:0 auto;padding:0 18px;height:68px;display:flex;align-items:center;justify-content:space-between;gap:12px}
 .brand{display:flex;align-items:center;gap:12px;min-width:0}
 .brand-mark{width:38px;height:38px;flex:none;border-radius:50%;background:#fff;border:1px solid var(--line-2);overflow:hidden;display:grid;place-items:center}
 .brand-mark img{width:100%;height:100%;object-fit:cover}
 .brand-mark svg{width:22px;height:22px}
 .brand-name{font-weight:900;font-size:15px;letter-spacing:.02em;white-space:nowrap}
 .brand-sub{display:block;font-size:11px;color:var(--text-3);font-weight:500;letter-spacing:.08em}
-nav.menu{display:flex;gap:6px;align-items:center}
-nav.menu a{padding:9px 13px;border-radius:10px;font-size:15px;color:var(--text-2);transition:color .2s,background .2s}
+nav.menu{display:flex;gap:2px;align-items:center;white-space:nowrap}
+nav.menu a{padding:8px 10px;border-radius:10px;font-size:14px;color:var(--text-2);transition:color .2s,background .2s;white-space:nowrap}
 nav.menu a:hover,nav.menu a.active{color:var(--text);background:rgba(53,230,200,.08)}
-.nav-cta{padding:10px 18px;border-radius:12px;background:var(--teal);color:#04221C;font-weight:700;border:none;font-size:15px;white-space:nowrap}
+.nav-cta{padding:9px 14px;border-radius:12px;background:var(--teal);color:#04221C;font-weight:700;border:none;font-size:14px;white-space:nowrap}
 .nav-cta:hover{filter:brightness(1.08)}
-.lang-switch{display:flex;gap:2px;align-items:center;border:1px solid var(--line-2);border-radius:10px;padding:3px}
-.lang-switch button{background:none;border:none;color:var(--text-3);font-size:13px;font-weight:600;padding:4px 8px;border-radius:7px;cursor:pointer;line-height:1}
+.lang-switch{display:flex;gap:1px;align-items:center;border:1px solid var(--line-2);border-radius:10px;padding:2px;flex-shrink:0}
+.lang-switch button{background:none;border:none;color:var(--text-3);font-size:12px;font-weight:600;padding:4px 7px;border-radius:7px;cursor:pointer;line-height:1;white-space:nowrap}
 .lang-switch button.on{background:var(--teal);color:#04221C}
 .lang-switch button:not(.on):hover{color:var(--text)}
+.lang-dd{position:relative;flex-shrink:0}
+.lang-dd-btn{background:none;border:1px solid var(--line-2);color:var(--text-2);font-size:13px;font-weight:600;padding:6px 10px;border-radius:10px;cursor:pointer;white-space:nowrap}
+.lang-dd-btn:hover{color:var(--text);border-color:var(--line)}
+.lang-dd-menu{position:absolute;top:calc(100%+6px);right:0;background:#0d1b2a;border:1px solid var(--line-2);border-radius:10px;padding:4px;display:none;min-width:130px;z-index:120;box-shadow:0 12px 30px rgba(0,0,0,.55)}
+.lang-dd.open .lang-dd-menu{display:block}
+.lang-dd-menu button{display:block;width:100%;text-align:left;background:none;border:none;color:var(--text-2);padding:8px 12px;border-radius:7px;cursor:pointer;font-size:13px}
+.lang-dd-menu button:hover{background:rgba(53,230,200,.1);color:var(--text)}
+.lang-dd-menu button.on{color:var(--teal);font-weight:700}
 .burger{display:none;background:none;border:1px solid var(--line-2);border-radius:10px;width:42px;height:42px;color:var(--text);place-items:center}
 .burger svg{width:22px;height:22px}
 .mobile-menu{display:none;position:fixed;top:68px;left:0;right:0;z-index:59;background:rgba(7,12,21,.97);border-bottom:1px solid var(--line);padding:12px 22px 20px}
@@ -279,6 +287,7 @@ footer{border-top:1px solid var(--line);background:var(--bg-2);padding:56px 0 30
   nav.menu{display:none}
   .nav-cta{display:none}
   #langSwitch{display:none}
+  #langDD{display:none}
   .burger{display:grid}
   .stats-grid{grid-template-columns:repeat(2,1fr)}
   .course-grid,.review-grid,.news-list,.deal-grid,.form-grid{grid-template-columns:1fr}
@@ -319,8 +328,14 @@ footer{border-top:1px solid var(--line);background:var(--bg-2);padding:56px 0 30
       <a href="#news" data-nav="news">新闻动态</a>
       <a href="#contact" data-nav="contact">联系我们</a>
     </nav>
-    <div class="lang-switch" id="langSwitch">
-      <button data-lang="zh" class="on">中</button><button data-lang="en">EN</button><button data-lang="ko">한</button><button data-lang="ja">日</button>
+    <div class="lang-dd" id="langDD">
+      <button class="lang-dd-btn" id="langDDBtn" type="button" aria-haspopup="true" aria-expanded="false">中文 ▾</button>
+      <div class="lang-dd-menu" id="langDDMenu">
+        <button type="button" data-lang="zh">中文</button>
+        <button type="button" data-lang="en">English</button>
+        <button type="button" data-lang="ko">한국어</button>
+        <button type="button" data-lang="ja">日本語</button>
+      </div>
     </div>
     <button class="nav-cta" onclick="location.hash='#contact'" data-i18n="ctaBook">预约体验课</button>
     <button class="burger" id="burger" aria-label="菜单"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
@@ -1577,6 +1592,9 @@ function applyI18n(){
   document.querySelectorAll("[data-i18n-html]").forEach(el => { const k=el.getAttribute("data-i18n-html"); if(U[k]!=null) el.innerHTML=U[k]; });
   document.querySelectorAll("[data-i18n-ph]").forEach(el => { const k=el.getAttribute("data-i18n-ph"); if(U[k]!=null) el.placeholder=U[k]; });
   document.querySelectorAll(".lang-switch button").forEach(b => b.classList.toggle("on", b.dataset.lang===state.lang));
+  const LANG_LABEL = {zh:"中文", en:"English", ko:"한국어", ja:"日本語"};
+  document.getElementById("langDDBtn").textContent = LANG_LABEL[state.lang] + " ▾";
+  document.querySelectorAll("#langDDMenu button").forEach(b => b.classList.toggle("on", b.dataset.lang===state.lang));
   faqActiveCat = null;
   renderFaqCats(); renderFaqList();
   renderList();
@@ -1592,6 +1610,19 @@ function setLang(l){
   applyI18n();
 }
 document.querySelectorAll(".lang-switch button").forEach(b => b.addEventListener("click", () => setLang(b.dataset.lang)));
+// 顶栏下拉
+const langDD = document.getElementById("langDD");
+document.getElementById("langDDBtn").addEventListener("click", (e) => {
+  e.stopPropagation();
+  langDD.classList.toggle("open");
+});
+document.querySelectorAll("#langDDMenu button").forEach(b => b.addEventListener("click", () => {
+  setLang(b.dataset.lang);
+  langDD.classList.remove("open");
+}));
+document.addEventListener("click", (e) => {
+  if(!langDD.contains(e.target)) langDD.classList.remove("open");
+});
 
 renderFaqCats(); renderFaqList();
 
