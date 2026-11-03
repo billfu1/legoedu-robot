@@ -623,7 +623,7 @@ footer{border-top:1px solid var(--line);background:var(--bg-2);padding:56px 0 30
     </div>
 
     <div class="visit-card">
-      <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 5h16v14H4zM4 7l8 6 8-6"/></svg><span data-i18n="formH">预约登记（演示表单）</span></h3>
+      <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 5h16v14H4zM4 7l8 6 8-6"/></svg><span data-i18n="formH">预约登记</span></h3>
       <form id="bookForm" class="form-grid" onsubmit="return submitBooking(event)">
         <div class="field"><label for="fName" data-i18n="fNameL">家长称呼</label><input id="fName" required placeholder="" data-i18n-ph="fNamePh"></div>
         <div class="field"><label for="fAge" data-i18n="fAgeL">孩子年龄</label>
@@ -913,19 +913,58 @@ document.querySelectorAll("#menu a").forEach(a => {
   });
 });
 
-/* ===== 表单提交（演示，不联网） ===== */
+/* ===== 表单提交（真实通知：邮件 formsubmit.co + 微信 Server酱） ===== */
+/* 邮件：提交数据由 formsubmit.co 转发到校区邮箱（首次提交需到收件邮箱点击激活确认邮件）。
+   微信：浏览器直接调用推送接口有跨域与密钥暴露风险，SendKey 填写后才会启用；
+         建议同时在 Server酱后台设置消息频率限制，降低 SendKey 被查看后盗刷的影响。 */
+const BOOK_FORM_EMAIL = "2603571557@qq.com"; // 预约登记邮件接收地址（formsubmit.co 转发）
+const WECHAT_SENDKEY  = "SCT460202Ts9uXNJ2jwDB2Si2DKA4zTTU0"; // Server酱 SendKey（已开通微信推送）
+
 function showToast(msg){
   const t = $("#toast");
   t.textContent = msg; t.classList.add("show");
   clearTimeout(t._timer);
   t._timer = setTimeout(() => t.classList.remove("show"), 3200);
 }
-function submitBooking(e){
+function collectBooking(){
+  return {
+    "家长称呼": $("#fName").value.trim(),
+    "孩子年龄": $("#fAge").value,
+    "意向课程": $("#fCourse").value,
+    "联系电话": $("#fPhone").value.trim(),
+    "补充留言": $("#fMsg").value.trim() || "（无）",
+    "_subject": "官网预约登记 · " + $("#fPhone").value.trim()
+  };
+}
+async function submitBooking(e){
   e.preventDefault();
   const U = I18N_UI[state.lang];
   const phone = $("#fPhone").value.trim();
   if(!/^1[3-9]\d{9}$/.test(phone)){ showToast(U.formPhoneErr); return false; }
-  showToast(U.formOk);
+  const data = collectBooking();
+  let mailOk = true, wxOk = true;
+  // 1) 邮件通知（formsubmit.co，AJAX）
+  try{
+    const r = await fetch("https://formsubmit.co/ajax/" + BOOK_FORM_EMAIL, {
+      method: "POST",
+      headers: {"Content-Type":"application/json","Accept":"application/json"},
+      body: JSON.stringify(data)
+    });
+    if(!r.ok) mailOk = false;
+  }catch(err){ mailOk = false; }
+  // 2) 微信通知（Server酱，no-cors 发出即可收到推送；SendKey 为空则跳过）
+  if(WECHAT_SENDKEY){
+    try{
+      const title = "官网预约：" + data["家长称呼"] + " " + data["联系电话"];
+      const desp = Object.entries(data)
+        .filter(function(p){ return p[0] !== "_subject"; })
+        .map(function(p){ return "**" + p[0] + "**：" + p[1]; })
+        .join("\n\n");
+      await fetch("https://sctapi.ftqq.com/" + WECHAT_SENDKEY + ".send?title=" +
+        encodeURIComponent(title) + "&desp=" + encodeURIComponent(desp), { mode: "no-cors" });
+    }catch(err){ wxOk = false; }
+  }
+  showToast((mailOk && wxOk) ? U.formOk : U.formErr);
   e.target.reset();
   return false;
 }
@@ -1020,8 +1059,8 @@ backNews:"返回新闻列表", relatedTitle:"相关文章", readMore:"阅读全�
 contactTag:"Contact · 联系我们", contactTitle:"预约一节体验课，到校区实地看看", contactLead:"留下孩子年龄与意向课程，校区老师会在工作时间与你联系；也可直接按下方地址到访。",
 visit1h:"校区位置与到访指引", addrL:"地址", metroL:"地铁", metroV:"地铁 1 号线 / 5 号线下瓦房站 A 口，步行约 40 米", hoursL:"营业时间", hoursV:"09:00 – 19:00（以校区当期排课为准）", phoneL:"咨询电话", phoneV:"请以大众点评店铺最新公示号码为准，或到店现场咨询",
 visit2h:"体验课团购（平台公示）", deal1n:"5–6 岁 齿轮机械体验学习", deal1s:"平台体验团购 · 年售 1", deal2n:"人工智能机械手编程 Scratch / Python", deal2s:"平台体验团购 · 年售 0", dealNote:"团购名额、有效期与购买规则以大众点评店铺当期页面为准。",
-formH:"预约登记（演示表单）", fNameL:"家长称呼", fNamePh:"怎么称呼您", fAgeL:"孩子年龄", fAgePh:"请选择年龄段", fCourseL:"意向课程", optC1:"齿轮机械与动力搭建", optC2:"智能机器人与机械手编程", optC3:"Scratch 图形化编程", optC4:"Python 代码编程", optC5:"创客电子与硬件实验", optC6:"3D 建模与 AI 启蒙", fPhoneL:"联系电话", fPhonePh:"便于校区老师联系您", fMsgL:"补充留言（可选）", fMsgPh:"孩子是否有编程 / 机器人基础，希望了解的问题……", submitBtn:"提交预约登记", formNote:"本站为静态演示站点，表单不会真实发送到服务器；正式预约请通过大众点评店铺团购或到店登记。",
-formOk:"登记信息已记录（演示站点，未发送到服务器）。请通过大众点评店铺或到店完成正式预约。", formPhoneErr:"请填写有效的 11 位手机号",
+formH:"预约登记", fNameL:"家长称呼", fNamePh:"怎么称呼您", fAgeL:"孩子年龄", fAgePh:"请选择年龄段", fCourseL:"意向课程", optC1:"齿轮机械与动力搭建", optC2:"智能机器人与机械手编程", optC3:"Scratch 图形化编程", optC4:"Python 代码编程", optC5:"创客电子与硬件实验", optC6:"3D 建模与 AI 启蒙", fPhoneL:"联系电话", fPhonePh:"便于校区老师联系您", fMsgL:"补充留言（可选）", fMsgPh:"孩子是否有编程 / 机器人基础，希望了解的问题……", submitBtn:"提交预约登记", formNote:"提交后校区将收到您的预约信息，请保持电话畅通；正式预约也可通过大众点评店铺团购或到店登记。",
+formOk:"预约信息已发送，校区老师会尽快与您联系。", formErr:"预约信息发送失败，请稍后重试，或致电校区（09:00–19:00）。", formPhoneErr:"请填写有效的 11 位手机号",
 footBrand:"乐之疆教育学校", footAbout:"天津市河西区乐之疆教育培训学校（曾用名：天津市河西区乐高教育培训学校），2014 年创办，面向少年儿童开展非学科科技类校外培训：机器人搭建、图形化与代码编程、创客电子、3D 建模打印与 AI 启蒙。",
 footNavH:"快速导航", navAbout:"学校简介", navCourses:"课程体系", navReviews:"学员口碑", navNews:"新闻动态", navContact:"联系我们",
 footQualH:"机构资质", footQualV:"登记证号：津西民政字 010265<br>统一社会信用代码：521201030915540754<br>业务主管：河西区教育局 · 河西区科学技术局",
@@ -1066,8 +1105,8 @@ backNews:"Back to news", relatedTitle:"Related articles", readMore:"Read more",
 contactTag:"Contact", contactTitle:"Book a trial and visit our campus", contactLead:"Leave your child's age and preferred course; we'll reach out during office hours, or drop by the address below.",
 visit1h:"Location & Directions", addrL:"Address", metroL:"Metro", metroV:"Lines 1 / 5, Xiawafang Station, Exit A, ~40 m walk", hoursL:"Hours", hoursV:"09:00 – 19:00 (subject to current schedule)", phoneL:"Phone", phoneV:"Please see the latest number on our Dianping store, or visit in person",
 visit2h:"Trial deals (as listed on Dianping)", deal1n:"Ages 5–6 Gear Mechanics Trial", deal1s:"Platform deal · sold 1 this year", deal2n:"AI Robot Arm Scratch / Python", deal2s:"Platform deal · sold 0 this year", dealNote:"Deals, validity and rules follow the current Dianping store page.",
-formH:"Booking form (demo only)", fNameL:"Parent name", fNamePh:"How should we address you?", fAgeL:"Child's age", fAgePh:"Select age range", fCourseL:"Preferred course", optC1:"Gears & Power Mechanics", optC2:"Smart Robots & Robot Arm", optC3:"Scratch Block Coding", optC4:"Python Coding", optC5:"Maker Electronics", optC6:"3D Modeling & AI Intro", fPhoneL:"Phone", fPhonePh:"So our teachers can reach you", fMsgL:"Notes (optional)", fMsgPh:"Any coding/robotics background, questions...", submitBtn:"Submit booking", formNote:"This is a static demo site; the form is not sent to a server. Please book through Dianping or in person.",
-formOk:"Recorded (demo only — nothing is sent to a server). Please book officially via Dianping or in person.", formPhoneErr:"Please enter a valid 11-digit mobile number",
+formH:"Booking form", fNameL:"Parent name", fNamePh:"How should we address you?", fAgeL:"Child's age", fAgePh:"Select age range", fCourseL:"Preferred course", optC1:"Gears & Power Mechanics", optC2:"Smart Robots & Robot Arm", optC3:"Scratch Block Coding", optC4:"Python Coding", optC5:"Maker Electronics", optC6:"3D Modeling & AI Intro", fPhoneL:"Phone", fPhonePh:"So our teachers can reach you", fMsgL:"Notes (optional)", fMsgPh:"Any coding/robotics background, questions...", submitBtn:"Submit booking", formNote:"Your booking will be sent to the school; keep your phone reachable. You may also book via Dianping or in person.",
+formOk:"Booking sent — our teachers will contact you soon.", formErr:"Failed to send. Please retry later or call the school (09:00–19:00).", formPhoneErr:"Please enter a valid 11-digit mobile number",
 footBrand:"Lezhijiang Education", footAbout:"Tianjin Hexi Lezhijiang Training School, founded 2014, offers non-academic STEM after-school training for children: robotics, block and text coding, maker electronics, 3D printing and AI introduction.",
 footNavH:"Navigate", navAbout:"About", navCourses:"Courses", navReviews:"Reviews", navNews:"News", navContact:"Contact",
 footQualH:"Credentials", footQualV:"Reg. No.: Jin Xi Min Zheng 010265<br>Unified Social Credit Code: 521201030915540754<br>Supervised by: Hexi Education Bureau · Hexi Science & Technology Bureau",
@@ -1112,8 +1151,8 @@ backNews:"뉴스 목록으로", relatedTitle:"관련 글", readMore:"더 보기"
 contactTag:"문의", contactTitle:"체험 수업을 예약하고 캠퍼스를 둘러보세요", contactLead:"아이 연령과 희망 과정을 남겨주시면 근무시간 중 연락드립니다. 아래 주소로 방문하셔도 됩니다.",
 visit1h:"위치와 방문 안내", addrL:"주소", metroL:"지하철", metroV:"1호선·5호선 샤와팡역 A출구, 도보 약 40m", hoursL:"영업시간", hoursV:"09:00–19:00 (당차표 기준)", phoneL:"문의전화", phoneV:"디엔핑 매장 최신 공지 번호를 확인하거나 방문해 주세요",
 visit2h:"체험 클딩 (플랫폼 공개)", deal1n:"만 5–6세 기어 메커니즘 체험", deal1s:"플랫폼 클딩 · 연간 1건", deal2n:"AI 로봇팔 Scratch / Python", deal2s:"플랫폼 클딩 · 연간 0건", dealNote:"클딩 정원·유효기간·구매 규칙은 디엔핑 당차 페이지를 따릅니다.",
-formH:"예약 등록 (데모 폼)", fNameL:"보호자 성함", fNamePh:"어떻게 불러드릴까요?", fAgeL:"아이 연령", fAgePh:"연령대를 선택하세요", fCourseL:"희망 과정", optC1:"기어와 동력 메커니즘", optC2:"스마트로봇과 로봇팔", optC3:"Scratch 블록 코딩", optC4:"Python 코딩", optC5:"메이커 전자", optC6:"3D 모델링과 AI 입문", fPhoneL:"연락처", fPhonePh:"선생님이 연락드릴 번호", fMsgL:"메모 (선택)", fMsgPh:"코딩·로봇 경험, 궁금한 점…", submitBtn:"예약 등록 제출", formNote:"정적 데모 사이트로 폼은 서버로 전송되지 않습니다. 공식 예약은 디엔핑 클딩 또는 방문으로 해 주세요.",
-formOk:"기록되었습니다 (데모 — 서버 전송 안 됨). 디엔핑 또는 방문으로 공식 예약해 주세요.", formPhoneErr:"유효한 11자리 휴대폰 번호를 입력하세요",
+formH:"예약 등록", fNameL:"보호자 성함", fNamePh:"어떻게 불러드릴까요?", fAgeL:"아이 연령", fAgePh:"연령대를 선택하세요", fCourseL:"희망 과정", optC1:"기어와 동력 메커니즘", optC2:"스마트로봇과 로봇팔", optC3:"Scratch 블록 코딩", optC4:"Python 코딩", optC5:"메이커 전자", optC6:"3D 모델링과 AI 입문", fPhoneL:"연락처", fPhonePh:"선생님이 연락드릴 번호", fMsgL:"메모 (선택)", fMsgPh:"코딩·로봇 경험, 궁금한 점…", submitBtn:"예약 등록 제출", formNote:"제출 후 캠퍼스에서 예약 정보를 받습니다. 전화를 켜 두시기 바랍니다. 공식 예약은 디엔핑 매장 또는 방문으로도 가능합니다.",
+formOk:"예약 정보가 전송되었습니다. 캠퍼스 선생님이 곧 연락드립니다.", formErr:"전송에 실패했습니다. 잠시 후 다시 시도하거나 캠퍼스에 전화해 주세요(09:00–19:00).", formPhoneErr:"유효한 11자리 휴대폰 번호를 입력하세요",
 footBrand:"Lezhijiang Education", footAbout:"톈진 허시구 르즈장 훈련학교, 2014년 개원. 아동 대상 비교과 과학기술 방과후 훈련: 로봇 조립, 블록·텍스트 코딩, 메이커 전자, 3D 프린팅, AI 입문.",
 footNavH:"바로가기", navAbout:"학교 소개", navCourses:"커리큘럼", navReviews:"학부모 평가", navNews:"소식", navContact:"문의",
 footQualH:"자격", footQualV:"등록증: 진서민정 010265<br>통일사회신용코드: 521201030915540754<br>감독: 허시구 교육국 · 허시구 과학기술국",
@@ -1158,8 +1197,8 @@ backNews:"ニュース一覧へ戻る", relatedTitle:"関連記事", readMore:"�
 contactTag:"お問い合わせ", contactTitle:"体験レッスンを予約して、キャンパスを見てみましょう", contactLead:"お子さんの年齢と希望コースをお知らせください。営業時間内にご連絡します。下記住所へ直接お越しいただいてもOKです。",
 visit1h:"アクセス・来校案内", addrL:"住所", metroL:"地下鉄", metroV:"1号線・5号線下瓦房駅A出口より徒歩約40m", hoursL:"営業時間", hoursV:"09:00–19:00（当期時間割による）", phoneL:"電話", phoneV:"最新番号は大衆点評の店舗ページ、または来店にてご確認ください",
 visit2h:"体験クーポン（プラットフォーム公開）", deal1n:"5–6歳歯車メカ体験", deal1s:"プラットフォーム体験・年間1件", deal2n:"AIロボットアーム Scratch/Python", deal2s:"プラットフォーム体験・年間0件", dealNote:"定員・有効期限・購入条件は大衆点評の当期ページによります。",
-formH:"予約フォーム（デモ）", fNameL:"保護者お名前", fNamePh:"お名前を教えてください", fAgeL:"お子さんの年齢", fAgePh:"年齢を選択", fCourseL:"希望コース", optC1:"歯車と動力機構", optC2:"スマートロボットとロボットアーム", optC3:"Scratchブロック", optC4:"Pythonコーディング", optC5:"メイカー電子", optC6:"3DモデリングとAI入門", fPhoneL:"電話番号", fPhonePh:"先生からご連絡できる番号", fMsgL:"メッセージ（任意）", fMsgPh:"経験や聞きたいこと…", submitBtn:"予約を送信", formNote:"静的デモサイトのため、フォームはサーバーに送信されません。正式予約は大衆点評または来店にて。",
-formOk:"記録しました（デモのため送信されません）。正式予約は大衆点評または来店でお願いします。", formPhoneErr:"有効な11桁の携帯番号を入力してください",
+formH:"予約フォーム", fNameL:"保護者お名前", fNamePh:"お名前を教えてください", fAgeL:"お子さんの年齢", fAgePh:"年齢を選択", fCourseL:"希望コース", optC1:"歯車と動力機構", optC2:"スマートロボットとロボットアーム", optC3:"Scratchブロック", optC4:"Pythonコーディング", optC5:"メイカー電子", optC6:"3DモデリングとAI入門", fPhoneL:"電話番号", fPhonePh:"先生からご連絡できる番号", fMsgL:"メッセージ（任意）", fMsgPh:"経験や聞きたいこと…", submitBtn:"予約を送信", formNote:"送信後、キャンパスで予約情報を受け取ります。電話の電源は入れておいてください。正式予約は大衆点評または来店でも可能です。",
+formOk:"予約情報を送信しました。キャンパス担当者からまもなくご連絡します。", formErr:"送信に失敗しました。後でもう一度お試しいただくか、キャンパスへお電話ください(09:00–19:00)。", formPhoneErr:"有効な11桁の携帯番号を入力してください",
 footBrand:"Lezhijiang Education", footAbout:"天津市河西区楽之疆培訓学校、2014年開校。子ども向け教科外STEAM課外訓練：ロボット組み立て、ビジュアル／テキストコーディング、メイカー電子、3Dプリント、AI入門。",
 footNavH:"ナビ", navAbout:"学校概要", navCourses:"コース", navReviews:"受講生の声", navNews:"お知らせ", navContact:"お問い合わせ",
 footQualH:"資格", footQualV:"登記証：津西民政字010265<br>統一社会信用コード：521201030915540754<br>主管：河西区教育局・河西区科学技術局",
