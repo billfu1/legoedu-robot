@@ -119,6 +119,15 @@ nav.menu a:hover,nav.menu a.active{color:var(--text);background:rgba(53,230,200,
 .history-wall{margin-top:48px;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;background:#fff}
 .history-wall img{width:100%;height:auto;display:block}
 
+/* ===== 图片微动效（CSS Ken Burns，不替换素材） ===== */
+@keyframes kb-zoom{from{transform:scale(1)}to{transform:scale(1.07)}}
+.hero-bg img{animation:kb-zoom 28s ease-in-out infinite alternate}
+.about-photo img{animation:kb-zoom 32s ease-in-out infinite alternate}
+.honor-photo img{animation:kb-zoom 30s ease-in-out infinite alternate}
+@media (prefers-reduced-motion: reduce){
+  .hero-bg img,.about-photo img,.honor-photo img{animation:none !important}
+}
+
 /* ===== 课程体系 ===== */
 #courses{background:var(--bg-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
 .head-row{display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap;margin-bottom:38px}
