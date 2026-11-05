@@ -136,6 +136,9 @@ nav.menu a:hover,nav.menu a.active{color:var(--text);background:rgba(53,230,200,
 .course-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
 .course-tags span{font-size:12.5px;color:var(--text-2);border:1px solid var(--line-2);border-radius:8px;padding:4px 10px}
 .note-line{margin-top:26px;color:var(--text-3);font-size:13.5px}
+.roadmap{margin-top:26px;border:1px solid var(--line);border-radius:var(--radius);background:#fff;overflow:hidden}
+.roadmap img{width:100%;height:auto;display:block}
+.roadmap figcaption{padding:12px 18px;color:var(--text-3);font-size:13px;background:var(--panel)}
 
 /* ===== 口碑评价 ===== */
 .review-top{display:grid;grid-template-columns:300px 1fr;gap:40px;align-items:start;margin-bottom:38px}
@@ -513,6 +516,10 @@ footer{border-top:1px solid var(--line);background:var(--bg-2);padding:56px 0 30
       </article>
     </div>
     <p class="note-line" data-i18n="coursesNote">说明：以上为学校课程方向介绍，具体班型、适龄段、课时与收费以到校测评后出具的当期课表与方案为准。</p>
+    <figure class="roadmap">
+      <img src="assets/ladder-roadmap.jpg" alt="3 岁到 16 岁以上阶梯式课程进阶路线图">
+      <figcaption data-i18n="roadmapCaption">阶梯式课程进阶路线（3 岁至 16 岁以上），具体班型以到校测评方案为准。</figcaption>
+    </figure>
   </div>
 </section>
 <!-- ===== 学校荣誉 ===== -->
@@ -1115,6 +1122,7 @@ c4Age:"进阶阶段 · 代码编程", c4Title:"Python 代码编程", c4Desc:"从
 c5Age:"进阶阶段 · 创客硬件", c5Title:"创客电子与硬件实验", c5Desc:"使用面包板、LED、传感器与主控板，动手搭建智能小灯、报警器、小车等创客作品，理解电路、输入与输出之间的关系。", c5t1:"电路实验", c5t2:"传感器", c5t3:"创客作品",
 c6Age:"拓展方向 · 科技前沿", c6Title:"3D 建模与 AI 启蒙", c6Desc:"体验基础三维建模与 3D 打印流程；认识人工智能，了解语音识别、图像识别等常见 AI 应用场景，建立面向未来的科技视野。", c6t1:"3D 建模", c6t2:"3D 打印", c6t3:"AI 认知",
 coursesNote:"说明：以上为学校课程方向介绍，具体班型、适龄段、课时与收费以到校测评后出具的当期课表与方案为准。",
+roadmapCaption:"阶梯式课程进阶路线（3 岁至 16 岁以上），具体班型以到校测评方案为准。",
 honorsTag:"Honors · 学校荣誉", honorsTitle:"从党建到赛场，<br>这些认可被记录下来", honorsLead:"党建示范、社会组织评估、青少年机器人竞赛与行业任职，以下为学校历年获得的荣誉与任职情况，竞赛类为团队项目成绩。",
 honorCap1:"世界机器人大赛 · 北京城市选拔赛",
 honorShowcaseNote:"2026 年 7 月，世界机器人大赛（WRCT2026）北京城市选拔赛「具身智能挑战赛项—智能晶造」，小学组冠军、亚军与初中组冠军、亚军奖杯、奖牌。",
@@ -1172,6 +1180,7 @@ c4Age:"Advanced · Text coding", c4Title:"Python Coding", c4Desc:"Start from var
 c5Age:"Advanced · Maker hardware", c5Title:"Maker Electronics & Hardware Lab", c5Desc:"Use breadboards, LEDs, sensors and microcontrollers to build smart lamps, alarms and small cars, understanding circuits, input and output.", c5t1:"Circuits", c5t2:"Sensors", c5t3:"Maker builds",
 c6Age:"Extension · Frontier tech", c6Title:"3D Modeling & AI Intro", c6Desc:"Try basic 3D modeling and 3D printing; meet AI, speech and image recognition, building a forward-looking tech worldview.", c6t1:"3D modeling", c6t2:"3D printing", c6t3:"AI awareness",
 coursesNote:"Note: The above describes our course directions. Class types, age bands, hours and pricing follow the current schedule issued after on-site assessment.",
+roadmapCaption:"Step-by-step course roadmap (ages 3 to 16+); final class placement follows the on-site assessment plan.",
 honorsTag:"Honors", honorsTitle:"From party building to competition floors,<br>the recognition we've earned", honorsLead:"Party-building recognition, social-organization assessment, youth robotics competition results and industry appointments the school has received over the years; competition entries are team results.",
 honorCap1:"World Robot Contest Trials · Beijing city selection",
 honorShowcaseNote:"July 2026, World Robot Contest Trials (WRCT2026) Beijing city selection, Embodied Intelligence Challenge · Smart Crystal Craft — primary school champion and runner-up, middle school champion and runner-up trophies and medals.",
