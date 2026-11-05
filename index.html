@@ -276,7 +276,7 @@ footer{border-top:1px solid var(--line);background:var(--bg-2);padding:56px 0 30
 /* ===== 学校荣誉 ===== */
 .honor-showcase{display:grid;grid-template-columns:1fr;gap:18px;margin-top:34px}
 .honor-photo{border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;background:var(--panel)}
-.honor-photo img{width:100%;height:360px;object-fit:cover;object-position:center}
+.honor-photo img{width:100%;height:auto;object-fit:contain;display:block}
 .honor-photo figcaption{display:flex;justify-content:space-between;align-items:baseline;gap:12px;min-height:50px;padding:13px 18px;font-size:13px;color:var(--text-2);border-top:1px solid var(--line);background:var(--panel-2)}
 .honor-photo figcaption b{font-family:var(--mono);font-weight:700;letter-spacing:.04em;color:var(--teal);white-space:nowrap}
 .honors-matrix{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;margin-top:22px;background:var(--line);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
@@ -309,7 +309,7 @@ footer{border-top:1px solid var(--line);background:var(--bg-2);padding:56px 0 30
   .stats-grid{grid-template-columns:repeat(2,1fr)}
   .course-grid,.review-grid,.news-list,.deal-grid,.form-grid{grid-template-columns:1fr}
   .honor-showcase,.honors-matrix{grid-template-columns:1fr}
-  .honor-photo img{height:240px}
+  .honor-photo img{height:auto}
   .honor-photo figcaption{flex-direction:column;gap:4px}
   .foot-grid{grid-template-columns:1fr}
   .hero{padding-top:100px}
