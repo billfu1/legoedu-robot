@@ -277,7 +277,26 @@ footer{border-top:1px solid var(--line);background:var(--bg-2);padding:56px 0 30
 .foot-links a:hover{color:var(--teal)}
 .foot-bottom{border-top:1px solid var(--line);padding-top:22px;color:var(--text-3);font-size:13px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 
+/* ===== 学校荣誉 ===== */
+.honor-showcase{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:34px}
+.honor-photo{border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;background:var(--panel)}
+.honor-photo img{width:100%;height:330px;object-fit:cover;object-position:center}
+.honor-photo figcaption{display:flex;justify-content:space-between;align-items:baseline;gap:12px;min-height:50px;padding:13px 18px;font-size:13px;color:var(--text-2);border-top:1px solid var(--line);background:var(--panel-2)}
+.honor-photo figcaption b{font-family:var(--mono);font-weight:700;letter-spacing:.04em;color:var(--teal);white-space:nowrap}
+.honors-matrix{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;margin-top:22px;background:var(--line);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
+.honor-cell{background:var(--bg-2);padding:26px 24px;display:flex;flex-direction:column;gap:9px;min-width:0;transition:background .2s}
+.honor-cell:hover{background:var(--panel-2)}
+.honor-cell .kicker{display:flex;align-items:baseline;justify-content:space-between;gap:10px}
+.honor-cell .cat{font-size:12.5px;color:var(--teal);letter-spacing:.06em}
+.honor-cell .yr{font-family:var(--mono);font-size:12.5px;color:var(--text-3)}
+.honor-cell h3{font-size:16.5px;font-weight:700;line-height:1.45}
+.honor-cell p{font-size:13.5px;color:var(--text-3);line-height:1.75;margin:0}
+
 /* ===== 响应式 ===== */
+@media (max-width:1180px){
+  nav.menu a{padding:8px 7px;font-size:13px}
+  .brand-name{font-size:14px}
+}
 @media (max-width:1024px){
   .course-grid,.review-grid,.news-list{grid-template-columns:repeat(2,1fr)}
   .about-grid,.review-top,.visit-grid{grid-template-columns:1fr}
@@ -294,6 +313,9 @@ footer{border-top:1px solid var(--line);background:var(--bg-2);padding:56px 0 30
   .stats-grid{grid-template-columns:repeat(2,1fr)}
   .course-grid,.review-grid,.news-list,.deal-grid,.form-grid{grid-template-columns:1fr}
   .qual-list{grid-template-columns:1fr}
+  .honor-showcase,.honors-matrix{grid-template-columns:1fr}
+  .honor-photo img{height:240px}
+  .honor-photo figcaption{flex-direction:column;gap:4px}
   .foot-grid{grid-template-columns:1fr}
   .hero{padding-top:100px}
   .hero-logo{padding:11px 16px;margin-bottom:22px}
@@ -325,6 +347,7 @@ footer{border-top:1px solid var(--line);background:var(--bg-2);padding:56px 0 30
       <a href="#/" data-nav="home">首页</a>
       <a href="#about" data-nav="about">学校简介</a>
       <a href="#courses" data-nav="courses">课程体系</a>
+      <a href="#honors" data-nav="honors">学校荣誉</a>
       <a href="#reviews" data-nav="reviews">学员口碑</a>
       <a href="#faq" data-nav="faq">常见问答</a>
       <a href="#news" data-nav="news">新闻动态</a>
@@ -346,6 +369,7 @@ footer{border-top:1px solid var(--line);background:var(--bg-2);padding:56px 0 30
     <a href="#/" onclick="goHome()">首页</a>
     <a href="#about" onclick="toggleMobile()">学校简介</a>
     <a href="#courses" onclick="toggleMobile()">课程体系</a>
+    <a href="#honors" onclick="toggleMobile()">学校荣誉</a>
     <a href="#reviews" onclick="toggleMobile()">学员口碑</a>
     <a href="#faq" onclick="toggleMobile()">常见问答</a>
     <a href="#news" onclick="toggleMobile()">新闻动态</a>
@@ -505,6 +529,74 @@ footer{border-top:1px solid var(--line);background:var(--bg-2);padding:56px 0 30
       </article>
     </div>
     <p class="note-line" data-i18n="coursesNote">说明：以上为学校课程方向介绍，具体班型、适龄段、课时与收费以到校测评后出具的当期课表与方案为准。</p>
+  </div>
+</section>
+<!-- ===== 学校荣誉 ===== -->
+<section id="honors">
+  <div class="wrap">
+    <span class="section-tag" data-i18n="honorsTag">Honors · 学校荣誉</span>
+    <h2 class="section-title" data-i18n-html="honorsTitle">从党建到赛场，<br>这些认可被记录下来</h2>
+    <p class="section-lead" data-i18n="honorsLead">党建示范、社会组织评估、青少年机器人竞赛与行业任职，以下为学校历年获得的荣誉与任职情况，竞赛类为团队项目成绩。</p>
+
+    <div class="honor-showcase">
+      <figure class="honor-photo">
+        <img src="assets/honors-wrct-2026-1.jpg" alt="乐之疆校区陈列的 WRCT2026 世界机器人大赛北京城市选拔赛奖杯与奖牌">
+        <figcaption><b>WRCT2026</b><span data-i18n="honorCap1">世界机器人大赛 · 北京城市选拔赛</span></figcaption>
+      </figure>
+      <figure class="honor-photo">
+        <img src="assets/honors-wrct-2026-2.jpg" alt="WRCT2026 具身智能挑战赛项奖杯：小学组、初中组冠军与亚军奖牌">
+        <figcaption><b data-i18n="honorCap2b">智能晶造</b><span data-i18n="honorCap2">具身智能挑战赛项 · 小学组与初中组冠军、亚军</span></figcaption>
+      </figure>
+    </div>
+    <p class="note-line" data-i18n="honorShowcaseNote">2026 年 7 月，世界机器人大赛（WRCT2026）北京城市选拔赛「具身智能挑战赛项—智能晶造」，小学组冠军、亚军与初中组冠军、亚军奖杯、奖牌。</p>
+
+    <div class="honors-matrix">
+      <article class="honor-cell">
+        <div class="kicker"><span class="cat" data-i18n="hcat1">党建引领</span></div>
+        <h3 data-i18n="h1t">区级党建示范单位</h3>
+        <p data-i18n="h1p">中共天津市河西区委组织部</p>
+      </article>
+      <article class="honor-cell">
+        <div class="kicker"><span class="cat" data-i18n="hcat1">党建引领</span></div>
+        <h3 data-i18n="h2t">河西区教育系统优秀支部</h3>
+        <p data-i18n="h2p">中共天津市河西区教育局党委</p>
+      </article>
+      <article class="honor-cell">
+        <div class="kicker"><span class="cat" data-i18n="hcat2">社会组织</span><span class="yr">2022</span></div>
+        <h3 data-i18n="h3t">市级优秀社会组织</h3>
+        <p data-i18n="h3p">天津市民政局</p>
+      </article>
+      <article class="honor-cell">
+        <div class="kicker"><span class="cat" data-i18n="hcat3">学科竞赛</span><span class="yr">2018</span></div>
+        <h3 data-i18n="h4t">全国季军 · 国家级一等奖</h3>
+        <p data-i18n="h4p">第 18 届中国青少年机器人竞赛 · 中国科学技术协会</p>
+      </article>
+      <article class="honor-cell">
+        <div class="kicker"><span class="cat" data-i18n="hcat3">学科竞赛</span><span class="yr">2023</span></div>
+        <h3 data-i18n="h5t">12 项国家一等奖</h3>
+        <p data-i18n="h5p">全国中小学信息技术与实践大赛</p>
+      </article>
+      <article class="honor-cell">
+        <div class="kicker"><span class="cat" data-i18n="hcat3">学科竞赛</span><span class="yr">2023</span></div>
+        <h3 data-i18n="h6t">两个冠军 · 一个亚军 · 三个季军</h3>
+        <p data-i18n="h6p">第 21 届天津市青少年机器人竞赛 · 天津市科学技术协会、天津市教委</p>
+      </article>
+      <article class="honor-cell">
+        <div class="kicker"><span class="cat" data-i18n="hcat4">行业任职</span></div>
+        <h3 data-i18n="h7t">常务理事单位</h3>
+        <p data-i18n="h7p">天津市科学技术协会自动化学会</p>
+      </article>
+      <article class="honor-cell">
+        <div class="kicker"><span class="cat" data-i18n="hcat4">行业任职</span></div>
+        <h3 data-i18n="h8t">理事单位</h3>
+        <p data-i18n="h8p">天津市机器人产业协会</p>
+      </article>
+      <article class="honor-cell">
+        <div class="kicker"><span class="cat" data-i18n="hcat5">科普基地</span></div>
+        <h3 data-i18n="h9t">教育与科普工作委员会办公所在地</h3>
+        <p data-i18n="h9p">天津市自动化学会科普基地</p>
+      </article>
+    </div>
   </div>
 </section>
 <!-- ===== 学员口碑 ===== -->
@@ -670,6 +762,7 @@ footer{border-top:1px solid var(--line);background:var(--bg-2);padding:56px 0 30
         <h4 data-i18n="footNavH">快速导航</h4>
         <a href="#about" data-i18n="navAbout">学校简介</a>
         <a href="#courses" data-i18n="navCourses">课程体系</a>
+        <a href="#honors" data-i18n="navHonors">学校荣誉</a>
         <a href="#reviews" data-i18n="navReviews">学员口碑</a>
         <a href="#news" data-i18n="navNews">新闻动态</a>
         <a href="#contact" data-i18n="navContact">联系我们</a>
@@ -1046,6 +1139,19 @@ c4Age:"进阶阶段 · 代码编程", c4Title:"Python 代码编程", c4Desc:"从
 c5Age:"进阶阶段 · 创客硬件", c5Title:"创客电子与硬件实验", c5Desc:"使用面包板、LED、传感器与主控板，动手搭建智能小灯、报警器、小车等创客作品，理解电路、输入与输出之间的关系。", c5t1:"电路实验", c5t2:"传感器", c5t3:"创客作品",
 c6Age:"拓展方向 · 科技前沿", c6Title:"3D 建模与 AI 启蒙", c6Desc:"体验基础三维建模与 3D 打印流程；认识人工智能，了解语音识别、图像识别等常见 AI 应用场景，建立面向未来的科技视野。", c6t1:"3D 建模", c6t2:"3D 打印", c6t3:"AI 认知",
 coursesNote:"说明：以上为学校课程方向介绍，具体班型、适龄段、课时与收费以到校测评后出具的当期课表与方案为准。",
+honorsTag:"Honors · 学校荣誉", honorsTitle:"从党建到赛场，<br>这些认可被记录下来", honorsLead:"党建示范、社会组织评估、青少年机器人竞赛与行业任职，以下为学校历年获得的荣誉与任职情况，竞赛类为团队项目成绩。",
+honorCap1:"世界机器人大赛 · 北京城市选拔赛", honorCap2:"具身智能挑战赛项 · 小学组与初中组冠军、亚军", honorCap2b:"智能晶造",
+honorShowcaseNote:"2026 年 7 月，世界机器人大赛（WRCT2026）北京城市选拔赛「具身智能挑战赛项—智能晶造」，小学组冠军、亚军与初中组冠军、亚军奖杯、奖牌。",
+hcat1:"党建引领", hcat2:"社会组织", hcat3:"学科竞赛", hcat4:"行业任职", hcat5:"科普基地",
+h1t:"区级党建示范单位", h1p:"中共天津市河西区委组织部",
+h2t:"河西区教育系统优秀支部", h2p:"中共天津市河西区教育局党委",
+h3t:"市级优秀社会组织", h3p:"天津市民政局",
+h4t:"全国季军 · 国家级一等奖", h4p:"第 18 届中国青少年机器人竞赛 · 中国科学技术协会",
+h5t:"12 项国家一等奖", h5p:"全国中小学信息技术与实践大赛",
+h6t:"两个冠军 · 一个亚军 · 三个季军", h6p:"第 21 届天津市青少年机器人竞赛 · 天津市科学技术协会、天津市教委",
+h7t:"常务理事单位", h7p:"天津市科学技术协会自动化学会",
+h8t:"理事单位", h8p:"天津市机器人产业协会",
+h9t:"教育与科普工作委员会办公所在地", h9p:"天津市自动化学会科普基地",
 revTag:"Reviews · 学员口碑", revTitle:"家长怎么评价这里的课堂", revLead:"以下评分、评价标签与精选评价摘自大众点评店铺公开页面（473 条评价），评价原文保留平台用户化名与日期。",
 revCount:"共 473 条家长评价", revSub1:"课程评分", revSub2:"师资评分", revSub3:"环境评分",
 chip1:"孩子兴趣浓厚<b>171</b>", chip2:"老师耐心负责<b>153</b>", chip3:"教学水平高<b>44</b>", chip4:"知识吸收轻松<b>10</b>", chip5:"激发学生想象力<b>6</b>",
@@ -1064,7 +1170,7 @@ visit2h:"体验课团购（平台公示）", deal1n:"5–6 岁 齿轮机械体�
 formH:"预约登记", fNameL:"家长称呼", fNamePh:"怎么称呼您", fAgeL:"孩子年龄", fAgePh:"请选择年龄段", fCourseL:"意向课程", optC1:"齿轮机械与动力搭建", optC2:"智能机器人与机械手编程", optC3:"Scratch 图形化编程", optC4:"Python 代码编程", optC5:"创客电子与硬件实验", optC6:"3D 建模与 AI 启蒙", fPhoneL:"联系电话", fPhonePh:"便于校区老师联系您", fMsgL:"补充留言（可选）", fMsgPh:"孩子是否有编程 / 机器人基础，希望了解的问题……", submitBtn:"提交预约登记", formNote:"提交后校区将收到您的预约信息，请保持电话畅通；正式预约也可通过大众点评店铺团购或到店登记。",
 formOk:"预约信息已发送，校区老师会尽快与您联系。", formErr:"预约信息发送失败，请稍后重试，或致电校区（09:00–19:00）。", formPhoneErr:"请填写有效的 11 位手机号",
 footBrand:"乐之疆教育学校", footAbout:"天津市河西区乐之疆教育培训学校，2012 年创办，面向少年儿童开展非学科科技类校外培训：机器人搭建、图形化与代码编程、创客电子、3D 建模打印与 AI 启蒙。",
-footNavH:"快速导航", navAbout:"学校简介", navCourses:"课程体系", navReviews:"学员口碑", navNews:"新闻动态", navContact:"联系我们",
+footNavH:"快速导航", navAbout:"学校简介", navCourses:"课程体系", navHonors:"学校荣誉", navReviews:"学员口碑", navNews:"新闻动态", navContact:"联系我们",
 footQualH:"机构资质", footQualV:"登记证号：津西民政字 010265<br>统一社会信用代码：521201030915540754<br>业务主管：天津市教委",
 footCopy:"© 2012–2026 天津市河西区乐之疆教育培训学校 · 本站内容依据大众点评公开店铺信息与工商登记资料整理，课程、价格与排课以校区当期公示为准。", footIcp:"网站备案号待补充（正式上线前需完成 ICP 备案）",
 chatName:"乐之疆智能问答", chatSub:"在线解答课程、年龄、收费与排课问题", chatPh:"输入您的问题，例如：几岁可以学？",
@@ -1092,6 +1198,19 @@ c4Age:"Advanced · Text coding", c4Title:"Python Coding", c4Desc:"Start from var
 c5Age:"Advanced · Maker hardware", c5Title:"Maker Electronics & Hardware Lab", c5Desc:"Use breadboards, LEDs, sensors and microcontrollers to build smart lamps, alarms and small cars, understanding circuits, input and output.", c5t1:"Circuits", c5t2:"Sensors", c5t3:"Maker builds",
 c6Age:"Extension · Frontier tech", c6Title:"3D Modeling & AI Intro", c6Desc:"Try basic 3D modeling and 3D printing; meet AI, speech and image recognition, building a forward-looking tech worldview.", c6t1:"3D modeling", c6t2:"3D printing", c6t3:"AI awareness",
 coursesNote:"Note: The above describes our course directions. Class types, age bands, hours and pricing follow the current schedule issued after on-site assessment.",
+honorsTag:"Honors", honorsTitle:"From party building to competition floors,<br>the recognition we've earned", honorsLead:"Party-building recognition, social-organization assessment, youth robotics competition results and industry appointments the school has received over the years; competition entries are team results.",
+honorCap1:"World Robot Contest Trials · Beijing city selection", honorCap2:"Embodied Intelligence Challenge · primary & middle school champion and runner-up", honorCap2b:"SMART CRYSTAL CRAFT",
+honorShowcaseNote:"July 2026, World Robot Contest Trials (WRCT2026) Beijing city selection, Embodied Intelligence Challenge · Smart Crystal Craft — primary school champion and runner-up, middle school champion and runner-up trophies and medals.",
+hcat1:"Party Building", hcat2:"Social Organization", hcat3:"Competitions", hcat4:"Industry Role", hcat5:"Science Outreach",
+h1t:"District-level Party Building Demonstration Unit", h1p:"Organization Department of the CPC Hexi District Committee, Tianjin",
+h2t:"Outstanding Branch in the Hexi Education System", h2p:"CPC Committee of the Hexi District Education Bureau",
+h3t:"Municipal Outstanding Social Organization", h3p:"Tianjin Civil Affairs Bureau",
+h4t:"National Third Place · National First Prize", h4p:"18th China Adolescent Robotics Competition · China Association for Science and Technology",
+h5t:"12 National First Prizes", h5p:"National Primary and Secondary School Information Technology and Practice Competition",
+h6t:"Two champions · one runner-up · three third places", h6p:"21st Tianjin Adolescent Robotics Competition · Tianjin Association for Science and Technology, Tianjin Municipal Education Commission",
+h7t:"Standing Council Member Unit", h7p:"Automation Society of the Tianjin Association for Science and Technology",
+h8t:"Council Member Unit", h8p:"Tianjin Robotics Industry Association",
+h9t:"Seat of the Education & Science Popularization Committee", h9p:"Science Popularization Base of the Tianjin Automation Society",
 revTag:"Reviews", revTitle:"What parents say about our classes", revLead:"Ratings, tags and selected reviews are quoted from our public Dianping page (473 reviews), keeping usernames and dates.",
 revCount:"473 parent reviews in total", revSub1:"Courses", revSub2:"Teachers", revSub3:"Environment",
 chip1:"Strong child interest<b>171</b>", chip2:"Patient teachers<b>153</b>", chip3:"High teaching quality<b>44</b>", chip4:"Easy to absorb<b>10</b>", chip5:"Sparks imagination<b>6</b>",
@@ -1110,7 +1229,7 @@ visit2h:"Trial deals (as listed on Dianping)", deal1n:"Ages 5–6 Gear Mechanics
 formH:"Booking form", fNameL:"Parent name", fNamePh:"How should we address you?", fAgeL:"Child's age", fAgePh:"Select age range", fCourseL:"Preferred course", optC1:"Gears & Power Mechanics", optC2:"Smart Robots & Robot Arm", optC3:"Scratch Block Coding", optC4:"Python Coding", optC5:"Maker Electronics", optC6:"3D Modeling & AI Intro", fPhoneL:"Phone", fPhonePh:"So our teachers can reach you", fMsgL:"Notes (optional)", fMsgPh:"Any coding/robotics background, questions...", submitBtn:"Submit booking", formNote:"Your booking will be sent to the school; keep your phone reachable. You may also book via Dianping or in person.",
 formOk:"Booking sent — our teachers will contact you soon.", formErr:"Failed to send. Please retry later or call the school (09:00–19:00).", formPhoneErr:"Please enter a valid 11-digit mobile number",
 footBrand:"Lezhijiang Education", footAbout:"Tianjin Hexi Lezhijiang Training School, founded 2012, offers non-academic STEM after-school training for children: robotics, block and text coding, maker electronics, 3D printing and AI introduction.",
-footNavH:"Navigate", navAbout:"About", navCourses:"Courses", navReviews:"Reviews", navNews:"News", navContact:"Contact",
+footNavH:"Navigate", navAbout:"About", navCourses:"Courses", navHonors:"Honors", navReviews:"Reviews", navNews:"News", navContact:"Contact",
 footQualH:"Credentials", footQualV:"Reg. No.: Jin Xi Min Zheng 010265<br>Unified Social Credit Code: 521201030915540754<br>Supervised by: Hexi Education Bureau · Hexi Science & Technology Bureau",
 footCopy:"© 2012–2026 Tianjin Hexi Lezhijiang Training School. Content compiled from public Dianping store info and business registration; courses, prices and schedules follow current campus notices.", footIcp:"ICP filing to be completed before official launch",
 chatName:"Lezhijiang Assistant", chatSub:"Ask about courses, age, fees and schedule", chatPh:"Type your question, e.g. 'What age can start?'",
