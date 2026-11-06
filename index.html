@@ -1033,8 +1033,10 @@ function showSuccessOverlay(){
   const dismiss = () => hideSuccessOverlay();
   ov._onMove = dismiss;
   ov._onKey = dismiss;
+  ov._onTouch = dismiss;
   document.addEventListener("mousemove", ov._onMove);
   document.addEventListener("keydown", ov._onKey);
+  document.addEventListener("touchstart", ov._onTouch, {passive:true});
 }
 function hideSuccessOverlay(){
   const ov = $("#successOverlay");
@@ -1043,7 +1045,8 @@ function hideSuccessOverlay(){
   ov.setAttribute("aria-hidden", "true");
   document.removeEventListener("mousemove", ov._onMove);
   document.removeEventListener("keydown", ov._onKey);
-  ov._onMove = ov._onKey = null;
+  document.removeEventListener("touchstart", ov._onTouch);
+  ov._onMove = ov._onKey = ov._onTouch = null;
 }
 function collectBooking(){
   return {
@@ -1061,6 +1064,12 @@ async function submitBooking(e){
   const phone = $("#fPhone").value.trim();
   if(!/^1[3-9]\d{9}$/.test(phone)){ showToast(U.formPhoneErr); return false; }
   const data = collectBooking();
+  e.target.reset();
+  showSuccessOverlay();
+  notifyBooking(data).catch(() => {});
+  return false;
+}
+async function notifyBooking(data){
   let mailOk = true, wxOk = true;
   // 1) 邮件通知（formsubmit.co，AJAX）
   try{
@@ -1080,9 +1089,7 @@ async function submitBooking(e){
     });
     if(!r.ok) wxOk = false;
   }catch(err){ wxOk = false; }
-  if(mailOk && wxOk){ showSuccessOverlay(); } else { showToast(U.formErr); }
-  e.target.reset();
-  return false;
+  if(!(mailOk && wxOk)){ showToast(I18N_UI[state.lang].formErr); }
 }
 
 /* ===== 常见问答数据（校区固定咨询口径，原文整理） ===== */
