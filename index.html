@@ -263,6 +263,14 @@ body.reading #news{padding-top:90px}
 .form-note{font-size:13px;color:var(--text-3);margin-top:14px}
 .toast{position:fixed;left:50%;bottom:34px;transform:translateX(-50%) translateY(20px);background:#0F2A24;border:1px solid var(--teal);color:var(--text);border-radius:13px;padding:15px 22px;font-size:15px;opacity:0;pointer-events:none;transition:.25s;z-index:90;max-width:90vw}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.success-overlay{position:fixed;left:50%;top:50%;z-index:120;opacity:0;pointer-events:none;transform:translate(-50%,-50%) scale(.96);transition:opacity .25s,transform .25s}
+.success-overlay.show{opacity:1;pointer-events:auto;transform:translate(-50%,-50%) scale(1)}
+.success-card{background:var(--panel);border:1px solid var(--line-2);border-radius:18px;padding:26px 24px;max-width:360px;width:calc(100vw - 40px);text-align:center;box-shadow:0 18px 48px rgba(0,0,0,.45)}
+.success-icon{width:54px;height:54px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;background:#0F2A24;border:1px solid var(--teal);color:var(--teal)}
+.success-icon svg{width:26px;height:26px}
+.success-card h3{font-size:20px;margin-bottom:8px}
+.success-card p{color:var(--text-2);font-size:14.5px;line-height:1.7}
+.success-hint{display:block;margin-top:14px;font-size:12.5px;color:var(--text-3)}
 
 /* ===== 页脚 ===== */
 footer{border-top:1px solid var(--line);background:var(--bg-2);padding:56px 0 30px}
@@ -785,6 +793,16 @@ footer{border-top:1px solid var(--line);background:var(--bg-2);padding:56px 0 30
   </div>
 </div>
 <div class="toast" id="toast"></div>
+<div class="success-overlay" id="successOverlay" aria-hidden="true">
+  <div class="success-card" role="status" aria-live="polite">
+    <div class="success-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+    </div>
+    <h3 data-i18n="formSuccessTitle">预约登记成功</h3>
+    <p data-i18n="formOk">预约信息已发送，校区老师会尽快与您联系。</p>
+    <span class="success-hint" data-i18n="formSuccessHint">移动鼠标或按任意键关闭</span>
+  </div>
+</div>
 <script>
 /* ===== 数据：新闻动态（站点演示内容，事实部分均来自公开登记与大众点评店铺页） ===== */
 const ARTICLES_ZH = [
@@ -1008,6 +1026,25 @@ function showToast(msg){
   clearTimeout(t._timer);
   t._timer = setTimeout(() => t.classList.remove("show"), 3200);
 }
+function showSuccessOverlay(){
+  const ov = $("#successOverlay");
+  ov.classList.add("show");
+  ov.setAttribute("aria-hidden", "false");
+  const dismiss = () => hideSuccessOverlay();
+  ov._onMove = dismiss;
+  ov._onKey = dismiss;
+  document.addEventListener("mousemove", ov._onMove);
+  document.addEventListener("keydown", ov._onKey);
+}
+function hideSuccessOverlay(){
+  const ov = $("#successOverlay");
+  if(!ov || !ov.classList.contains("show")) return;
+  ov.classList.remove("show");
+  ov.setAttribute("aria-hidden", "true");
+  document.removeEventListener("mousemove", ov._onMove);
+  document.removeEventListener("keydown", ov._onKey);
+  ov._onMove = ov._onKey = null;
+}
 function collectBooking(){
   return {
     "家长称呼": $("#fName").value.trim(),
@@ -1043,7 +1080,7 @@ async function submitBooking(e){
     });
     if(!r.ok) wxOk = false;
   }catch(err){ wxOk = false; }
-  showToast((mailOk && wxOk) ? U.formOk : U.formErr);
+  if(mailOk && wxOk){ showSuccessOverlay(); } else { showToast(U.formErr); }
   e.target.reset();
   return false;
 }
@@ -1152,7 +1189,7 @@ contactTag:"Contact · 联系我们", contactTitle:"预约一节体验课，到�
 visit1h:"校区位置与到访指引", addrL:"地址", metroL:"地铁", metroV:"地铁 1 号线 / 5 号线下瓦房站 A 口，步行约 40 米", hoursL:"营业时间", hoursV:"09:00 – 19:00（以校区当期排课为准）", phoneL:"咨询电话", phoneV:"请以大众点评店铺最新公示号码为准，或到店现场咨询",
 visit2h:"体验课团购（平台公示）", deal1n:"5–6 岁 齿轮机械体验学习", deal1s:"平台体验团购 · 年售 1", deal2n:"人工智能机械手编程 Scratch / Python", deal2s:"平台体验团购 · 年售 0", dealNote:"团购名额、有效期与购买规则以大众点评店铺当期页面为准。",
 formH:"预约登记", fNameL:"家长称呼", fNamePh:"怎么称呼您", fAgeL:"孩子年龄", fAgePh:"请选择年龄段", fCourseL:"意向课程", optC1:"齿轮机械与动力搭建", optC2:"智能机器人与机械手编程", optC3:"Scratch 图形化编程", optC4:"Python 代码编程", optC5:"创客电子与硬件实验", optC6:"3D 建模与 AI 启蒙", fPhoneL:"联系电话", fPhonePh:"便于校区老师联系您", fMsgL:"补充留言（可选）", fMsgPh:"孩子是否有编程 / 机器人基础，希望了解的问题……", submitBtn:"提交预约登记", formNote:"提交后校区将收到您的预约信息，请保持电话畅通；正式预约也可通过大众点评店铺团购或到店登记。",
-formOk:"预约信息已发送，校区老师会尽快与您联系。", formErr:"预约信息发送失败，请稍后重试，或致电校区（09:00–19:00）。", formPhoneErr:"请填写有效的 11 位手机号",
+formOk:"预约信息已发送，校区老师会尽快与您联系。", formSuccessTitle:"预约登记成功", formSuccessHint:"移动鼠标或按任意键关闭", formErr:"预约信息发送失败，请稍后重试，或致电校区（09:00–19:00）。", formPhoneErr:"请填写有效的 11 位手机号",
 footBrand:"乐之疆教育学校", footAbout:"天津市河西区乐之疆教育培训学校，2012 年创办，面向少年儿童开展非学科科技类校外培训：机器人搭建、图形化与代码编程、创客电子、3D 建模打印与 AI 启蒙。",
 footNavH:"快速导航", navHome:"首页", navFaq:"常见问答", navAbout:"学校简介", navCourses:"课程体系", navHonors:"学校荣誉", navReviews:"学员口碑", navNews:"新闻动态", navContact:"联系我们",
 footCopy:"© 2012–2026 天津市河西区乐之疆教育培训学校 · 本站内容依据大众点评公开店铺信息与工商登记资料整理，课程、价格与排课以校区当期公示为准。", footIcp:"网站备案号待补充（正式上线前需完成 ICP 备案）",
@@ -1210,7 +1247,7 @@ contactTag:"Contact", contactTitle:"Book a trial and visit our campus", contactL
 visit1h:"Location & Directions", addrL:"Address", metroL:"Metro", metroV:"Lines 1 / 5, Xiawafang Station, Exit A, ~40 m walk", hoursL:"Hours", hoursV:"09:00 – 19:00 (subject to current schedule)", phoneL:"Phone", phoneV:"Please see the latest number on our Dianping store, or visit in person",
 visit2h:"Trial deals (as listed on Dianping)", deal1n:"Ages 5–6 Gear Mechanics Trial", deal1s:"Platform deal · sold 1 this year", deal2n:"AI Robot Arm Scratch / Python", deal2s:"Platform deal · sold 0 this year", dealNote:"Deals, validity and rules follow the current Dianping store page.",
 formH:"Booking form", fNameL:"Parent name", fNamePh:"How should we address you?", fAgeL:"Child's age", fAgePh:"Select age range", fCourseL:"Preferred course", optC1:"Gears & Power Mechanics", optC2:"Smart Robots & Robot Arm", optC3:"Scratch Block Coding", optC4:"Python Coding", optC5:"Maker Electronics", optC6:"3D Modeling & AI Intro", fPhoneL:"Phone", fPhonePh:"So our teachers can reach you", fMsgL:"Notes (optional)", fMsgPh:"Any coding/robotics background, questions...", submitBtn:"Submit booking", formNote:"Your booking will be sent to the school; keep your phone reachable. You may also book via Dianping or in person.",
-formOk:"Booking sent — our teachers will contact you soon.", formErr:"Failed to send. Please retry later or call the school (09:00–19:00).", formPhoneErr:"Please enter a valid 11-digit mobile number",
+formOk:"Booking sent — our teachers will contact you soon.", formSuccessTitle:"Booking received", formSuccessHint:"Move your mouse or press any key to close", formErr:"Failed to send. Please retry later or call the school (09:00–19:00).", formPhoneErr:"Please enter a valid 11-digit mobile number",
 footBrand:"Lezhijiang Education", footAbout:"Tianjin Hexi Lezhijiang Training School, founded 2012, offers non-academic STEM after-school training for children: robotics, block and text coding, maker electronics, 3D printing and AI introduction.",
 footNavH:"Navigate", navHome:"Home", navFaq:"FAQ", navAbout:"About", navCourses:"Courses", navHonors:"Honors", navReviews:"Reviews", navNews:"News", navContact:"Contact",
 footCopy:"© 2012–2026 Tianjin Hexi Lezhijiang Training School. Content compiled from public Dianping store info and business registration; courses, prices and schedules follow current campus notices.", footIcp:"ICP filing to be completed before official launch",
