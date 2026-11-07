@@ -75,6 +75,18 @@ footer b{color:var(--text-2)}
  .crumb{padding-top:18px}
  .cta{padding:20px}
 }
+
+.back-home{position:fixed;right:16px;bottom:calc(18px + env(safe-area-inset-bottom));z-index:60;
+ display:inline-flex;align-items:center;gap:7px;padding:11px 16px;border-radius:999px;
+ background:rgba(13,22,36,.94);border:1px solid #243752;color:#EAF1FB;
+ font-family:var(--font,"Noto Sans SC",sans-serif);font-size:14px;font-weight:600;
+ box-shadow:0 10px 26px rgba(0,0,0,.42);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+ transition:color .2s,border-color .2s,transform .2s}
+.back-home:hover{color:#35E6C8;border-color:#35E6C8;transform:translateY(-1px)}
+.back-home .arw{font-family:var(--mono,monospace);font-size:13px;line-height:1}
+@media (max-width:720px){
+ .back-home{right:12px;bottom:calc(12px + env(safe-area-inset-bottom));padding:10px 14px;font-size:13px}
+}
 </style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"乐高机器人课和少儿编程课，到底有什么区别？","description":"一句话说清：机器人课是硬件与编程的结合，产出是能动的作品；编程课偏软件，产出是屏幕上的程序。两者不是替代关系——真正有效的是把它们接成一条线，这也是我们把它叫「机器人编程」的原因：结构决定「能不能」，程序决定「怎么动」，一边练自己想方案，一边练把角度、比例、时间算准。","image":"https://legoedu-robot.com/assets/news-robot.jpg","datePublished":"2026-11-07","dateModified":"2026-11-07","inLanguage":"zh-CN","articleSection":"课程解读","author":{"@id":"https://legoedu-robot.com/#organization"},"publisher":{"@id":"https://legoedu-robot.com/#organization"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://legoedu-robot.com/news-lego-vs-coding.html"},"isPartOf":{"@id":"https://legoedu-robot.com/#website"}}</script>
 </head>
@@ -157,5 +169,6 @@ footer b{color:var(--text-2)}
     <p>本站内容依据大众点评公开店铺信息与登记资料整理，课程、价格与排课以校区当期公示为准。</p>
   </div>
 </footer>
+<a class="back-home" href="index.html" aria-label="返回乐之疆教育学校首页"><span class="arw">&larr;</span><span>返回首页</span></a>
 </body>
 </html>

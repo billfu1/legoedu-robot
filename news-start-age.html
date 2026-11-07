@@ -75,6 +75,18 @@ footer b{color:var(--text-2)}
  .crumb{padding-top:18px}
  .cta{padding:20px}
 }
+
+.back-home{position:fixed;right:16px;bottom:calc(18px + env(safe-area-inset-bottom));z-index:60;
+ display:inline-flex;align-items:center;gap:7px;padding:11px 16px;border-radius:999px;
+ background:rgba(13,22,36,.94);border:1px solid #243752;color:#EAF1FB;
+ font-family:var(--font,"Noto Sans SC",sans-serif);font-size:14px;font-weight:600;
+ box-shadow:0 10px 26px rgba(0,0,0,.42);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+ transition:color .2s,border-color .2s,transform .2s}
+.back-home:hover{color:#35E6C8;border-color:#35E6C8;transform:translateY(-1px)}
+.back-home .arw{font-family:var(--mono,monospace);font-size:13px;line-height:1}
+@media (max-width:720px){
+ .back-home{right:12px;bottom:calc(12px + env(safe-area-inset-bottom));padding:10px 14px;font-size:13px}
+}
 </style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"孩子几岁开始学编程合适？分年龄段的判断标准","description":"4–6 岁不碰键盘，用不插电编程和机械搭建打底；7–8 岁是图形化编程的黄金起点；10 岁左右再转代码语言。判断“准备好了”不看年龄，看四个信号。","image":"https://legoedu-robot.com/assets/news-startage.jpg","datePublished":"2026-11-07","dateModified":"2026-11-07","inLanguage":"zh-CN","articleSection":"家长问答","author":{"@id":"https://legoedu-robot.com/#organization"},"publisher":{"@id":"https://legoedu-robot.com/#organization"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://legoedu-robot.com/news-start-age.html"},"isPartOf":{"@id":"https://legoedu-robot.com/#website"}}</script>
 </head>
@@ -152,5 +164,6 @@ footer b{color:var(--text-2)}
     <p>本站内容依据大众点评公开店铺信息与登记资料整理，课程、价格与排课以校区当期公示为准。</p>
   </div>
 </footer>
+<a class="back-home" href="index.html" aria-label="返回乐之疆教育学校首页"><span class="arw">&larr;</span><span>返回首页</span></a>
 </body>
 </html>
