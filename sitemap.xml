@@ -73,13 +73,25 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://legoedu-robot.com/news-payment-terms.html</loc>
+    <loc>https://legoedu-robot.com/news-robot-competitions.html</loc>
     <lastmod>2026-11-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://legoedu-robot.com/news-robot-competitions.html</loc>
+    <loc>https://legoedu-robot.com/news-coding-math.html</loc>
+    <lastmod>2026-11-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://legoedu-robot.com/news-focus-kids.html</loc>
+    <lastmod>2026-11-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://legoedu-robot.com/news-scratch-next.html</loc>
     <lastmod>2026-11-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
