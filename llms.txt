@@ -85,7 +85,7 @@
 - https://legoedu-robot.com/news-teaching-philosophy.html — 教学理念：按水平分班、启发式课堂
 - https://legoedu-robot.com/news-visit-guide.html — 到校指引：校区位置与交通
 - https://legoedu-robot.com/news-structure-physics.html — 家长问答：结构决定“能不能”，力矩/重心/摩擦/三角支撑与物理课的迁移，三视图/角度/对称/相似与几何学习的对应，含不适用边界
-- https://legoedu-robot.com/news-guided-teaching.html — 家长问答：给不给图纸的区别、图纸流水线 vs 启发式教学、试听课两个动作（离谱方案/零件自由度）与自由创作路线对比
+- https://legoedu-robot.com/news-guided-teaching.html — 家长问答：给不给图纸的区别、图纸流水线 vs 启发式教学、试听课两个动作（离谱方案/零件自由度）与不适用边界
 
 首页板块锚点：`#about` 学校简介 · `#courses` 课程体系 · `#honors` 学校荣誉 · `#reviews` 学员口碑 · `#faq` 家长常见问答（22 组） · `#news` 新闻动态 · `#contact` 地址与预约登记
 
