@@ -87,6 +87,25 @@ footer b{color:var(--text-2)}
 @media (max-width:720px){
  .back-home{right:12px;bottom:calc(12px + env(safe-area-inset-bottom));padding:10px 14px;font-size:13px}
 }
+
+.share-wx{position:fixed;right:16px;bottom:calc(78px + env(safe-area-inset-bottom));z-index:60;
+ display:inline-flex;align-items:center;gap:7px;padding:11px 16px;border-radius:999px;
+ background:rgba(53,230,200,.13);border:1px solid rgba(53,230,200,.55);color:#35E6C8;
+ font-family:var(--font,"Noto Sans SC",sans-serif);font-size:14px;font-weight:600;
+ box-shadow:0 10px 26px rgba(0,0,0,.42);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+ cursor:pointer;transition:background .2s,transform .2s}
+.share-wx:active{background:rgba(53,230,200,.22);transform:scale(.97)}
+.share-wx svg{width:15px;height:15px}
+@media (max-width:720px){
+ .share-wx{right:12px;bottom:calc(62px + env(safe-area-inset-bottom));padding:10px 14px;font-size:13px}
+}
+.wx-tip{position:fixed;inset:0;z-index:90;background:rgba(4,8,14,.88);
+ display:flex;flex-direction:column;align-items:flex-end;padding:12px 16px;
+ font-family:var(--font,"Noto Sans SC",sans-serif);color:#EAF1FB;cursor:pointer}
+.wx-tip .arrow{font-size:26px;line-height:1;color:#35E6C8;margin-right:6px}
+.wx-tip .box{margin-top:10px;max-width:300px;background:#0D1624;border:1px solid #243752;
+ border-radius:14px;padding:16px 18px;font-size:15px;line-height:1.75}
+.wx-tip .box b{color:#35E6C8}
 </style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"刷屏的“马斯克全球网课”到底是什么？家长先看清这 5 件事","description":"它正式名字叫 Astra Nova，前身是 2014 年马斯克在 SpaceX 园区办的 Ad Astra。两件事要先说清：联合创始人公开表示马斯克与现在的线上学校没有关系；它也不是免费公开课——一门课 2300 美元，2027–28 学年全年学费 4950 至 37125 美元（官方阶梯价）。","image":"https://legoedu-robot.com/assets/news-musk.jpg","datePublished":"2026-11-07","dateModified":"2026-11-07","inLanguage":"zh-CN","articleSection":"教育观察","author":{"@id":"https://legoedu-robot.com/#organization"},"publisher":{"@id":"https://legoedu-robot.com/#organization"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://legoedu-robot.com/news-astra-nova.html"},"isPartOf":{"@id":"https://legoedu-robot.com/#website"}}</script>
 </head>
@@ -192,5 +211,46 @@ footer b{color:var(--text-2)}
   </div>
 </footer>
 <a class="back-home" href="index.html" aria-label="返回乐之疆教育学校首页"><span class="arw">&larr;</span><span>返回首页</span></a>
+<button class="share-wx" id="shareWx" type="button" aria-label="转发到微信"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 4v11"/><path d="M7.5 8.5L12 4l4.5 4.5"/><path d="M5 15v4h14v-4"/></svg><span>转发微信</span></button>
+<script>
+(function(){
+  var btn=document.getElementById('shareWx');
+  if(!btn) return;
+  var ua=(navigator.userAgent||'').toLowerCase();
+  function toast(msg){
+    var t=document.createElement('div');
+    t.textContent=msg;
+    t.style.cssText='position:fixed;left:50%;bottom:160px;transform:translateX(-50%);z-index:95;background:rgba(13,22,36,.96);border:1px solid #243752;color:#EAF1FB;padding:10px 16px;border-radius:10px;font-size:14px;max-width:80vw;text-align:center;line-height:1.6';
+    document.body.appendChild(t);
+    setTimeout(function(){t.style.transition='opacity .3s';t.style.opacity='0';setTimeout(function(){if(t.parentNode)t.parentNode.removeChild(t);},320);},2200);
+  }
+  function wechatTip(){
+    var d=document.createElement('div');
+    d.className='wx-tip';
+    d.innerHTML='<div class="arrow">↗</div><div class="box"><b>点右上角「···」</b><br>选「发送给朋友」，就能把这篇文章转到微信聊天或群；也可以选「分享到朋友圈」。</div>';
+    d.addEventListener('click',function(){if(d.parentNode)d.parentNode.removeChild(d);});
+    document.body.appendChild(d);
+    setTimeout(function(){if(d.parentNode)d.parentNode.removeChild(d);},6000);
+  }
+  function fallbackCopy(url){
+    var ta=document.createElement('textarea');
+    ta.value=url;ta.style.cssText='position:fixed;opacity:0;top:0;left:0';
+    document.body.appendChild(ta);ta.select();
+    var ok=false;
+    try{ok=document.execCommand('copy');}catch(e){ok=false;}
+    if(ta.parentNode)ta.parentNode.removeChild(ta);
+    if(ok){toast('链接已复制，粘贴到微信里即可');}else{toast(url);}
+  }
+  function copy(url){
+    if(navigator.clipboard&&navigator.clipboard.writeText){
+      navigator.clipboard.writeText(url).then(function(){toast('链接已复制，粘贴到微信里即可');},function(){fallbackCopy(url);});
+    }else{fallbackCopy(url);}
+  }
+  btn.addEventListener('click',function(){
+    if(ua.indexOf('micromessenger')>-1){wechatTip();}
+    else{copy(location.href.split('#')[0]);}
+  });
+})();
+</script>
 </body>
 </html>
