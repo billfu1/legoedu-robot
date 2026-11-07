@@ -67,6 +67,7 @@
 - https://legoedu-robot.com/news-coding-math.html — 家长问答：学编程对数学有没有帮助（可迁移的三件事、不能指望的三件事、让迁移发生的三个做法、最明显的年龄段）
 - https://legoedu-robot.com/news-focus-kids.html — 家长问答：专注力差的孩子适不适合学机器人（动手任务的即时反馈优势、三种“坐不住”的区分、三条选课标准与家长配合方式）
 - https://legoedu-robot.com/news-scratch-next.html — 课程解读：Scratch 学完之后学什么（学完的判断标志、转 Python 前要补的三块、五个可转信号、直接跳的三个坑）
+- https://legoedu-robot.com/news-ai-era-coding.html — 择校指南：AI 时代还要不要学编程（比特与原子的区别、纯编程为何先被压缩、编程+硬件+真实任务的组合、选课三条建议与适用边界）
 - https://legoedu-robot.com/news-choose-institution.html — 择校指南：选少儿编程机构要核的 5 件事（资质/分班/课时/参赛器材成本/到店核验）
 - https://legoedu-robot.com/news-history.html — 办学沿革：2012 年创办到课程体系扩展
 - https://legoedu-robot.com/news-scratch-to-python.html — 课程解读：Scratch 之后如何衔接 Python
