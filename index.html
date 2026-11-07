@@ -355,6 +355,15 @@ footer{border-top:1px solid var(--line);background:var(--bg-2);padding:56px 0 30
   .article-hero img{height:240px}
   .head-row{flex-direction:column;align-items:start}
 }
+@media (max-width:1024px){
+  /* 修复：学校简介里的超长链接不换行，把整栏撑到 800px+，导致右侧被裁 */
+  .about-grid,.stats-grid,.course-grid,.review-grid,.news-list,.honors-matrix,.foot-grid{min-width:0}
+  .about-grid>*,.about-copy,.about-photo,.about-badge,.about-badge>span:last-child{min-width:0}
+  .about-copy p,.about-copy h2,.about-copy .about-badge{overflow-wrap:anywhere;word-break:break-word}
+  .about-copy p a{word-break:break-all}
+  .about-badge .org-name,.about-badge .org-sub{display:block}
+  .tag-float{max-width:calc(100% - 36px)}
+}
 </style>
 </head>
 <body>
