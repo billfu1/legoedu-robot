@@ -1,4 +1,60 @@
+# robots.txt · 乐之疆教育学校  https://legoedu-robot.com
+# 目标：对搜索引擎与 AI 检索爬虫全部放行，重点是字节跳动 Bytespider（豆包检索的内容来源）
+
 User-agent: *
+Allow: /
+Disallow:
+
+# ---- 字节跳动 / 豆包 / 头条搜索 ----
+User-agent: Bytespider
+Allow: /
+
+# ---- 国内搜索引擎 ----
+User-agent: Baiduspider
+Allow: /
+
+User-agent: Sogou web spider
+Allow: /
+
+User-agent: 360Spider
+Allow: /
+
+User-agent: YisouSpider
+Allow: /
+
+# ---- 国际搜索引擎 ----
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+# ---- AI 检索/训练爬虫 ----
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Applebot
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: Amazonbot
+Allow: /
+
+User-agent: cohere-ai
 Allow: /
 
 Sitemap: https://legoedu-robot.com/sitemap.xml
