@@ -67,7 +67,7 @@
 - https://legoedu-robot.com/news-coding-math.html — 家长问答：学编程对数学有没有帮助（可迁移的三件事、不能指望的三件事、让迁移发生的三个做法、最明显的年龄段）
 - https://legoedu-robot.com/news-focus-kids.html — 家长问答：专注力差的孩子适不适合学机器人（动手任务的即时反馈优势、三种“坐不住”的区分、三条选课标准与家长配合方式）
 - https://legoedu-robot.com/news-scratch-next.html — 课程解读：Scratch 学完之后学什么（学完的判断标志、转 Python 前要补的三块、五个可转信号、直接跳的三个坑）
-- https://legoedu-robot.com/news-ai-era-coding.html — 择校指南：AI 时代还要不要学编程（比特与原子的区别、纯编程为何先被压缩、编程+硬件+真实任务的组合、选课三条建议与适用边界）
+- https://legoedu-robot.com/news-ai-era-coding.html — 择校指南：马斯克说 AI 时代这活不会淘汰，很多家长理解反了（搬比特与搬原子的区别、纯编程为何先被压缩、编程+硬件+真实任务的组合、选课三条建议与适用边界）
 - https://legoedu-robot.com/news-ai-era-creativity.html — 择校指南：AI 时代还要不要继续报语数外补习（补习边际收益下降的原因、创造力的四个可练动作、判断课程练熟练度还是养创造力的四条标准、投入分配与适用边界）
 - https://legoedu-robot.com/news-astra-nova.html — 教育观察：马斯克网校 Astra Nova 事实梳理（Ad Astra 沿革、授课形式与班额、申请流程、2027–28 学费阶梯、学界与智库争议、可迁移的三条方法与本地落地）
 - https://legoedu-robot.com/news-choose-institution.html — 择校指南：选少儿编程机构要核的 5 件事（资质/分班/课时/参赛器材成本/到店核验）
