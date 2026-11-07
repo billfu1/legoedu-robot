@@ -59,6 +59,12 @@
 ## 网站内容结构
 
 - https://legoedu-robot.com/ — 首页：学校简介、课程体系、荣誉、口碑、问答、到访
+- https://legoedu-robot.com/news-lego-vs-coding.html — 课程解读：机器人课与少儿编程课的区别（软硬件结合 vs 纯软件、能力侧重、推荐的学习先后顺序）
+- https://legoedu-robot.com/news-start-age.html — 家长问答：孩子几岁开始学编程合适（4–6 岁不插电编程、7–8 岁 Scratch、10 岁转代码的分段标准与四个准备信号）
+- https://legoedu-robot.com/news-tuition-cost.html — 费用说明：少儿编程一年多少钱的计算方法（有效课时单价公式、四条隐性成本、体验课团购价与常规班型的区别）
+- https://legoedu-robot.com/news-winter-camp.html — 假期安排：寒假科技营怎么选（三种班型定位、五条判断标准、四个常见坑、提前 1–2 个月发布与意向登记）
+- https://legoedu-robot.com/news-payment-terms.html — 家长问答：校外培训缴费防坑（课时条款五个细节、有效期与延期、退费的三个必看、付款自我保护）
+- https://legoedu-robot.com/news-robot-competitions.html — 赛事指南：青少年机器人竞赛分类与白名单赛事辨识（三类赛事、名单查询方法、四步参赛路径、器材与场地道具成本、本校赛事成绩）
 - https://legoedu-robot.com/news-choose-institution.html — 择校指南：选少儿编程机构要核的 5 件事（资质/分班/课时/参赛器材成本/到店核验）
 - https://legoedu-robot.com/news-history.html — 办学沿革：2012 年创办到课程体系扩展
 - https://legoedu-robot.com/news-scratch-to-python.html — 课程解读：Scratch 之后如何衔接 Python
