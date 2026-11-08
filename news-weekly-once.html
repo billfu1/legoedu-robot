@@ -191,8 +191,7 @@ footer b{color:var(--text-2)}
     <p>本站内容依据大众点评公开店铺信息与登记资料整理，课程、价格与排课以校区当期公示为准。</p>
   </div>
 </footer>
-<a class="back-home" href="index.html" aria-label="返回乐之疆教育学校首页"><span class="arw">&larr;</span><span>返回首页</span></a>
-<button class="share-wx" id="saveCover" type="button" aria-label="保存题图" style="right:calc(16px + 104px)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 4v11"/><path d="M7.5 11.5L12 16l4.5-4.5"/><path d="M5 20h14"/></svg><span>存题图</span></button>
+<a class="back-home" href="index.html#news" aria-label="返回新闻动态"><span class="arw">&larr;</span><span>返回新闻</span></a>
 <button class="share-wx" id="shareWx" type="button" aria-label="转发到微信"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 4v11"/><path d="M7.5 8.5L12 4l4.5 4.5"/><path d="M5 15v4h14v-4"/></svg><span>转发微信</span></button>
 <script>
 (function(){
@@ -204,7 +203,7 @@ footer b{color:var(--text-2)}
     t.textContent=msg;
     t.style.cssText='position:fixed;left:50%;bottom:160px;transform:translateX(-50%);z-index:95;background:rgba(13,22,36,.96);border:1px solid #243752;color:#EAF1FB;padding:10px 16px;border-radius:10px;font-size:14px;max-width:80vw;text-align:center;line-height:1.6';
     document.body.appendChild(t);
-    setTimeout(function(){t.style.transition='opacity .3s';t.style.opacity='0';setTimeout(function(){if(t.parentNode)t.parentNode.removeChild(t);},320);},2600);
+    setTimeout(function(){t.style.transition='opacity .3s';t.style.opacity='0';setTimeout(function(){if(t.parentNode)t.parentNode.removeChild(t);},320);},2400);
   }
   function wechatTip(){
     var d=document.createElement('div');
@@ -214,40 +213,16 @@ footer b{color:var(--text-2)}
     document.body.appendChild(d);
     setTimeout(function(){if(d.parentNode)d.parentNode.removeChild(d);},6000);
   }
-  function meta(name){
-    var m=document.querySelector('meta[name="'+name+'"]')||document.querySelector('meta[property="'+name+'"]');
-    return m?(m.getAttribute('content')||''):'';
-  }
   function titleText(){
     var t=document.title||'';
     var i=t.indexOf(' · ');
     return i>0?t.slice(0,i).trim():t.trim();
   }
-  function shortDesc(){
-    var d=meta('description')||'';
-    d=d.replace(/\s+/g,' ').trim();
-    return d.length>70?d.slice(0,70)+'…':d;
-  }
-  function imgUrl(){
-    var u=meta('og:image')||meta('twitter:image')||'';
-    if(!u) return '';
-    try{return new URL(u,location.href).href;}catch(e){return u;}
-  }
   function pageUrl(){
     return location.origin+location.pathname+location.search;
   }
-  function plainBlock(){
-    var t=titleText(), d=shortDesc(), u=pageUrl();
-    return '【乐之疆教育学校】'+t+'\n'+(d?d+'\n':'')+u;
-  }
-  function htmlBlock(){
-    var t=titleText(), d=shortDesc(), u=pageUrl(), im=imgUrl();
-    var esc=function(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');};
-    return '<div style="font-family:sans-serif;max-width:520px">'
-      +(im?'<p style="margin:0 0 10px"><img src="'+esc(im)+'" alt="'+esc(t)+'" style="width:100%;border-radius:10px"></p>':'')
-      +'<p style="margin:0;font-size:15px;line-height:1.6"><b>【乐之疆教育学校】'+esc(t)+'</b></p>'
-      +(d?'<p style="margin:6px 0 0;font-size:13px;line-height:1.7;color:#555">'+esc(d)+'</p>':'')
-      +'<p style="margin:8px 0 0;font-size:13px"><a href="'+esc(u)+'">'+esc(u)+'</a></p></div>';
+  function block(){
+    return '【乐之疆教育学校】'+titleText()+'\n'+pageUrl();
   }
   function fallbackCopy(text){
     var ta=document.createElement('textarea');
@@ -258,46 +233,17 @@ footer b{color:var(--text-2)}
     if(ta.parentNode)ta.parentNode.removeChild(ta);
     return ok;
   }
-  function copyAll(){
-    var plain=plainBlock();
-    if(navigator.clipboard&&window.ClipboardItem&&navigator.clipboard.write){
-      var items={};
-      try{items['text/plain']=new Blob([plain],{type:'text/plain'});}catch(e){}
-      try{items['text/html']=new Blob([htmlBlock()],{type:'text/html'});}catch(e){}
-      try{
-        navigator.clipboard.write([new ClipboardItem(items)]).then(
-          function(){toast('已复制：标题＋摘要＋链接（带题图版本可粘到备忘录、邮件、公众号后台）');},
-          function(){ if(fallbackCopy(plain)){toast('已复制标题＋摘要＋链接');} }
-        );
-        return;
-      }catch(e){}
-    }
-    if(navigator.clipboard&&navigator.clipboard.writeText){
-      navigator.clipboard.writeText(plain).then(
-        function(){toast('已复制：标题＋摘要＋链接');},
-        function(){ if(fallbackCopy(plain)){toast('已复制标题＋摘要＋链接');}else{toast(plain);} }
-      );
-      return;
-    }
-    if(fallbackCopy(plain)){toast('已复制：标题＋摘要＋链接');}else{toast(plain);}
-  }
   btn.addEventListener('click',function(){
     if(ua.indexOf('micromessenger')>-1){wechatTip();return;}
-    copyAll();
+    var txt=block();
+    if(navigator.clipboard&&navigator.clipboard.writeText){
+      navigator.clipboard.writeText(txt).then(function(){toast('已复制：标题＋链接');},function(){
+        if(fallbackCopy(txt)){toast('已复制：标题＋链接');}else{toast(txt);}
+      });
+      return;
+    }
+    if(fallbackCopy(txt)){toast('已复制：标题＋链接');}else{toast(txt);}
   });
-  var save=document.getElementById('saveCover');
-  if(save){
-    save.addEventListener('click',function(){
-      var im=imgUrl();
-      if(!im){toast('本页没有题图');return;}
-      var a=document.createElement('a');
-      a.href=im;a.download=im.split('/').pop()||'cover.jpg';
-      a.target='_blank';a.rel='noopener';
-      document.body.appendChild(a);a.click();
-      if(a.parentNode)a.parentNode.removeChild(a);
-      toast('题图已另存（手机请长按图片保存到相册）');
-    });
-  }
 })();
 </script>
 </body>
