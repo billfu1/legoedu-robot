@@ -13,6 +13,10 @@
 <meta property="og:description" content="寒假实际只有 3–4 周，选营看三件事：每天几小时、是做一个完整作品还是上一堆课、结营有没有可展示成果。连续 6 小时的大班营，孩子第三天就会疲。">
 <meta property="og:url" content="https://legoedu-robot.com/news-winter-camp.html">
 <meta property="og:image" content="https://legoedu-robot.com/assets/news-school.jpg">
+<meta property="og:image:width" content="1600">
+<meta property="og:image:height" content="700">
+<meta property="og:image:type" content="image/jpeg">
+<meta name="twitter:image" content="https://legoedu-robot.com/assets/news-school.jpg">
 <meta property="article:published_time" content="2026-11-07">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="author" content="天津市河西区乐之疆教育培训学校">
@@ -208,16 +212,16 @@ footer b{color:var(--text-2)}
     var ok=false;
     try{ok=document.execCommand('copy');}catch(e){ok=false;}
     if(ta.parentNode)ta.parentNode.removeChild(ta);
-    if(ok){toast('链接已复制，粘贴到微信里即可');}else{toast(url);}
+    if(ok){toast('标题和链接已复制，粘贴到微信会带题图预览');}else{toast(url);}
   }
   function copy(url){
     if(navigator.clipboard&&navigator.clipboard.writeText){
-      navigator.clipboard.writeText(url).then(function(){toast('链接已复制，粘贴到微信里即可');},function(){fallbackCopy(url);});
+      navigator.clipboard.writeText(url).then(function(){toast('标题和链接已复制，粘贴到微信会带题图预览');},function(){fallbackCopy(url);});
     }else{fallbackCopy(url);}
   }
   btn.addEventListener('click',function(){
     if(ua.indexOf('micromessenger')>-1){wechatTip();}
-    else{copy(location.href.split('#')[0]);}
+    else{copy(document.title.replace(/\s*\u00b7\s*乐之疆教育学校$/,'')+String.fromCharCode(10)+location.href.split('#')[0]);}
   });
 })();
 </script>

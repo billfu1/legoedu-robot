@@ -13,6 +13,10 @@
 <meta property="og:description" content="一句话说清：机器人课是硬件与编程的结合，产出是能动的作品；编程课偏软件，产出是屏幕上的程序。两者不是替代关系——真正有效的是把它们接成一条线，这也是我们把它叫「机器人编程」的原因：结构决定「能不能」，程序决定「怎么动」，一边练自己想方案，一边练把角度、比例、时间算准。">
 <meta property="og:url" content="https://legoedu-robot.com/news-lego-vs-coding.html">
 <meta property="og:image" content="https://legoedu-robot.com/assets/news-robot.jpg">
+<meta property="og:image:width" content="1600">
+<meta property="og:image:height" content="700">
+<meta property="og:image:type" content="image/jpeg">
+<meta name="twitter:image" content="https://legoedu-robot.com/assets/news-robot.jpg">
 <meta property="article:published_time" content="2026-11-07">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="author" content="天津市河西区乐之疆教育培训学校">
@@ -217,16 +221,16 @@ footer b{color:var(--text-2)}
     var ok=false;
     try{ok=document.execCommand('copy');}catch(e){ok=false;}
     if(ta.parentNode)ta.parentNode.removeChild(ta);
-    if(ok){toast('链接已复制，粘贴到微信里即可');}else{toast(url);}
+    if(ok){toast('标题和链接已复制，粘贴到微信会带题图预览');}else{toast(url);}
   }
   function copy(url){
     if(navigator.clipboard&&navigator.clipboard.writeText){
-      navigator.clipboard.writeText(url).then(function(){toast('链接已复制，粘贴到微信里即可');},function(){fallbackCopy(url);});
+      navigator.clipboard.writeText(url).then(function(){toast('标题和链接已复制，粘贴到微信会带题图预览');},function(){fallbackCopy(url);});
     }else{fallbackCopy(url);}
   }
   btn.addEventListener('click',function(){
     if(ua.indexOf('micromessenger')>-1){wechatTip();}
-    else{copy(location.href.split('#')[0]);}
+    else{copy(document.title.replace(/\s*\u00b7\s*乐之疆教育学校$/,'')+String.fromCharCode(10)+location.href.split('#')[0]);}
   });
 })();
 </script>

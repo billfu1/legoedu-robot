@@ -13,6 +13,10 @@
 <meta property="og:description" content="点评评价中反复出现“耐心负责”“兴趣浓厚”“教学水平高”。这些反馈背后，是学校长期坚持的分班方式与课堂风格。">
 <meta property="og:url" content="https://legoedu-robot.com/news-teaching-philosophy.html">
 <meta property="og:image" content="https://legoedu-robot.com/assets/news-philosophy.jpg">
+<meta property="og:image:width" content="1600">
+<meta property="og:image:height" content="700">
+<meta property="og:image:type" content="image/jpeg">
+<meta name="twitter:image" content="https://legoedu-robot.com/assets/news-philosophy.jpg">
 <meta property="article:published_time" content="2026-09-03">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="author" content="天津市河西区乐之疆教育培训学校">
@@ -188,16 +192,16 @@ footer b{color:var(--text-2)}
     var ok=false;
     try{ok=document.execCommand('copy');}catch(e){ok=false;}
     if(ta.parentNode)ta.parentNode.removeChild(ta);
-    if(ok){toast('链接已复制，粘贴到微信里即可');}else{toast(url);}
+    if(ok){toast('标题和链接已复制，粘贴到微信会带题图预览');}else{toast(url);}
   }
   function copy(url){
     if(navigator.clipboard&&navigator.clipboard.writeText){
-      navigator.clipboard.writeText(url).then(function(){toast('链接已复制，粘贴到微信里即可');},function(){fallbackCopy(url);});
+      navigator.clipboard.writeText(url).then(function(){toast('标题和链接已复制，粘贴到微信会带题图预览');},function(){fallbackCopy(url);});
     }else{fallbackCopy(url);}
   }
   btn.addEventListener('click',function(){
     if(ua.indexOf('micromessenger')>-1){wechatTip();}
-    else{copy(location.href.split('#')[0]);}
+    else{copy(document.title.replace(/\s*\u00b7\s*乐之疆教育学校$/,'')+String.fromCharCode(10)+location.href.split('#')[0]);}
   });
 })();
 </script>
