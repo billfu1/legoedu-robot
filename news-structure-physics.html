@@ -215,7 +215,7 @@ footer b{color:var(--text-2)}
   function wechatTip(){
     var d=document.createElement('div');
     d.className='wx-tip';
-    d.innerHTML='<div class="arrow">↗</div><div class="box"><b>点右上角「···」</b><br>选「发送给朋友」，微信会自动抓取本页题图和标题，生成带图卡片；也可以选「分享到朋友圈」。</div>';
+    d.innerHTML='<div class="arrow">↗</div><div class="box"><b>要带小图，用「收藏」中转：</b><br>① 点右上角「···」→「收藏」<br>② 回到微信「我」→「收藏」，找到这条，点「转发」给好友或群<br>这样发出去是带标题和小图的卡片。<br><span style="color:#687C9C">直接「发送给朋友」也行，但多数情况只显示纯链接。</span></div>';
     d.addEventListener('click',function(){if(d.parentNode)d.parentNode.removeChild(d);});
     document.body.appendChild(d);
     setTimeout(function(){if(d.parentNode)d.parentNode.removeChild(d);},6000);
