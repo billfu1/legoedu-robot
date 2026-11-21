@@ -2101,16 +2101,24 @@ function showList(){
   window.scrollTo({top:0,behavior:"smooth"});
 }
 
+function mediaDeepId(){
+  const q = new URLSearchParams(location.search).get("m");
+  if(q) return q;
+  let m = (location.hash || "").match(/^#media\/([\w-]+)$/);
+  if(m) return m[1];
+  m = location.pathname.match(/^\/m\/([\w-]+)$/);
+  return m ? m[1] : null;
+}
 function route(){
   const h = location.hash || "#/";
   const m = h.match(/^#\/news\/([\w-]+)$/);
   if(m){ showArticle(m[1]); return; }
-  const mm = h.match(/^#media\/([\w-]+)$/);
+  const mm = mediaDeepId();
   if(mm){
     document.body.classList.remove("reading");
     articleView.classList.remove("active");
     listView.classList.remove("hidden");
-    if(!focusMedia(mm[1])){ const sec = document.getElementById("media"); if(sec) sec.scrollIntoView({behavior:"smooth", block:"start"}); }
+    focusMedia(mm);
     return;
   }
   // 回到首页列表视图（退出新闻阅读模式）
@@ -2191,9 +2199,11 @@ function focusMedia(id){
   applyMediaMeta(m);
   const card = document.querySelector(`.media-card[data-mid="${id}"]`);
   if(card){
-    card.scrollIntoView({behavior:"smooth", block:"center"});
     card.classList.add("media-flash");
     setTimeout(() => card.classList.remove("media-flash"), 3200);
+    const place = () => card.scrollIntoView({behavior:"auto", block:"center"});
+    requestAnimationFrame(() => setTimeout(place, 80));
+    setTimeout(place, 400);
   }
   return true;
 }
