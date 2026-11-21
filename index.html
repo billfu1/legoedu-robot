@@ -2211,7 +2211,7 @@ function renderMedia(){
     const cap = escHtml(m.cap || "");
     const date = m.ts ? new Date(m.ts).toLocaleDateString("zh-CN") : "";
     const body = m.type === "video"
-      ? `<video controls playsinline webkit-playsinline preload="metadata" src="${escHtml(m.url)}"></video>`
+      ? `<video controls playsinline webkit-playsinline preload="metadata"${m.poster ? ` poster="${escHtml(m.poster)}"` : ""} src="${escHtml(m.url)}"></video>`
       : `<img src="${escHtml(m.url)}" alt="${cap}" loading="lazy" onclick="openLightbox(this.src)">`;
     const shareIcon = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>`;
     return `<div class="media-card" data-mid="${m.id}">
@@ -2441,7 +2441,7 @@ function shareMedia(id){
   const m = mediaItems.find(x => x.id === id);
   if(!m) return;
   const U = I18N_UI[state.lang];
-  const base = location.origin + "/#media/" + id;
+  const base = location.origin + "/media-api/share/" + id;
   const fallbackTitle = m.type === "video" ? U.shareVidTitle : U.shareImgTitle;
   const title = (m.cap || "").trim() || fallbackTitle;
   const line2 = state.lang === "en"
@@ -2449,7 +2449,7 @@ function shareMedia(id){
     : "乐之疆教育学校 · 乐高机器人 / AI人工智能 / 编程 / 3D建模打印（天津下瓦房）";
   const text = `${title}\n${line2}\n${base}`;
   const isWx = /MicroMessenger/i.test(navigator.userAgent);
-  // 尽力而为：更新当前页 og 信息（微信服务端抓取以首次打开的 URL 为准，动态改写不一定生效）
+  // 卡片标题/封面以后端分享页服务端渲染的 og 标签为准；这里仅尽力同步当前页
   setMetaProp("og:title", title);
   setMetaProp("og:url", base);
   if(m.type === "image") setMetaProp("og:image", location.origin + m.url);
