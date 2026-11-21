@@ -247,6 +247,7 @@ nav.menu a:hover,nav.menu a.active{color:var(--text);background:rgba(53,230,200,
 #articleView.active{display:block}
 #listView.hidden{display:none}
 body.reading .hero,body.reading .stats,body.reading section:not(#news),body.reading footer{display:none !important}
+body.reading .admin-panel{display:none !important}
 body.reading #news{padding-top:90px}
 .article-back{display:inline-flex;align-items:center;gap:8px;color:var(--text-2);margin:100px 0 26px;background:none;border:none;font-size:15px}
 .article-back:hover{color:var(--teal)}
@@ -298,6 +299,62 @@ body.reading #news{padding-top:90px}
 .success-card p{color:var(--text-2);font-size:14.5px;line-height:1.7}
 .success-hint{display:block;margin-top:14px;font-size:12.5px;color:var(--text-3)}
 
+/* ===== 媒体板块（图片 / 视频） ===== */
+.media-head{display:flex;justify-content:space-between;align-items:flex-start;gap:18px;flex-wrap:wrap}
+.media-head .section-lead{margin-top:0}
+.media-admin-btn{display:inline-flex;align-items:center;gap:8px;background:var(--panel-2);border:1px solid var(--line-2);color:var(--text-2);font-size:13.5px;font-weight:600;padding:10px 15px;border-radius:12px;white-space:nowrap}
+.media-admin-btn:hover{color:var(--teal);border-color:var(--teal)}
+.media-tabs{display:flex;gap:8px;margin:26px 0 20px;flex-wrap:wrap}
+.media-tab{background:none;border:1px solid var(--line-2);color:var(--text-2);font-size:14px;font-weight:600;padding:9px 18px;border-radius:11px;cursor:pointer}
+.media-tab.on{background:var(--teal);color:#04221C;border-color:var(--teal)}
+.media-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.media-card{border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;background:var(--panel);position:relative}
+.media-card .media-thumb{aspect-ratio:4/3;background:var(--bg-2);display:flex;align-items:center;justify-content:center;overflow:hidden}
+.media-card .media-thumb img,.media-card .media-thumb video{width:100%;height:100%;object-fit:cover}
+.media-card .media-cap{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 15px;font-size:13.5px;color:var(--text-2);border-top:1px solid var(--line)}
+.media-card .media-cap b{font-family:var(--mono);font-weight:500;color:var(--text-3);font-size:12px}
+.media-empty{grid-column:1/-1;text-align:center;color:var(--text-3);padding:50px 20px;border:1px dashed var(--line-2);border-radius:var(--radius)}
+.media-empty svg{width:38px;height:38px;margin:0 auto 12px;opacity:.5}
+
+/* 登录弹窗 */
+.modal-mask{position:fixed;inset:0;z-index:130;background:rgba(3,7,13,.72);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;padding:22px;opacity:0;pointer-events:none;transition:opacity .22s}
+.modal-mask.show{opacity:1;pointer-events:auto}
+.modal-card{background:var(--panel);border:1px solid var(--line-2);border-radius:18px;padding:26px 24px;width:100%;max-width:380px;box-shadow:0 18px 48px rgba(0,0,0,.5);transform:translateY(10px);transition:transform .22s}
+.modal-mask.show .modal-card{transform:translateY(0)}
+.modal-card h3{font-size:19px;margin-bottom:6px}
+.modal-card .modal-sub{color:var(--text-3);font-size:13.5px;margin-bottom:20px}
+.modal-card .field{margin-bottom:15px}
+.modal-err{color:var(--red);font-size:13px;margin:4px 0 12px;min-height:18px}
+.modal-actions{display:flex;justify-content:flex-end;gap:10px;margin-top:8px}
+.btn-ghost2{background:none;border:1px solid var(--line-2);color:var(--text-2);padding:11px 18px;border-radius:12px;font-weight:600;font-size:14px}
+.btn-ghost2:hover{color:var(--text);border-color:var(--line)}
+
+/* 上传后台 */
+.admin-panel{margin-top:26px;border:1px solid var(--line-2);border-radius:var(--radius);background:var(--panel);padding:22px}
+.admin-panel .admin-top{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:18px;flex-wrap:wrap}
+.admin-panel h3{font-size:17px}
+.admin-close{background:none;border:none;color:var(--text-3);font-size:22px;line-height:1;padding:4px 8px}
+.admin-close:hover{color:var(--red)}
+.admin-tabs{display:flex;gap:8px;margin-bottom:18px}
+.drop-zone{border:1.5px dashed var(--line-2);border-radius:15px;padding:30px 20px;text-align:center;color:var(--text-2);cursor:pointer;transition:border-color .2s,background .2s}
+.drop-zone:hover,.drop-zone.dragover{border-color:var(--teal);background:rgba(53,230,200,.05)}
+.drop-zone svg{width:34px;height:34px;margin:0 auto 10px;opacity:.6}
+.drop-zone .dz-hint{font-size:13px;color:var(--text-3);margin-top:6px}
+.admin-preview{display:flex;gap:18px;align-items:flex-start;margin-top:18px;flex-wrap:wrap}
+.admin-preview .pv-box{flex:1;min-width:220px;border:1px solid var(--line);border-radius:13px;background:var(--bg-2);overflow:hidden;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center}
+.admin-preview .pv-box img,.admin-preview .pv-box video{width:100%;height:100%;object-fit:contain}
+.admin-preview .pv-meta{flex:1;min-width:220px;display:flex;flex-direction:column;gap:12px}
+.admin-preview .pv-meta .field{margin-bottom:0}
+.admin-foot{display:flex;justify-content:flex-end;gap:10px;margin-top:20px;padding-top:18px;border-top:1px solid var(--line)}
+.admin-status{font-size:13.5px;color:var(--text-3)}
+.admin-status.ok{color:var(--teal)}
+.admin-status.err{color:var(--red)}
+.admin-thumb-list{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:18px}
+.admin-thumb-list .at{position:relative;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--bg-2);aspect-ratio:4/3}
+.admin-thumb-list .at img,.admin-thumb-list .at video{width:100%;height:100%;object-fit:cover}
+.admin-thumb-list .at .at-del{position:absolute;top:6px;right:6px;width:26px;height:26px;border-radius:8px;background:rgba(6,10,18,.8);border:1px solid var(--line-2);color:var(--red);font-size:15px;line-height:1;display:grid;place-items:center}
+.admin-thumb-list .at .at-del.confirming{background:var(--red);color:#1a0606;border-color:var(--red);font-weight:700}
+
 /* ===== 页脚 ===== */
 footer{border-top:1px solid var(--line);background:var(--bg-2);padding:56px 0 30px}
 .foot-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:36px;margin-bottom:36px}
@@ -335,6 +392,8 @@ footer{border-top:1px solid var(--line);background:var(--bg-2);padding:56px 0 30
   .about-grid,.review-top,.visit-grid{grid-template-columns:1fr}
   .about-photo img{height:380px}
   .foot-grid{grid-template-columns:1fr 1fr}
+  .media-grid{grid-template-columns:repeat(2,1fr)}
+  .admin-thumb-list{grid-template-columns:repeat(3,1fr)}
 }
 @media (max-width:720px){
   section{padding:64px 0}
@@ -349,6 +408,9 @@ footer{border-top:1px solid var(--line);background:var(--bg-2);padding:56px 0 30
   .honor-photo img{height:auto}
   .honor-photo figcaption{flex-direction:column;gap:4px}
   .foot-grid{grid-template-columns:1fr}
+  .media-grid,.admin-thumb-list{grid-template-columns:1fr}
+  .admin-preview{flex-direction:column}
+  .media-head{flex-direction:column}
   .hero{padding-top:100px}
   .hero-logo{padding:0;margin-bottom:22px}
   .hero-logo img{width:200px}
@@ -382,6 +444,7 @@ footer{border-top:1px solid var(--line);background:var(--bg-2);padding:56px 0 30
       <a href="#honors" data-i18n="navHonors">学校荣誉</a>
       <a href="#news" data-i18n="navNews">新闻动态</a>
       <a href="#reviews" data-i18n="navReviews">学员口碑</a>
+      <a href="#media" data-i18n="navMedia">课堂影像</a>
       <a href="#faq" data-i18n="navFaq">常见问答</a>
       <a href="#contact" data-i18n="navContact">联系我们</a>
     </nav>
@@ -402,6 +465,7 @@ footer{border-top:1px solid var(--line);background:var(--bg-2);padding:56px 0 30
     <a href="#honors" onclick="toggleMobile()" data-i18n="navHonors">学校荣誉</a>
     <a href="#news" onclick="toggleMobile()" data-i18n="navNews">新闻动态</a>
     <a href="#reviews" onclick="toggleMobile()" data-i18n="navReviews">学员口碑</a>
+    <a href="#media" onclick="toggleMobile()" data-i18n="navMedia">课堂影像</a>
     <a href="#faq" onclick="toggleMobile()" data-i18n="navFaq">常见问答</a>
     <a href="#contact" onclick="toggleMobile()" data-i18n="navContact">联系我们</a>
     <div class="lang-switch" id="langSwitchMobile" style="margin-top:12px">
@@ -710,6 +774,27 @@ footer{border-top:1px solid var(--line);background:var(--bg-2);padding:56px 0 30
   </div>
 </section>
 <!-- ===== 新闻动态（博客） ===== -->
+<!-- ===== 媒体板块（图片 / 视频） ===== -->
+<section id="media">
+  <div class="wrap">
+    <div class="media-head">
+      <div>
+        <span class="section-tag" data-i18n="mediaTag">Gallery · 课堂影像</span>
+        <h2 class="section-title" data-i18n="mediaTitle">课堂作品与活动影像</h2>
+        <p class="section-lead" data-i18n="mediaLead">孩子们在课堂上搭建的机器人作品、创客项目与活动记录，图片与视频由校区教师确认后公开展示。</p>
+      </div>
+      <button class="media-admin-btn" id="mediaAdminBtn" type="button" data-i18n="mediaAdmin">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="16" height="16"><path d="M12 15a3 3 0 100-6 3 3 0 000 6z"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 11-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 11-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 11-2.83-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 110-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 112.83-2.83l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 114 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 112.83 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 110 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+        <span data-i18n="mediaAdmin">管理内容</span>
+      </button>
+    </div>
+    <div class="media-tabs" id="mediaTabs">
+      <button type="button" class="media-tab on" data-mtype="image" data-i18n="mediaTabImg">图片</button>
+      <button type="button" class="media-tab" data-mtype="video" data-i18n="mediaTabVid">视频</button>
+    </div>
+    <div class="media-grid" id="mediaGrid"></div>
+  </div>
+</section>
 <!-- ===== 联系我们 ===== -->
 <section id="contact">
   <div class="wrap">
@@ -835,6 +920,7 @@ footer{border-top:1px solid var(--line);background:var(--bg-2);padding:56px 0 30
         <a href="#honors" data-i18n="navHonors">学校荣誉</a>
         <a href="#news" data-i18n="navNews">新闻动态</a>
         <a href="#reviews" data-i18n="navReviews">学员口碑</a>
+        <a href="#media" data-i18n="navMedia">课堂影像</a>
         <a href="#contact" data-i18n="navContact">联系我们</a>
       </div>
     </div>
@@ -878,6 +964,54 @@ footer{border-top:1px solid var(--line);background:var(--bg-2);padding:56px 0 30
     <span class="success-hint" data-i18n="formSuccessHint">移动鼠标或按任意键关闭</span>
   </div>
 </div>
+
+<!-- ===== 管理员登录弹窗 ===== -->
+<div class="modal-mask" id="loginMask" aria-hidden="true">
+  <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="loginTitle">
+    <h3 id="loginTitle" data-i18n="loginTitle">管理员登录</h3>
+    <p class="modal-sub" data-i18n="loginSub">请输入管理员账号与密码以进入内容后台。</p>
+    <form id="loginForm" onsubmit="return doLogin(event)">
+      <div class="field"><label for="loginUser" data-i18n="loginUserL">用户名</label><input id="loginUser" required autocomplete="username" data-i18n-ph="loginUserPh"></div>
+      <div class="field"><label for="loginPass" data-i18n="loginPassL">密码</label><input id="loginPass" type="password" required autocomplete="current-password"></div>
+      <div class="modal-err" id="loginErr"></div>
+      <div class="modal-actions">
+        <button type="button" class="btn-ghost2" id="loginCancel" data-i18n="loginCancel">取消</button>
+        <button type="submit" class="btn btn-primary" style="border:none" data-i18n="loginOk">登录</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- ===== 媒体上传后台 ===== -->
+<section class="admin-panel" id="adminPanel" hidden>
+  <div class="admin-top">
+    <h3 data-i18n="adminTitle">内容管理后台</h3>
+    <button class="admin-close" id="adminClose" type="button" aria-label="退出后台">×</button>
+  </div>
+  <div class="admin-tabs" id="adminTabs">
+    <button type="button" class="media-tab on" data-atype="image" data-i18n="adminTabImg">图片上传</button>
+    <button type="button" class="media-tab" data-atype="video" data-i18n="adminTabVid">视频上传</button>
+  </div>
+  <div class="drop-zone" id="dropZone">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><path d="M17 8l-5-5-5 5"/><path d="M12 3v12"/></svg>
+    <div data-i18n="dzTitle">点击选择文件，或拖拽到此处</div>
+    <div class="dz-hint" id="dzHint" data-i18n="dzHintImg">支持 JPG / PNG / WebP / GIF，单张不超过 10 MB</div>
+    <input type="file" id="fileInput" hidden>
+  </div>
+  <div class="admin-preview" id="adminPreview" hidden>
+    <div class="pv-box" id="pvBox"></div>
+    <div class="pv-meta">
+      <div class="field"><label for="mediaCaption" data-i18n="capL">标题 / 说明（可选）</label><input id="mediaCaption" maxlength="60" placeholder="" data-i18n-ph="capPh"></div>
+      <div class="admin-status" id="adminStatus"></div>
+      <div class="admin-foot" style="border-top:none;padding-top:0;margin-top:0">
+        <button type="button" class="btn-ghost2" id="adminDiscard" data-i18n="adminDiscard">取消</button>
+        <button type="button" class="btn btn-primary" style="border:none" id="adminConfirm" data-i18n="adminConfirm">确认发布</button>
+      </div>
+    </div>
+  </div>
+  <div class="admin-thumb-list" id="adminThumbList"></div>
+</section>
+
 <script>
 /* ===== 数据：新闻动态（站点演示内容，事实部分均来自公开登记与大众点评店铺页） ===== */
 const ARTICLES_ZH = [
@@ -1989,6 +2123,233 @@ document.querySelectorAll("#menu a").forEach(a => {
 const BOOK_FORM_EMAILS = ["1343630942@qq.com", "billfu@legoedu-robot.com"]; // 预约登记邮件接收地址（formsubmit.co 转发，两个邮箱同时收）
 const WECHAT_ENDPOINT = "https://legoedu-wx-notify.billfu1975.workers.dev/"; // 微信中转函数（SendKey 已隐藏）
 
+/* ===== 媒体板块：图片 / 视频（后端在 ECS 本地服务，清单与文件存服务器磁盘） ===== */
+const MEDIA_API = "/media-api/";
+const MEDIA_MAX = { image: 10 * 1024 * 1024, video: 50 * 1024 * 1024 };
+const MEDIA_ACCEPT = { image: "image/jpeg,image/png,image/webp,image/gif", video: "video/mp4,video/webm" };
+let mediaItems = [];          // 后端清单：{id,type,url,cap,ts}
+let mediaView = "image";      // 板块当前展示类型
+let adminView = "image";      // 后台当前上传类型
+let adminAuth = false;        // 后台登录态（会话期内）
+let pendingFile = null;       // 待确认文件对象
+let pendingPreviewUrl = null;
+
+async function loadMedia(){
+  try{
+    const r = await fetch(MEDIA_API + "list");
+    const data = await r.json();
+    mediaItems = (data && data.items) || [];
+  }catch(e){
+    mediaItems = [];
+  }
+  renderMedia(); renderAdminThumbs();
+}
+
+function escHtml(s){ return String(s||"").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c])); }
+
+function mediaFiltered(){ return mediaItems.filter(m => m.type === mediaView); }
+
+function renderMedia(){
+  const grid = $("#mediaGrid");
+  const list = mediaFiltered();
+  const U = I18N_UI[state.lang];
+  if(!list.length){
+    grid.innerHTML = `<div class="media-empty">${U.mediaEmpty}</div>`;
+    return;
+  }
+  grid.innerHTML = list.map(m => {
+    const cap = escHtml(m.cap || "");
+    const date = m.ts ? new Date(m.ts).toLocaleDateString("zh-CN") : "";
+    const body = m.type === "video"
+      ? `<video controls preload="metadata" src="${escHtml(m.url)}"></video>`
+      : `<img src="${escHtml(m.url)}" alt="${cap}" loading="lazy">`;
+    return `<div class="media-card">
+      <div class="media-thumb">${body}</div>
+      <div class="media-cap"><span>${cap || "—"}</span><b>${date}</b></div>
+    </div>`;
+  }).join("");
+}
+
+/* 板块 Tab 切换 */
+document.querySelectorAll("#mediaTabs .media-tab").forEach(btn => {
+  btn.addEventListener("click", () => {
+    mediaView = btn.dataset.mtype;
+    document.querySelectorAll("#mediaTabs .media-tab").forEach(b => b.classList.toggle("on", b === btn));
+    renderMedia();
+  });
+});
+
+/* ===== 登录 ===== */
+const loginMask = $("#loginMask");
+function openLogin(){
+  $("#loginErr").textContent = "";
+  $("#loginUser").value = ""; $("#loginPass").value = "";
+  loginMask.classList.add("show"); loginMask.setAttribute("aria-hidden","false");
+  setTimeout(() => $("#loginUser").focus(), 60);
+}
+function closeLogin(){ loginMask.classList.remove("show"); loginMask.setAttribute("aria-hidden","true"); }
+$("#loginCancel").addEventListener("click", closeLogin);
+loginMask.addEventListener("click", e => { if(e.target === loginMask) closeLogin(); });
+
+function doLogin(ev){
+  ev.preventDefault();
+  const u = $("#loginUser").value.trim();
+  const p = $("#loginPass").value;
+  const U = I18N_UI[state.lang];
+  // 校验在后端会话接口完成；前端仅做占位，真实比对由服务端鉴权接口返回 token
+  fetch(MEDIA_API + "login", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ username: u, password: p })
+  }).then(r => r.json()).then(data => {
+    if(data && data.ok){
+      adminAuth = true;
+      sessionStorage.setItem("mediaAdmin", data.token || "1");
+      closeLogin(); openAdmin();
+    }else{
+      $("#loginErr").textContent = U.loginErr;
+    }
+  }).catch(() => { $("#loginErr").textContent = U.adminErr; });
+  return false;
+}
+
+/* ===== 上传后台 ===== */
+const adminPanel = $("#adminPanel");
+const fileInput = $("#fileInput");
+const dropZone = $("#dropZone");
+
+function openAdmin(){
+  adminPanel.hidden = false;
+  adminPanel.scrollIntoView({ behavior: "smooth", block: "start" });
+  syncAdminView();
+}
+function closeAdmin(){
+  adminPanel.hidden = true;
+  adminAuth = false; sessionStorage.removeItem("mediaAdmin");
+  resetDraft();
+}
+$("#adminClose").addEventListener("click", closeAdmin);
+
+$("#mediaAdminBtn").addEventListener("click", () => {
+  if(adminAuth || sessionStorage.getItem("mediaAdmin")){ adminAuth = true; openAdmin(); }
+  else openLogin();
+});
+
+document.querySelectorAll("#adminTabs .media-tab").forEach(btn => {
+  btn.addEventListener("click", () => {
+    adminView = btn.dataset.atype;
+    syncAdminView();
+  });
+});
+function syncAdminView(){
+  document.querySelectorAll("#adminTabs .media-tab").forEach(b => b.classList.toggle("on", b.dataset.atype === adminView));
+  $("#dzHint").textContent = I18N_UI[state.lang][adminView === "video" ? "dzHintVid" : "dzHintImg"];
+  fileInput.setAttribute("accept", MEDIA_ACCEPT[adminView]);
+  resetDraft();
+}
+
+dropZone.addEventListener("click", () => fileInput.click());
+["dragover","dragenter"].forEach(ev => dropZone.addEventListener(ev, e => { e.preventDefault(); dropZone.classList.add("dragover"); }));
+["dragleave","drop"].forEach(ev => dropZone.addEventListener(ev, e => { e.preventDefault(); dropZone.classList.remove("dragover"); }));
+dropZone.addEventListener("drop", e => { const f = e.dataTransfer.files && e.dataTransfer.files[0]; if(f) pickFile(f); });
+fileInput.addEventListener("change", () => { const f = fileInput.files && fileInput.files[0]; if(f) pickFile(f); });
+
+function pickFile(f){
+  const U = I18N_UI[state.lang];
+  if(!MEDIA_ACCEPT[adminView].includes(f.type)){ showToast(adminView === "video" ? U.dzHintVid : U.dzHintImg); return; }
+  if(f.size > MEDIA_MAX[adminView]){ showToast(U.adminErr); return; }
+  pendingFile = f;
+  if(pendingPreviewUrl) URL.revokeObjectURL(pendingPreviewUrl);
+  pendingPreviewUrl = URL.createObjectURL(f);
+  $("#pvBox").innerHTML = adminView === "video"
+    ? `<video controls preload="metadata" src="${pendingPreviewUrl}"></video>`
+    : `<img src="${pendingPreviewUrl}" alt="">`;
+  $("#mediaCaption").value = "";
+  $("#adminStatus").textContent = ""; $("#adminStatus").className = "admin-status";
+  $("#adminPreview").hidden = false;
+}
+function resetDraft(){
+  pendingFile = null;
+  if(pendingPreviewUrl){ URL.revokeObjectURL(pendingPreviewUrl); pendingPreviewUrl = null; }
+  fileInput.value = "";
+  $("#adminPreview").hidden = true;
+  $("#pvBox").innerHTML = "";
+  $("#mediaCaption").value = "";
+  $("#adminStatus").textContent = ""; $("#adminStatus").className = "admin-status";
+}
+$("#adminDiscard").addEventListener("click", resetDraft);
+
+$("#adminConfirm").addEventListener("click", async () => {
+  if(!pendingFile) return;
+  const U = I18N_UI[state.lang];
+  const fd = new FormData();
+  fd.append("type", adminView);
+  fd.append("file", pendingFile);
+  fd.append("caption", $("#mediaCaption").value.trim());
+  const token = sessionStorage.getItem("mediaAdmin") || "";
+  const st = $("#adminStatus");
+  st.textContent = U.adminUploading; st.className = "admin-status";
+  try{
+    const r = await fetch(MEDIA_API + "upload", {
+      method: "POST",
+      headers: { "X-Admin-Token": token },
+      body: fd
+    });
+    const data = await r.json();
+    if(r.ok && data.ok){
+      st.textContent = U.adminOk; st.className = "admin-status ok";
+      resetDraft();
+      await loadMedia();
+    }else{
+      st.textContent = (data && data.error) || U.adminErr; st.className = "admin-status err";
+    }
+  }catch(e){ st.textContent = U.adminErr; st.className = "admin-status err"; }
+});
+
+let pendingDelId = null, pendingDelTimer = null;
+async function deleteMedia(id){
+  const U = I18N_UI[state.lang];
+  // 二次确认：第一次点击仅进入待确认状态，再点一次才真正删除，避免原生 confirm 阻塞页面
+  if(pendingDelId !== id){
+    pendingDelId = id;
+    clearTimeout(pendingDelTimer);
+    pendingDelTimer = setTimeout(() => { pendingDelId = null; renderAdminThumbs(); }, 3000);
+    document.querySelectorAll("#adminThumbList .at-del").forEach(b => {
+      b.classList.toggle("confirming", b.dataset.id === id);
+      b.title = b.dataset.id === id ? U.adminDelConfirm : U.adminDel;
+    });
+    return;
+  }
+  pendingDelId = null; clearTimeout(pendingDelTimer);
+  const token = sessionStorage.getItem("mediaAdmin") || "";
+  try{
+    const r = await fetch(MEDIA_API + "delete", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "X-Admin-Token": token },
+      body: JSON.stringify({ id })
+    });
+    const data = await r.json();
+    if(r.ok && data.ok){ showToast(U.adminDelOk); await loadMedia(); }
+    else showToast((data && data.error) || U.adminErr);
+  }catch(e){ showToast(U.adminErr); }
+}
+
+function renderAdminThumbs(){
+  const box = $("#adminThumbList");
+  if(!adminAuth || adminPanel.hidden){ box.innerHTML = ""; return; }
+  const U = I18N_UI[state.lang];
+  if(!mediaItems.length){ box.innerHTML = `<div class="media-empty" style="border:none">${U.adminEmpty}</div>`; return; }
+  box.innerHTML = mediaItems.map(m => {
+    const body = m.type === "video"
+      ? `<video preload="metadata" src="${escHtml(m.url)}"></video>`
+      : `<img src="${escHtml(m.url)}" alt="">`;
+    const confirming = pendingDelId === m.id;
+    return `<div class="at">${body}
+      <button type="button" class="at-del${confirming?" confirming":""}" data-id="${escHtml(m.id)}" title="${confirming?U.adminDelConfirm:U.adminDel}" onclick="deleteMedia('${escHtml(m.id)}')">${confirming?"!":"×"}</button>
+    </div>`;
+  }).join("");
+}
+
 function showToast(msg){
   const t = $("#toast");
   t.textContent = msg; t.classList.add("show");
@@ -2171,7 +2532,10 @@ visit2h:"体验课团购（平台公示）", deal1n:"5–6 岁 齿轮机械体�
 formH:"预约登记", fNameL:"家长称呼", fNamePh:"怎么称呼您", fAgeL:"孩子年龄", fAgePh:"请选择年龄段", fCourseL:"意向课程", optC1:"齿轮机械与动力搭建", optC2:"智能机器人与机械手编程", optC3:"Scratch 图形化编程", optC4:"Python 代码编程", optC5:"创客电子与硬件实验", optC6:"3D 建模与 AI 启蒙", fPhoneL:"联系电话", fPhonePh:"便于校区老师联系您", fMsgL:"补充留言（可选）", fMsgPh:"孩子是否有编程 / 机器人基础，希望了解的问题……", submitBtn:"提交预约登记", formNote:"提交后校区将收到您的预约信息，请保持电话畅通；正式预约也可通过大众点评店铺团购或到店登记。",
 formOk:"预约信息已发送，校区老师会尽快与您联系。", formSuccessTitle:"预约登记成功", formSuccessHint:"移动鼠标或按任意键关闭", formErr:"预约信息发送失败，请稍后重试，或致电校区（09:00–19:00）。", formPhoneErr:"请填写有效的 11 位手机号",
 footBrand:"乐之疆教育学校", footAbout:"天津市河西区乐之疆教育培训学校，2012 年创办，面向少年儿童开展非学科科技类校外培训：机器人搭建、图形化与代码编程、创客电子、3D 建模打印与 AI 启蒙。",
-footNavH:"快速导航", navHome:"首页", navFaq:"常见问答", navAbout:"学校简介", navCourses:"课程体系", navHonors:"学校荣誉", navReviews:"学员口碑", navNews:"新闻动态", navContact:"联系我们",
+footNavH:"快速导航", navHome:"首页", navFaq:"常见问答", navAbout:"学校简介", navCourses:"课程体系", navHonors:"学校荣誉", navReviews:"学员口碑", navNews:"新闻动态", navMedia:"课堂影像", navContact:"联系我们",
+mediaTag:"Gallery · 课堂影像", mediaTitle:"课堂作品与活动影像", mediaLead:"孩子们在课堂上搭建的机器人作品、创客项目与活动记录，图片与视频由校区教师确认后公开展示。", mediaAdmin:"管理内容", mediaTabImg:"图片", mediaTabVid:"视频", mediaEmpty:"暂未发布内容，登录后台后可上传图片与视频。",
+loginTitle:"管理员登录", loginSub:"请输入管理员账号与密码以进入内容后台。", loginUserL:"用户名", loginUserPh:"请输入用户名", loginPassL:"密码", loginCancel:"取消", loginOk:"登录", loginErr:"用户名或密码不正确。",
+adminTitle:"内容管理后台", adminTabImg:"图片上传", adminTabVid:"视频上传", dzTitle:"点击选择文件，或拖拽到此处", dzHintImg:"支持 JPG / PNG / WebP / GIF，单张不超过 10 MB", dzHintVid:"支持 MP4 / WebM，单个不超过 50 MB", capL:"标题 / 说明（可选）", capPh:"给这张图片或视频写一句说明", adminDiscard:"取消", adminConfirm:"确认发布", adminUploading:"正在上传…", adminOk:"已发布，已在板块内展示。", adminErr:"上传失败，请稍后重试。", adminEmpty:"后台暂无已发布内容。", adminDel:"删除", adminDelConfirm:"再点一次确认删除", adminDelOk:"已删除。", adminLogout:"退出后台",
 footCopy:"© 2012–2026 天津市河西区乐之疆教育培训学校", footIcp:'<a href="https://beian.miit.gov.cn/" target="_blank" rel="noreferrer">津ICP备2026017951号-1</a>',
 chatName:"乐之疆智能问答", chatSub:"在线解答课程、年龄、收费与排课问题", chatPh:"输入您的问题，例如：几岁可以学？",
 chatWelcome:"您好！我是乐之疆智能问答助手，可以问我入学年龄、课程安排、收费、试听、竞赛与师资等问题，点击下方常见问题即可快速查看答案。",
@@ -2229,7 +2593,10 @@ visit2h:"Trial deals (as listed on Dianping)", deal1n:"Ages 5–6 Gear Mechanics
 formH:"Booking form", fNameL:"Parent name", fNamePh:"How should we address you?", fAgeL:"Child's age", fAgePh:"Select age range", fCourseL:"Preferred course", optC1:"Gears & Power Mechanics", optC2:"Smart Robots & Robot Arm", optC3:"Scratch Block Coding", optC4:"Python Coding", optC5:"Maker Electronics", optC6:"3D Modeling & AI Intro", fPhoneL:"Phone", fPhonePh:"So our teachers can reach you", fMsgL:"Notes (optional)", fMsgPh:"Any coding/robotics background, questions...", submitBtn:"Submit booking", formNote:"Your booking will be sent to the school; keep your phone reachable. You may also book via Dianping or in person.",
 formOk:"Booking sent — our teachers will contact you soon.", formSuccessTitle:"Booking received", formSuccessHint:"Move your mouse or press any key to close", formErr:"Failed to send. Please retry later or call the school (09:00–19:00).", formPhoneErr:"Please enter a valid 11-digit mobile number",
 footBrand:"Lezhijiang Education", footAbout:"Tianjin Hexi Lezhijiang Training School, founded 2012, offers non-academic STEM after-school training for children: robotics, block and text coding, maker electronics, 3D printing and AI introduction.",
-footNavH:"Navigate", navHome:"Home", navFaq:"FAQ", navAbout:"About", navCourses:"Courses", navHonors:"Honors", navReviews:"Reviews", navNews:"News", navContact:"Contact",
+footNavH:"Navigate", navHome:"Home", navFaq:"FAQ", navAbout:"About", navCourses:"Courses", navHonors:"Honors", navReviews:"Reviews", navNews:"News", navMedia:"Gallery", navContact:"Contact",
+mediaTag:"Gallery", mediaTitle:"Classroom Projects & Events", mediaLead:"Robot builds, maker projects and event records from class. Photos and videos are published after teacher review.", mediaAdmin:"Manage", mediaTabImg:"Photos", mediaTabVid:"Videos", mediaEmpty:"Nothing published yet. Sign in to upload photos and videos.",
+loginTitle:"Admin Sign In", loginSub:"Enter the admin account and password to open the content backend.", loginUserL:"Username", loginUserPh:"Enter username", loginPassL:"Password", loginCancel:"Cancel", loginOk:"Sign in", loginErr:"Incorrect username or password.",
+adminTitle:"Content Backend", adminTabImg:"Upload Photo", adminTabVid:"Upload Video", dzTitle:"Click to choose a file, or drag it here", dzHintImg:"JPG / PNG / WebP / GIF, up to 10 MB each", dzHintVid:"MP4 / WebM, up to 50 MB each", capL:"Caption (optional)", capPh:"A short caption for this photo or video", adminDiscard:"Discard", adminConfirm:"Publish", adminUploading:"Uploading…", adminOk:"Published and shown in the gallery.", adminErr:"Upload failed, please retry later.", adminEmpty:"No published items yet.", adminDel:"Delete", adminDelConfirm:"Tap again to confirm delete", adminDelOk:"Deleted.", adminLogout:"Sign out",
 footCopy:"© 2012–2026 Tianjin Hexi Lezhijiang Training School.", footIcp:'ICP Filing No. <a href="https://beian.miit.gov.cn/" target="_blank" rel="noreferrer">津ICP备2026017951号-1</a>',
 chatName:"Lezhijiang Assistant", chatSub:"Ask about courses, age, fees and schedule", chatPh:"Type your question, e.g. 'What age can start?'",
 chatWelcome:"Hello! I'm the Lezhijiang assistant. Ask me about age, courses, fees, trial classes, competitions or teachers — or tap a common question below.",
@@ -3219,6 +3586,7 @@ function applyI18n(){
     if(m) renderArticle(m[1]);
   }
   renderQuickQs(); greet();
+  renderMedia(); renderAdminThumbs();
 }
 function setLang(l){
   state.lang = l; localStorage.setItem("prefLang", l);
@@ -3245,6 +3613,7 @@ window.addEventListener("hashchange", route);
 renderList();
 route();
 applyI18n();
+loadMedia();
 </script>
 
 </body>
