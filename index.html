@@ -319,6 +319,7 @@ body.reading #news{padding-top:90px}
 .media-share{position:absolute;top:6px;right:6px;width:28px;height:28px;border-radius:9px;border:1px solid rgba(255,255,255,.25);background:rgba(15,42,36,.72);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:2;padding:0}
 .media-share:hover{background:var(--teal)}
 .media-share svg{width:15px;height:15px;display:block}
+.media-card.media-flash{outline:3px solid var(--teal);outline-offset:2px}
 .media-empty{grid-column:1/-1;text-align:center;color:var(--text-3);padding:50px 20px;border:1px dashed var(--line-2);border-radius:var(--radius)}
 .media-empty svg{width:38px;height:38px;margin:0 auto 12px;opacity:.5}
 
@@ -2104,6 +2105,14 @@ function route(){
   const h = location.hash || "#/";
   const m = h.match(/^#\/news\/([\w-]+)$/);
   if(m){ showArticle(m[1]); return; }
+  const mm = h.match(/^#media\/([\w-]+)$/);
+  if(mm){
+    document.body.classList.remove("reading");
+    articleView.classList.remove("active");
+    listView.classList.remove("hidden");
+    if(!focusMedia(mm[1])){ const sec = document.getElementById("media"); if(sec) sec.scrollIntoView({behavior:"smooth", block:"start"}); }
+    return;
+  }
   // 回到首页列表视图（退出新闻阅读模式）
   document.body.classList.remove("reading");
   articleView.classList.remove("active");
@@ -2155,6 +2164,7 @@ let adminView = "image";      // 后台当前上传类型
 let adminAuth = false;        // 后台登录态（会话期内）
 let pendingFile = null;       // 待确认文件对象
 let pendingPreviewUrl = null;
+let pendingMediaId = null;    // 深度链接待定位的素材 id（清单未加载完时先挂起）
 
 async function loadMedia(){
   try{
@@ -2165,6 +2175,24 @@ async function loadMedia(){
     mediaItems = [];
   }
   renderMedia(); renderAdminThumbs();
+  if(pendingMediaId){ focusMedia(pendingMediaId); }
+}
+
+/* 定位到指定素材：切到对应 Tab、渲染并滚动高亮该卡片 */
+function focusMedia(id){
+  const m = mediaItems.find(x => x.id === id);
+  if(!m){ pendingMediaId = id; return false; }
+  pendingMediaId = null;
+  mediaView = m.type;
+  document.querySelectorAll("#mediaTabs .media-tab").forEach(b => b.classList.toggle("on", b.dataset.mtype === mediaView));
+  renderMedia();
+  const card = document.querySelector(`.media-card[data-mid="${id}"]`);
+  if(card){
+    card.scrollIntoView({behavior:"smooth", block:"center"});
+    card.classList.add("media-flash");
+    setTimeout(() => card.classList.remove("media-flash"), 3200);
+  }
+  return true;
 }
 
 function escHtml(s){ return String(s||"").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c])); }
@@ -2186,7 +2214,7 @@ function renderMedia(){
       ? `<video controls playsinline webkit-playsinline preload="metadata" src="${escHtml(m.url)}"></video>`
       : `<img src="${escHtml(m.url)}" alt="${cap}" loading="lazy" onclick="openLightbox(this.src)">`;
     const shareIcon = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>`;
-    return `<div class="media-card">
+    return `<div class="media-card" data-mid="${m.id}">
       <div class="media-thumb">${body}
         <button type="button" class="media-share" title="${U.mediaShare}" aria-label="${U.mediaShare}" onclick="event.stopPropagation();shareMedia('${m.id}')">${shareIcon}</button>
       </div>
@@ -2413,7 +2441,7 @@ function shareMedia(id){
   const m = mediaItems.find(x => x.id === id);
   if(!m) return;
   const U = I18N_UI[state.lang];
-  const base = location.origin + "/#media";
+  const base = location.origin + "/#media/" + id;
   const fallbackTitle = m.type === "video" ? U.shareVidTitle : U.shareImgTitle;
   const title = (m.cap || "").trim() || fallbackTitle;
   const line2 = state.lang === "en"
