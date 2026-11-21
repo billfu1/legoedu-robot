@@ -2181,7 +2181,7 @@ function renderMedia(){
     const cap = escHtml(m.cap || "");
     const date = m.ts ? new Date(m.ts).toLocaleDateString("zh-CN") : "";
     const body = m.type === "video"
-      ? `<video controls preload="metadata" src="${escHtml(m.url)}"></video>`
+      ? `<video controls playsinline webkit-playsinline preload="metadata" src="${escHtml(m.url)}"></video>`
       : `<img src="${escHtml(m.url)}" alt="${cap}" loading="lazy" onclick="openLightbox(this.src)">`;
     return `<div class="media-card">
       <div class="media-thumb">${body}</div>
@@ -2301,7 +2301,7 @@ function pickFile(f){
   if(pendingPreviewUrl) URL.revokeObjectURL(pendingPreviewUrl);
   pendingPreviewUrl = URL.createObjectURL(f);
   $("#pvBox").innerHTML = adminView === "video"
-    ? `<video controls preload="metadata" src="${pendingPreviewUrl}"></video>`
+    ? `<video controls playsinline webkit-playsinline preload="metadata" src="${pendingPreviewUrl}"></video>`
     : `<img src="${pendingPreviewUrl}" alt="">`;
   $("#mediaCaption").value = "";
   $("#adminStatus").textContent = ""; $("#adminStatus").className = "admin-status";
@@ -2380,7 +2380,7 @@ function renderAdminThumbs(){
   if(!mediaItems.length){ box.innerHTML = `<div class="media-empty" style="border:none">${U.adminEmpty}</div>`; return; }
   box.innerHTML = mediaItems.map(m => {
     const body = m.type === "video"
-      ? `<video preload="metadata" src="${escHtml(m.url)}"></video>`
+      ? `<video playsinline webkit-playsinline preload="metadata" src="${escHtml(m.url)}"></video>`
       : `<img src="${escHtml(m.url)}" alt="">`;
     const confirming = pendingDelId === m.id;
     return `<div class="at">${body}
