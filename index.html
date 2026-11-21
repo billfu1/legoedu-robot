@@ -2117,6 +2117,7 @@ function route(){
   document.body.classList.remove("reading");
   articleView.classList.remove("active");
   listView.classList.remove("hidden");
+  resetMeta();
   // 裸锚点导航：一次平滑滚动到对应板块，而不是先回顶
   const id = h.replace(/^#\/?/, "");
   const el = id && document.getElementById(id);
@@ -2186,6 +2187,8 @@ function focusMedia(id){
   mediaView = m.type;
   document.querySelectorAll("#mediaTabs .media-tab").forEach(b => b.classList.toggle("on", b.dataset.mtype === mediaView));
   renderMedia();
+  history.replaceState(null, "", "/m/" + id);
+  applyMediaMeta(m);
   const card = document.querySelector(`.media-card[data-mid="${id}"]`);
   if(card){
     card.scrollIntoView({behavior:"smooth", block:"center"});
@@ -2429,6 +2432,30 @@ function setMetaProp(prop, content){
   if(!el){ el = document.createElement("meta"); el.setAttribute("property", prop); document.head.appendChild(el); }
   el.setAttribute("content", content);
 }
+function _metaDefault(prop){ return document.querySelector(`meta[property="${prop}"]`)?.content || ""; }
+const META_DEFAULTS = {
+  title: document.title,
+  "og:title": _metaDefault("og:title"),
+  "og:description": _metaDefault("og:description"),
+  "og:url": _metaDefault("og:url"),
+  "og:image": _metaDefault("og:image")
+};
+function resetMeta(){
+  document.title = META_DEFAULTS.title;
+  setMetaProp("og:title", META_DEFAULTS["og:title"]);
+  setMetaProp("og:description", META_DEFAULTS["og:description"]);
+  setMetaProp("og:url", META_DEFAULTS["og:url"]);
+  setMetaProp("og:image", META_DEFAULTS["og:image"]);
+  if(location.pathname.startsWith("/m/")) history.replaceState(null, "", "/#media");
+}
+function applyMediaMeta(m){
+  const title = (m.cap || "").trim() || (m.type === "video" ? "课堂作品视频" : "课堂作品照片");
+  const img = m.poster || m.url;
+  document.title = title + " · 乐之疆教育学校";
+  setMetaProp("og:title", title);
+  setMetaProp("og:url", location.origin + "/m/" + m.id);
+  if(img) setMetaProp("og:image", location.origin + img);
+}
 function fallbackCopy(text, U, isWx){
   const ta = document.createElement("textarea");
   ta.value = text; ta.style.position = "fixed"; ta.style.opacity = "0";
@@ -2441,7 +2468,7 @@ function shareMedia(id){
   const m = mediaItems.find(x => x.id === id);
   if(!m) return;
   const U = I18N_UI[state.lang];
-  const base = location.origin + "/media-api/share/" + id;
+  const base = location.origin + "/m/" + id;
   const fallbackTitle = m.type === "video" ? U.shareVidTitle : U.shareImgTitle;
   const title = (m.cap || "").trim() || fallbackTitle;
   const line2 = state.lang === "en"
@@ -2450,9 +2477,7 @@ function shareMedia(id){
   const text = `${title}\n${line2}\n${base}`;
   const isWx = /MicroMessenger/i.test(navigator.userAgent);
   // 卡片标题/封面以后端分享页服务端渲染的 og 标签为准；这里仅尽力同步当前页
-  setMetaProp("og:title", title);
-  setMetaProp("og:url", base);
-  if(m.type === "image") setMetaProp("og:image", location.origin + m.url);
+  applyMediaMeta(m);
   const doCopy = () => {
     if(navigator.clipboard && navigator.clipboard.writeText){
       navigator.clipboard.writeText(text)
