@@ -309,8 +309,9 @@ body.reading #news{padding-top:90px}
 .media-tab.on{background:var(--teal);color:#04221C;border-color:var(--teal)}
 .media-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
 .media-card{border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;background:var(--panel);position:relative}
-.media-card .media-thumb{aspect-ratio:4/3;background:var(--bg-2);display:flex;align-items:center;justify-content:center;overflow:hidden}
+.media-card .media-thumb{aspect-ratio:16/9;background:var(--bg-2);display:flex;align-items:center;justify-content:center;overflow:hidden}
 .media-card .media-thumb img,.media-card .media-thumb video{width:100%;height:100%;object-fit:cover}
+.media-card .media-thumb img{cursor:zoom-in}
 .media-card .media-cap{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 15px;font-size:13.5px;color:var(--text-2);border-top:1px solid var(--line)}
 .media-card .media-cap b{font-family:var(--mono);font-weight:500;color:var(--text-3);font-size:12px}
 .media-empty{grid-column:1/-1;text-align:center;color:var(--text-3);padding:50px 20px;border:1px dashed var(--line-2);border-radius:var(--radius)}
@@ -341,7 +342,7 @@ body.reading #news{padding-top:90px}
 .drop-zone svg{width:34px;height:34px;margin:0 auto 10px;opacity:.6}
 .drop-zone .dz-hint{font-size:13px;color:var(--text-3);margin-top:6px}
 .admin-preview{display:flex;gap:18px;align-items:flex-start;margin-top:18px;flex-wrap:wrap}
-.admin-preview .pv-box{flex:1;min-width:220px;border:1px solid var(--line);border-radius:13px;background:var(--bg-2);overflow:hidden;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center}
+.admin-preview .pv-box{flex:1;min-width:220px;border:1px solid var(--line);border-radius:13px;background:var(--bg-2);overflow:hidden;aspect-ratio:16/9;display:flex;align-items:center;justify-content:center}
 .admin-preview .pv-box img,.admin-preview .pv-box video{width:100%;height:100%;object-fit:contain}
 .admin-preview .pv-meta{flex:1;min-width:220px;display:flex;flex-direction:column;gap:12px}
 .admin-preview .pv-meta .field{margin-bottom:0}
@@ -350,10 +351,17 @@ body.reading #news{padding-top:90px}
 .admin-status.ok{color:var(--teal)}
 .admin-status.err{color:var(--red)}
 .admin-thumb-list{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:18px}
-.admin-thumb-list .at{position:relative;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--bg-2);aspect-ratio:4/3}
+.admin-thumb-list .at{position:relative;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--bg-2);aspect-ratio:16/9}
 .admin-thumb-list .at img,.admin-thumb-list .at video{width:100%;height:100%;object-fit:cover}
-.admin-thumb-list .at .at-del{position:absolute;top:6px;right:6px;width:26px;height:26px;border-radius:8px;background:rgba(6,10,18,.8);border:1px solid var(--line-2);color:var(--red);font-size:15px;line-height:1;display:grid;place-items:center}
+.admin-thumb-list .at .at-del{position:absolute;top:6px;left:6px;width:26px;height:26px;border-radius:8px;background:rgba(6,10,18,.8);border:1px solid var(--line-2);color:var(--red);font-size:15px;line-height:1;display:grid;place-items:center}
 .admin-thumb-list .at .at-del.confirming{background:var(--red);color:#1a0606;border-color:var(--red);font-weight:700}
+
+/* ===== 图片放大灯箱 ===== */
+.lightbox{position:fixed;inset:0;z-index:140;background:rgba(3,7,13,.86);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;padding:32px;opacity:0;pointer-events:none;transition:opacity .22s}
+.lightbox.show{opacity:1;pointer-events:auto}
+.lightbox img{max-width:92vw;max-height:88vh;width:auto;height:auto;object-fit:contain;border-radius:12px;box-shadow:0 18px 48px rgba(0,0,0,.5);background:var(--bg-2)}
+.lightbox .lb-close{position:absolute;top:22px;right:26px;width:38px;height:38px;border-radius:10px;background:rgba(6,10,18,.8);border:1px solid var(--line-2);color:var(--text-2);font-size:20px;line-height:1;display:grid;place-items:center}
+.lightbox .lb-close:hover{color:var(--red);border-color:var(--red)}
 
 /* ===== 页脚 ===== */
 footer{border-top:1px solid var(--line);background:var(--bg-2);padding:56px 0 30px}
@@ -954,6 +962,10 @@ footer{border-top:1px solid var(--line);background:var(--bg-2);padding:56px 0 30
   </div>
 </div>
 <div class="toast" id="toast"></div>
+<div class="lightbox" id="lightbox" aria-hidden="true">
+  <button type="button" class="lb-close" id="lightboxClose" aria-label="关闭">×</button>
+  <img id="lightboxImg" src="" alt="">
+</div>
 <div class="success-overlay" id="successOverlay" aria-hidden="true">
   <div class="success-card" role="status" aria-live="polite">
     <div class="success-icon">
@@ -2168,13 +2180,31 @@ function renderMedia(){
     const date = m.ts ? new Date(m.ts).toLocaleDateString("zh-CN") : "";
     const body = m.type === "video"
       ? `<video controls preload="metadata" src="${escHtml(m.url)}"></video>`
-      : `<img src="${escHtml(m.url)}" alt="${cap}" loading="lazy">`;
+      : `<img src="${escHtml(m.url)}" alt="${cap}" loading="lazy" onclick="openLightbox(this.src)">`;
     return `<div class="media-card">
       <div class="media-thumb">${body}</div>
       <div class="media-cap"><span>${cap || "—"}</span><b>${date}</b></div>
     </div>`;
   }).join("");
 }
+
+/* ===== 图片放大灯箱 ===== */
+const lightbox = $("#lightbox"), lightboxImg = $("#lightboxImg");
+function openLightbox(src){
+  lightboxImg.src = src;
+  lightbox.classList.add("show");
+  lightbox.setAttribute("aria-hidden","false");
+  document.body.style.overflow = "hidden";
+}
+function closeLightbox(){
+  lightbox.classList.remove("show");
+  lightbox.setAttribute("aria-hidden","true");
+  lightboxImg.src = "";
+  document.body.style.overflow = "";
+}
+$("#lightboxClose").addEventListener("click", closeLightbox);
+lightbox.addEventListener("click", e => { if(e.target === lightbox) closeLightbox(); });
+document.addEventListener("keydown", e => { if(e.key === "Escape" && lightbox.classList.contains("show")) closeLightbox(); });
 
 /* 板块 Tab 切换 */
 document.querySelectorAll("#mediaTabs .media-tab").forEach(btn => {
@@ -2228,6 +2258,7 @@ function openAdmin(){
   adminPanel.hidden = false;
   adminPanel.scrollIntoView({ behavior: "smooth", block: "start" });
   syncAdminView();
+  renderAdminThumbs();
 }
 function closeAdmin(){
   adminPanel.hidden = true;
