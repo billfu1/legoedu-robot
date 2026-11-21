@@ -2212,7 +2212,7 @@ function renderMedia(){
     const date = m.ts ? new Date(m.ts).toLocaleDateString("zh-CN") : "";
     const body = m.type === "video"
       ? `<video controls playsinline webkit-playsinline preload="metadata"${m.poster ? ` poster="${escHtml(m.poster)}"` : ""} src="${escHtml(m.url)}"></video>`
-      : `<img src="${escHtml(m.url)}" alt="${cap}" loading="lazy" onclick="openLightbox(this.src)">`;
+      : `<img src="${escHtml(m.thumb || m.url)}" alt="${cap}" loading="lazy" onclick="openLightbox('${escHtml(m.url)}')">`;
     const shareIcon = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>`;
     return `<div class="media-card" data-mid="${m.id}">
       <div class="media-thumb">${body}
