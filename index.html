@@ -2351,10 +2351,12 @@ async function deleteMedia(id){
   if(pendingDelId !== id){
     pendingDelId = id;
     clearTimeout(pendingDelTimer);
-    pendingDelTimer = setTimeout(() => { pendingDelId = null; renderAdminThumbs(); }, 3000);
+    pendingDelTimer = setTimeout(() => { pendingDelId = null; renderAdminThumbs(); }, 6000);
     document.querySelectorAll("#adminThumbList .at-del").forEach(b => {
-      b.classList.toggle("confirming", b.dataset.id === id);
-      b.title = b.dataset.id === id ? U.adminDelConfirm : U.adminDel;
+      const on = b.dataset.id === id;
+      b.classList.toggle("confirming", on);
+      b.title = on ? U.adminDelConfirm : U.adminDel;
+      b.textContent = on ? "!" : "×";
     });
     return;
   }
