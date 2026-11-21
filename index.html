@@ -316,6 +316,9 @@ body.reading #news{padding-top:90px}
 .media-card .media-thumb video:-webkit-full-screen{object-fit:contain;background:#000}
 .media-card .media-cap{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:8px 10px;font-size:12.5px;color:var(--text-2);border-top:1px solid var(--line)}
 .media-card .media-cap b{font-family:var(--mono);font-weight:500;color:var(--text-3);font-size:11px;white-space:nowrap}
+.media-share{position:absolute;top:6px;right:6px;width:28px;height:28px;border-radius:9px;border:1px solid rgba(255,255,255,.25);background:rgba(15,42,36,.72);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:2;padding:0}
+.media-share:hover{background:var(--teal)}
+.media-share svg{width:15px;height:15px;display:block}
 .media-empty{grid-column:1/-1;text-align:center;color:var(--text-3);padding:50px 20px;border:1px dashed var(--line-2);border-radius:var(--radius)}
 .media-empty svg{width:38px;height:38px;margin:0 auto 12px;opacity:.5}
 
@@ -2182,8 +2185,11 @@ function renderMedia(){
     const body = m.type === "video"
       ? `<video controls playsinline webkit-playsinline preload="metadata" src="${escHtml(m.url)}"></video>`
       : `<img src="${escHtml(m.url)}" alt="${cap}" loading="lazy" onclick="openLightbox(this.src)">`;
+    const shareIcon = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>`;
     return `<div class="media-card">
-      <div class="media-thumb">${body}</div>
+      <div class="media-thumb">${body}
+        <button type="button" class="media-share" title="${U.mediaShare}" aria-label="${U.mediaShare}" onclick="event.stopPropagation();shareMedia('${m.id}')">${shareIcon}</button>
+      </div>
       <div class="media-cap"><span>${cap || "—"}</span><b>${date}</b></div>
     </div>`;
   }).join("");
@@ -2390,6 +2396,50 @@ function renderAdminThumbs(){
   }).join("");
 }
 
+function setMetaProp(prop, content){
+  let el = document.querySelector(`meta[property="${prop}"]`);
+  if(!el){ el = document.createElement("meta"); el.setAttribute("property", prop); document.head.appendChild(el); }
+  el.setAttribute("content", content);
+}
+function fallbackCopy(text, U, isWx){
+  const ta = document.createElement("textarea");
+  ta.value = text; ta.style.position = "fixed"; ta.style.opacity = "0";
+  document.body.appendChild(ta); ta.select();
+  try{ document.execCommand("copy"); showToast(isWx ? U.shareWxHint : U.shareCopied); }
+  catch(e){ showToast(U.shareFail); }
+  document.body.removeChild(ta);
+}
+function shareMedia(id){
+  const m = mediaItems.find(x => x.id === id);
+  if(!m) return;
+  const U = I18N_UI[state.lang];
+  const base = location.origin + "/#media";
+  const fallbackTitle = m.type === "video" ? U.shareVidTitle : U.shareImgTitle;
+  const title = (m.cap || "").trim() || fallbackTitle;
+  const line2 = state.lang === "en"
+    ? "Lezhijiang Education · LEGO Robotics / AI Coding / 3D Modeling & Printing, Xiawafang, Tianjin"
+    : "乐之疆教育学校 · 乐高机器人 / AI人工智能 / 编程 / 3D建模打印（天津下瓦房）";
+  const text = `${title}\n${line2}\n${base}`;
+  const isWx = /MicroMessenger/i.test(navigator.userAgent);
+  // 尽力而为：更新当前页 og 信息（微信服务端抓取以首次打开的 URL 为准，动态改写不一定生效）
+  setMetaProp("og:title", title);
+  setMetaProp("og:url", base);
+  if(m.type === "image") setMetaProp("og:image", location.origin + m.url);
+  const doCopy = () => {
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(text)
+        .then(() => showToast(isWx ? U.shareWxHint : U.shareCopied))
+        .catch(() => fallbackCopy(text, U, isWx));
+    }else fallbackCopy(text, U, isWx);
+  };
+  if(navigator.share){
+    navigator.share({ title, text, url: base })
+      .then(() => {})
+      .catch(err => { if(err && err.name !== "AbortError") doCopy(); });
+  }else{
+    doCopy();
+  }
+}
 function showToast(msg){
   const t = $("#toast");
   t.textContent = msg; t.classList.add("show");
@@ -2573,7 +2623,7 @@ formH:"预约登记", fNameL:"家长称呼", fNamePh:"怎么称呼您", fAgeL:"�
 formOk:"预约信息已发送，校区老师会尽快与您联系。", formSuccessTitle:"预约登记成功", formSuccessHint:"移动鼠标或按任意键关闭", formErr:"预约信息发送失败，请稍后重试，或致电校区（09:00–19:00）。", formPhoneErr:"请填写有效的 11 位手机号",
 footBrand:"乐之疆教育学校", footAbout:"天津市河西区乐之疆教育培训学校，2012 年创办，面向少年儿童开展非学科科技类校外培训：机器人搭建、图形化与代码编程、创客电子、3D 建模打印与 AI 启蒙。",
 footNavH:"快速导航", navHome:"首页", navFaq:"常见问答", navAbout:"学校简介", navCourses:"课程体系", navHonors:"学校荣誉", navReviews:"学员口碑", navNews:"新闻动态", navMedia:"课堂影像", navContact:"联系我们",
-mediaTag:"Gallery · 课堂影像", mediaTitle:"课堂作品与活动影像", mediaLead:"孩子们在课堂上搭建的机器人作品、创客项目与活动记录，图片与视频由校区教师确认后公开展示。", mediaAdmin:"管理内容", mediaTabImg:"图片", mediaTabVid:"视频", mediaEmpty:"暂未发布内容，登录后台后可上传图片与视频。",
+mediaTag:"Gallery · 课堂影像", mediaTitle:"课堂作品与活动影像", mediaLead:"孩子们在课堂上搭建的机器人作品、创客项目与活动记录，图片与视频由校区教师确认后公开展示。", mediaAdmin:"管理内容", mediaTabImg:"图片", mediaTabVid:"视频", mediaEmpty:"暂未发布内容，登录后台后可上传图片与视频。", mediaShare:"转发", shareVidTitle:"机器人课堂作品视频", shareImgTitle:"课堂作品照片", shareCopied:"标题和链接已复制，去微信粘贴发送即可", shareWxHint:"链接已复制；点右上角 ··· 分享，卡片会带封面图", shareFail:"复制失败，请手动复制地址栏链接",
 loginTitle:"管理员登录", loginSub:"请输入管理员账号与密码以进入内容后台。", loginUserL:"用户名", loginUserPh:"请输入用户名", loginPassL:"密码", loginCancel:"取消", loginOk:"登录", loginErr:"用户名或密码不正确。",
 adminTitle:"内容管理后台", adminTabImg:"图片上传", adminTabVid:"视频上传", dzTitle:"点击选择文件，或拖拽到此处", dzHintImg:"支持 JPG / PNG / WebP / GIF，单张不超过 10 MB", dzHintVid:"支持 MP4 / WebM，单个不超过 50 MB", capL:"标题 / 说明（可选）", capPh:"给这张图片或视频写一句说明", adminDiscard:"取消", adminConfirm:"确认发布", adminUploading:"正在上传…", adminOk:"已发布，已在板块内展示。", adminErr:"上传失败，请稍后重试。", adminTypeErr:"文件格式不支持，请选择 JPG / PNG / WebP / GIF 图片，或 MP4 / WebM 视频。", adminEmpty:"后台暂无已发布内容。", adminDel:"删除", adminDelConfirm:"再点一次确认删除", adminDelOk:"已删除。", adminLogout:"退出后台",
 footCopy:"© 2012–2026 天津市河西区乐之疆教育培训学校", footIcp:'<a href="https://beian.miit.gov.cn/" target="_blank" rel="noreferrer">津ICP备2026017951号-1</a>',
@@ -2634,7 +2684,7 @@ formH:"Booking form", fNameL:"Parent name", fNamePh:"How should we address you?"
 formOk:"Booking sent — our teachers will contact you soon.", formSuccessTitle:"Booking received", formSuccessHint:"Move your mouse or press any key to close", formErr:"Failed to send. Please retry later or call the school (09:00–19:00).", formPhoneErr:"Please enter a valid 11-digit mobile number",
 footBrand:"Lezhijiang Education", footAbout:"Tianjin Hexi Lezhijiang Training School, founded 2012, offers non-academic STEM after-school training for children: robotics, block and text coding, maker electronics, 3D printing and AI introduction.",
 footNavH:"Navigate", navHome:"Home", navFaq:"FAQ", navAbout:"About", navCourses:"Courses", navHonors:"Honors", navReviews:"Reviews", navNews:"News", navMedia:"Gallery", navContact:"Contact",
-mediaTag:"Gallery", mediaTitle:"Classroom Projects & Events", mediaLead:"Robot builds, maker projects and event records from class. Photos and videos are published after teacher review.", mediaAdmin:"Manage", mediaTabImg:"Photos", mediaTabVid:"Videos", mediaEmpty:"Nothing published yet. Sign in to upload photos and videos.",
+mediaTag:"Gallery", mediaTitle:"Classroom Projects & Events", mediaLead:"Robot builds, maker projects and event records from class. Photos and videos are published after teacher review.", mediaAdmin:"Manage", mediaTabImg:"Photos", mediaTabVid:"Videos", mediaEmpty:"Nothing published yet. Sign in to upload photos and videos.", mediaShare:"Share", shareVidTitle:"Classroom robotics video", shareImgTitle:"Classroom photo", shareCopied:"Title and link copied — paste into WeChat", shareWxHint:"Link copied. Tap ··· to share a card with a cover image", shareFail:"Copy failed — please copy the address bar link manually",
 loginTitle:"Admin Sign In", loginSub:"Enter the admin account and password to open the content backend.", loginUserL:"Username", loginUserPh:"Enter username", loginPassL:"Password", loginCancel:"Cancel", loginOk:"Sign in", loginErr:"Incorrect username or password.",
 adminTitle:"Content Backend", adminTabImg:"Upload Photo", adminTabVid:"Upload Video", dzTitle:"Click to choose a file, or drag it here", dzHintImg:"JPG / PNG / WebP / GIF, up to 10 MB each", dzHintVid:"MP4 / WebM, up to 50 MB each", capL:"Caption (optional)", capPh:"A short caption for this photo or video", adminDiscard:"Discard", adminConfirm:"Publish", adminUploading:"Uploading…", adminOk:"Published and shown in the gallery.", adminErr:"Upload failed, please retry later.", adminTypeErr:"Unsupported file. Please choose a JPG / PNG / WebP / GIF image or an MP4 / WebM video.", adminEmpty:"No published items yet.", adminDel:"Delete", adminDelConfirm:"Tap again to confirm delete", adminDelOk:"Deleted.", adminLogout:"Sign out",
 footCopy:"© 2012–2026 Tianjin Hexi Lezhijiang Training School.", footIcp:'ICP Filing No. <a href="https://beian.miit.gov.cn/" target="_blank" rel="noreferrer">津ICP备2026017951号-1</a>',
